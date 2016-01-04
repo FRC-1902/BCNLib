@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib;
+package com.explodingbacon.bcnlib.Framework;
 
 /**
  * @author Dominic Canora
