@@ -5,8 +5,8 @@ package com.explodingbacon.bcnlib;
  * @version 2016.1.0
  */
 public abstract class Command implements Runnable {
-    Thread t;
-    Subsystem requiredSub;
+    private Thread t;
+    public Subsystem requiredSub;
 
     /**
      * Creates a new <code>Command</code>
