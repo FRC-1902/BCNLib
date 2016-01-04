@@ -1,2 +1,2 @@
 # BCNLib
-Exploding Bacon's WPILib wrappter
+Exploding Bacon's WPILib wrapper
