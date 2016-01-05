@@ -9,7 +9,7 @@ package com.explodingbacon.bcnlib.actuators;
 public interface Motor {
     /**
      * Set a motor's power
-     * @param power Value between 1 and -1 where -1 is full reverse, 1 is full forward, and 0 is full forward.
+     * @param power Value between 1 and -1 where -1 is full reverse, 1 is full forward, and 0 is stopped.
      */
     void setPower(double power);
 
