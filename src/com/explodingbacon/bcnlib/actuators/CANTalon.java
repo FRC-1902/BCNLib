@@ -1,10 +1,10 @@
 package com.explodingbacon.bcnlib.actuators;
 
-public class Victor extends edu.wpi.first.wpilibj.Victor implements com.explodingbacon.bcnlib.actuators.Motor{
+public class CANTalon extends edu.wpi.first.wpilibj.CANTalon implements com.explodingbacon.bcnlib.actuators.Motor{
 
     int polarity = 1;
 
-    public Victor(int channel) {
+    public CANTalon(int channel) {
         super(channel);
     }
 

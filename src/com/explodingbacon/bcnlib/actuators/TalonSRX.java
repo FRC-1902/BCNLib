@@ -1,10 +1,10 @@
 package com.explodingbacon.bcnlib.actuators;
 
-public class Victor extends edu.wpi.first.wpilibj.Victor implements com.explodingbacon.bcnlib.actuators.Motor{
+public class TalonSRX extends edu.wpi.first.wpilibj.TalonSRX implements com.explodingbacon.bcnlib.actuators.Motor{
 
     int polarity = 1;
 
-    public Victor(int channel) {
+    public TalonSRX(int channel) {
         super(channel);
     }
 
