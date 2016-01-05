@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.Framework;
+package com.explodingbacon.bcnlib.framework;
 
 public class RobotMap {
 

@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.Utils;
+package com.explodingbacon.bcnlib.utils;
 
 public class Utils {
     /**

@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.Actuators;
+package com.explodingbacon.bcnlib.actuators;
 
 /**
  * An interface that lets us talk to all motors the same way, regardless of what motor controller is used.

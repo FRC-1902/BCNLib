@@ -1,6 +1,6 @@
-package com.explodingbacon.bcnlib.Utils;
+package com.explodingbacon.bcnlib.utils;
 
-import com.explodingbacon.bcnlib.Actuators.Motor;
+import com.explodingbacon.bcnlib.actuators.Motor;
 import edu.wpi.first.wpilibj.Encoder;
 
 /**
