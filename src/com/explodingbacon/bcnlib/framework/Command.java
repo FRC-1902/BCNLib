@@ -7,6 +7,7 @@ package com.explodingbacon.bcnlib.framework;
 public abstract class Command implements Runnable {
     private Thread t;
     public Subsystem requiredSub;
+    private Boolean finishedExecution = false;
 
     /**
      * Creates a new <code>Command</code>
@@ -32,7 +33,22 @@ public abstract class Command implements Runnable {
             throw new RuntimeException("Attempted to start un-initialized Command. Are you calling super() in the " +
                     "Command's constructor?");
         }
+        finishedExecution = false;
         t.start();
+    }
+
+    /**
+     * Blocks until the command has finished execution. Note that this method will not return until the <code>stop</code>
+     * method has returned.
+     */
+    public void waitTillFinished() {
+        while(!finishedExecution) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -73,5 +89,7 @@ public abstract class Command implements Runnable {
 
         if (requiredSub != null)
             requiredSub.releaseControl(this);
+
+        finishedExecution = true;
     }
 }
