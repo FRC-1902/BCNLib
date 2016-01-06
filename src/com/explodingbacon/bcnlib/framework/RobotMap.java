@@ -5,8 +5,8 @@ import java.util.Map;
 
 /**
  * A class to manage what ports each actuator and sensor are in.
- * <br>
- * USAGE: Extend this class with a constructor that repeatedly calls <code>self.register</code> with a name and motor port.
+ * <br><br>
+ * USAGE: Extend this class with a constructor that repeatedly calls <code>self.register</code> with a String name and Integer motor port.
  */
 public class RobotMap {
     private Map<String, Integer> m =  new HashMap<>();
