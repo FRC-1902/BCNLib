@@ -1,5 +1,21 @@
 package com.explodingbacon.bcnlib.framework;
 
-public class RobotMap {
+import java.util.HashMap;
+import java.util.Map;
 
+/**
+ * A class to manage what ports each actuator and sensor are in.
+ * <br>
+ * USAGE: Extend this class with a constructor that repeatedly calls <code>self.register</code> with a name and motor port.
+ */
+public class RobotMap {
+    private Map<String, Integer> m =  new HashMap<>();
+
+    private void register(String id, Integer port) {
+        m.put(id, port);
+    }
+
+    public Integer get(String id) {
+        return m.get(id);
+    }
 }
