@@ -1,11 +1,22 @@
 package com.explodingbacon.bcnlib.utils;
 
-//Not using an IDE currently because I don't have IntelliJ, so R.I.P. imports
+import com.explodingbacon.bcnlib.actuators.Motor;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MotorGroup {
+/**
+ * A class that lets us group together motors and mass-set their speeds. Specific motors can also be inverted.
+ *
+ * @author Ryan Shavell
+ * @version 2016.1.6
+ */
 
-	public List<Motor> motors = new ArrayList<>();
-	public List<Boolean> inverts = new ArrayList<>();
+public class MotorGroup implements Motor {
+
+	private List<Motor> motors = new ArrayList<>();
+	private List<Boolean> inverts = new ArrayList<>();
+    private double power = 0;
+    private boolean reversed = false;
 	
 	public MotorGroup(Motor[] array) {
 		for (Motor m : array) {
@@ -22,12 +33,33 @@ public class MotorGroup {
 			inverts.add(b);
 		}
 	}
-	
+
+    @Override
 	public void setPower(double d) {
 		int index = 0;
 		for (Motor m : motors) {
-			m.setPower(inverts.get(index) ? -d : d);
+            double speed = inverts.get(index) ? -d : d;
+			m.setPower(reversed ? -speed : speed);
 			index++;
 		}
-	}	
+        power = d;
+	}
+
+    @Override
+    public double getPower() {
+        return power;
+    }
+
+    @Override
+    public void setReversed(boolean reversed) {
+        this.reversed = reversed;
+    }
+
+    /**
+     * Gets all the motors in this MotorGroup.
+     * @return All the motors in this MotorGroup.
+     */
+    public List<Motor> getMotors() {
+        return new ArrayList<>(motors);
+    }
 }
