@@ -92,6 +92,11 @@ public class SingleMotorPositionPID implements Runnable {
         return t;
     }
 
+    /**
+     * Get the difference between the setpoint and the current position, in encoder clicks.
+     *
+     * @return The current error, in encoder clicks
+     */
     public int getCurrentError() {
         return t - e.getRaw();
     }
