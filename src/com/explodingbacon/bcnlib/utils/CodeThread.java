@@ -12,11 +12,17 @@ public class CodeThread implements Runnable {
     Thread t;
     boolean stop = false;
 
+    /**
+     * Start this <code>CodeThread</code>
+     */
     public void start() {
         t = new Thread(this);
         t.start();
     }
 
+    /**
+     * Don't touch this, we take care of it.
+     */
     @Override
     public void run() {
         while (true) {
@@ -31,6 +37,9 @@ public class CodeThread implements Runnable {
      */
     public void code() {}
 
+    /**
+     * Stop execution of this <code>CodeThread</code>
+     */
     public void stop() {
         stop = true;
     }
