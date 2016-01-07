@@ -8,6 +8,8 @@ public abstract class Command implements Runnable {
     private Thread t;
     public Subsystem requiredSub;
     private Boolean finishedExecution = false;
+    private Boolean isRunning = false;
+    private Boolean cancel = false;
 
     /**
      * Creates a new <code>Command</code>
@@ -52,6 +54,21 @@ public abstract class Command implements Runnable {
     }
 
     /**
+     * Checks if the command is currently running.
+     * @return If the command is currently running.
+     */
+    public boolean isRunning(){
+        return isRunning;
+    }
+
+    /**
+     * Forces this command to stop running.
+     */
+    public void cancel() {
+        cancel = true;
+    }
+
+    /**
      * Runs once every time the <code>Command</code> is started.
      */
     public abstract void init();
@@ -78,18 +95,21 @@ public abstract class Command implements Runnable {
      */
     @Override
     public void run() {
+        isRunning = true;
         if (requiredSub != null)
             requiredSub.takeControl(this);
 
         init();
-        while (!isFinished()) {
+        while (!isFinished() && !cancel) {
             loop();
         }
+        cancel = false;
         stop();
 
         if (requiredSub != null)
             requiredSub.releaseControl(this);
 
         finishedExecution = true;
+        isRunning = false;
     }
 }

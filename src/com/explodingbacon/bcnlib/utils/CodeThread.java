@@ -11,6 +11,7 @@ public class CodeThread implements Runnable {
 
     Thread t;
     boolean stop = false;
+    boolean running = false;
 
     /**
      * Start this <code>CodeThread</code>
@@ -25,11 +26,14 @@ public class CodeThread implements Runnable {
      */
     @Override
     public void run() {
+        running = true;
         while (true) {
             if (stop) break;
             code();
         }
+        stop = false;
         t = null;
+        running = false;
     }
 
     /**
@@ -42,6 +46,14 @@ public class CodeThread implements Runnable {
      */
     public void stop() {
         stop = true;
+    }
+
+    /**
+     * Returns whether or not this CodeThread is currently running.
+     * @return Whether or not this CodeThread is currently running.
+     */
+    public boolean isRunning() {
+        return running;
     }
 
 }
