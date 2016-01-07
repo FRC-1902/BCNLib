@@ -2,23 +2,31 @@ package com.explodingbacon.bcnlib.utils;
 
 import com.explodingbacon.bcnlib.actuators.Motor;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.HLUsageReporting;
 
 /**
+ * Extendable class that allows us to reference all PID use cases the same way, and allows us to write some code only once
+ *
  * @author Dominic Canora
  * @version 2016.1.0
- *          NOT FINISHED
  */
-public class SingleMotorPositionPID implements Runnable {
+public abstract class PIDController implements Runnable { //TODO: Check this
     private Motor m;
     private Encoder e;
-    private int kP, kI, kD;
+    private int kP, kI, kD, mode;
     private double p, i, d, lastP = 0, min, max;
     private int t = 0;
     private Thread thread;
     private boolean enabled;
 
+    public static class Mode {
+        static int POSITION = 9277;
+        static int RATE = 10650;
+    }
+
+
     /**
-     * Creates a new <code>SingleMotorPositionPID</code> object with given values, using the defaults for min and max
+     * Creates a new <code>PIDController</code> object with given values, using the defaults for min and max
      * motor setpoint.
      *
      * @param m  Motor to actuate.
@@ -27,9 +35,10 @@ public class SingleMotorPositionPID implements Runnable {
      * @param kI Integral tuning variable. Set to 0 to disable to I term.
      * @param kD Derivative tuning variable. Set to 0 to disable the D term.
      */
-    public SingleMotorPositionPID(Motor m, Encoder e, int kP, int kI, int kD) {
+    public PIDController(Motor m, Encoder e, int mode, int kP, int kI, int kD) {
         this.m = m;
         this.e = e;
+        this.mode = mode;
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
@@ -38,8 +47,9 @@ public class SingleMotorPositionPID implements Runnable {
         this.thread = new Thread(this);
     }
 
+
     /**
-     * Creates a new <code>SingleMotorPositionPID</code> object with given values.
+     * Creates a new <code>PIDController</code> object with given values.
      *
      * @param m   Motor to actuate.
      * @param e   Encoder to read.
@@ -49,9 +59,10 @@ public class SingleMotorPositionPID implements Runnable {
      * @param min The minimum setpoint to the motor. Values below this will be scaled down to 0.
      * @param max The maximum setpoint to the motor. Values above this will be scaled to this value.
      */
-    public SingleMotorPositionPID(Motor m, Encoder e, int kP, int kI, int kD, double min, double max) {
+    public PIDController(Motor m, Encoder e, int mode, int kP, int kI, int kD, double min, double max) {
         this.m = m;
         this.e = e;
+        this.mode = mode;
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
@@ -59,6 +70,7 @@ public class SingleMotorPositionPID implements Runnable {
         this.max = max;
         this.thread = new Thread(this);
     }
+
 
     /**
      * Enables control of the motor.
@@ -79,7 +91,7 @@ public class SingleMotorPositionPID implements Runnable {
      *
      * @param target Position target in encoder clicks from encoder zero
      */
-    public void setPosition(int target) {
+    public void setTarget(int target) {
         t = target;
     }
 
@@ -88,7 +100,7 @@ public class SingleMotorPositionPID implements Runnable {
      *
      * @return Position target in encoder clicks from encoder zero
      */
-    public int getPosition() {
+    public int getTarget() {
         return t;
     }
 
@@ -110,9 +122,19 @@ public class SingleMotorPositionPID implements Runnable {
         e.reset();
     }
 
+    private double getCurrent() {
+        if (mode == Mode.POSITION) {
+            return e.getRaw();
+        } else if (mode == Mode.RATE) {
+            return e.getRate();
+        } else {
+            return 0;
+        }
+    }
+
     @Override
     public void run() {
-        p = t - e.getRaw();
+        p = t - getCurrent();
         i += p;
         d = lastP - p;
         lastP = p;
