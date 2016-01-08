@@ -2,7 +2,6 @@ package com.explodingbacon.bcnlib.utils;
 
 import com.explodingbacon.bcnlib.actuators.Motor;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.HLUsageReporting;
 
 /**
  * Extendable class that allows us to reference all PID use cases the same way, and allows us to write some code only once
@@ -13,15 +12,15 @@ import edu.wpi.first.wpilibj.HLUsageReporting;
 public abstract class PIDController implements Runnable { //TODO: Check this
     private Motor m;
     private Encoder e;
-    private int kP, kI, kD, mode;
+    private Mode mode;
+    private int kP, kI, kD;
     private double p, i, d, lastP = 0, min, max;
     private int t = 0;
     private Thread thread;
     private boolean enabled;
 
-    public static class Mode {
-        static int POSITION = 9277;
-        static int RATE = 10650;
+    public static enum  Mode {
+        RATE, POSITION
     }
 
 
@@ -35,7 +34,7 @@ public abstract class PIDController implements Runnable { //TODO: Check this
      * @param kI Integral tuning variable. Set to 0 to disable to I term.
      * @param kD Derivative tuning variable. Set to 0 to disable the D term.
      */
-    public PIDController(Motor m, Encoder e, int mode, int kP, int kI, int kD) {
+    public PIDController(Motor m, Encoder e, Mode mode, int kP, int kI, int kD) {
         this.m = m;
         this.e = e;
         this.mode = mode;
@@ -59,7 +58,7 @@ public abstract class PIDController implements Runnable { //TODO: Check this
      * @param min The minimum setpoint to the motor. Values below this will be scaled down to 0.
      * @param max The maximum setpoint to the motor. Values above this will be scaled to this value.
      */
-    public PIDController(Motor m, Encoder e, int mode, int kP, int kI, int kD, double min, double max) {
+    public PIDController(Motor m, Encoder e, Mode mode, int kP, int kI, int kD, double min, double max) {
         this.m = m;
         this.e = e;
         this.mode = mode;
