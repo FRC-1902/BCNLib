@@ -4,7 +4,8 @@ import com.explodingbacon.bcnlib.actuators.Motor;
 import edu.wpi.first.wpilibj.Encoder;
 
 /**
- * Extendable class that allows us to reference all PID use cases the same way, and allows us to write some code only once
+ * All-encompassing PID controller that can be used for rate and for position control. Set any tuning parameter to 0 to
+ * disable that parameter.
  *
  * @author Dominic Canora
  * @version 2016.1.0
@@ -17,9 +18,9 @@ public abstract class PIDController implements Runnable { //TODO: Check this
     private double p, i, d, lastP = 0, min, max;
     private int t = 0;
     private Thread thread;
-    private boolean enabled;
+    private boolean enabled = false;
 
-    public static enum  Mode {
+    public enum  Mode {
         RATE, POSITION
     }
 
@@ -44,6 +45,7 @@ public abstract class PIDController implements Runnable { //TODO: Check this
         this.min = 0.2;
         this.max = 0.8;
         this.thread = new Thread(this);
+        this.thread.start();
     }
 
 
@@ -68,6 +70,7 @@ public abstract class PIDController implements Runnable { //TODO: Check this
         this.min = min;
         this.max = max;
         this.thread = new Thread(this);
+        this.thread.start();
     }
 
 
@@ -121,13 +124,30 @@ public abstract class PIDController implements Runnable { //TODO: Check this
         e.reset();
     }
 
+    /**
+     * On-the-fly re-tuning of the loop. Be careful here, there shouldn't be any reason to use this except to tune.
+     * For safety, this disables and resets the <code>PIDController</code>
+     *
+     * @param kP  Proportional tuning variable. Set to 0 to disable the P term.
+     * @param kI  Integral tuning variable. Set to 0 to disable to I term.
+     * @param kD  Derivative tuning variable. Set to 0 to disable the D term.
+     */
     public void reTune(int kP, int kI, int kD) {
         //TODO: Throw RuntimeException if robot is not in test mode
+        this.enabled = false;
+        this.p = 0;
+        this.i = 0;
+        this.d = 0;
+        this.lastP = 0;
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
     }
 
+    /**
+     * Get the current position or rate of the encoder
+     * @return The current position/rate of the encoder.
+     */
     private double getCurrent() {
         if (mode == Mode.POSITION) {
             return e.getRaw();
