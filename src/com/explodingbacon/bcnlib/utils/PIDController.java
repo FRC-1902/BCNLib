@@ -122,6 +122,13 @@ public abstract class PIDController implements Runnable { //TODO: Check this
         e.reset();
     }
 
+    public void reTune(int kP, int kI, int kD) {
+        //TODO: Throw RuntimeException if robot is not in test mode
+        this.kP = kP;
+        this.kI = kI;
+        this.kD = kD;
+    }
+
     private double getCurrent() {
         if (mode == Mode.POSITION) {
             return e.getRaw();
