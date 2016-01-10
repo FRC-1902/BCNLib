@@ -1,5 +1,11 @@
 package com.explodingbacon.bcnlib.utils;
 
+/**
+ * A way to manually tune PID Loops in a network table (and a GUI that reads/writes from the NetworkTable)
+ *
+ * @author Dominic Canora
+ * @version 2016.1.0
+ */
 public class PIDManualTuner implements Runnable { //TODO: NetworkTables
     Thread t;
     int kP, kI, kD;

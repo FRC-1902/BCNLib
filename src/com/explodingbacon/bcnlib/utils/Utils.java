@@ -11,9 +11,9 @@ public class Utils {
      * @return A value scaled by <code>min</code> and <code>max</code>.
      */
     public static double minMax(double val, double min, double max) {
-        if (val == 0) return 0; //Needed to avoid divide by zero exception
+        if (val == 0) return 0; //Needed to avoid DivideByZeroException
         val = Math.abs(val) < min ? 0 : val;
-        val = Math.abs(val) > max ? max * Math.abs(val) / val : val;
+        val = Math.abs(val) > max ? max * (Math.abs(val) / val) : val;
         return val;
     }
 

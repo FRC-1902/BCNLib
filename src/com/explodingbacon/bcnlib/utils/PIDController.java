@@ -10,24 +10,25 @@ import edu.wpi.first.wpilibj.Encoder;
  * @author Dominic Canora
  * @version 2016.1.0
  */
-public abstract class PIDController implements Runnable { //TODO: Check this
+public class PIDController implements Runnable { //TODO: Check this
     private Motor m;
     private Encoder e;
     private Mode mode;
-    private int kP, kI, kD;
+    private double kP, kI, kD;
     private double p, i, d, lastP = 0, min, max;
     private int t = 0;
     private Thread thread;
     private boolean enabled = false;
 
     public enum  Mode {
-        RATE, POSITION
+        RATE,
+        POSITION
     }
 
 
     /**
      * Creates a new <code>PIDController</code> object with given values, using the defaults for min and max
-     * motor setpoint.
+     * motor target.
      *
      * @param m  Motor to actuate.
      * @param e  Encoder to read.
@@ -57,8 +58,8 @@ public abstract class PIDController implements Runnable { //TODO: Check this
      * @param kP  Proportional tuning variable. Set to 0 to disable the P term.
      * @param kI  Integral tuning variable. Set to 0 to disable to I term.
      * @param kD  Derivative tuning variable. Set to 0 to disable the D term.
-     * @param min The minimum setpoint to the motor. Values below this will be scaled down to 0.
-     * @param max The maximum setpoint to the motor. Values above this will be scaled to this value.
+     * @param min The minimum target to the motor. Values below this will be scaled down to 0.
+     * @param max The maximum target to the motor. Values above this will be scaled to this value.
      */
     public PIDController(Motor m, Encoder e, Mode mode, int kP, int kI, int kD, double min, double max) {
         this.m = m;
@@ -73,11 +74,19 @@ public abstract class PIDController implements Runnable { //TODO: Check this
         this.thread.start();
     }
 
+    private void reset() {
+        this.enabled = false;
+        this.p = 0;
+        this.i = 0;
+        this.d = 0;
+        this.lastP = 0;
+    }
 
     /**
      * Enables control of the motor.
      */
     public void enable() {
+        reset();
         enabled = true;
     }
 
@@ -107,7 +116,7 @@ public abstract class PIDController implements Runnable { //TODO: Check this
     }
 
     /**
-     * Get the difference between the setpoint and the current position, in encoder clicks.
+     * Get the difference between the target and the current position, in encoder clicks.
      *
      * @return The current error, in encoder clicks
      */
@@ -132,13 +141,9 @@ public abstract class PIDController implements Runnable { //TODO: Check this
      * @param kI  Integral tuning variable. Set to 0 to disable to I term.
      * @param kD  Derivative tuning variable. Set to 0 to disable the D term.
      */
-    public void reTune(int kP, int kI, int kD) {
+    public void reTune(double kP, double kI, double kD) {
         //TODO: Throw RuntimeException if robot is not in test mode
-        this.enabled = false;
-        this.p = 0;
-        this.i = 0;
-        this.d = 0;
-        this.lastP = 0;
+        reset();
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
@@ -169,7 +174,7 @@ public abstract class PIDController implements Runnable { //TODO: Check this
         setpoint = Utils.minMax(setpoint, 0.1, 1);
 
         if (enabled)
-            m.setPower(setpoint);
+            m.setPower(Utils.minMax(setpoint, min, max));
 
         try {
             Thread.sleep(10);
