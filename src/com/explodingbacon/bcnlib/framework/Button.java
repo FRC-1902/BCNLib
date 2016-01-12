@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class Button {
 
-    private JoystickButton button;
-    private boolean last = false;
+    JoystickButton button;
+    boolean last = false;
 
     public Button(Joystick j, int buttonID) {
         button = new JoystickButton(j, buttonID);

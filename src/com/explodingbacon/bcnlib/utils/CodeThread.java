@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.utils;
  * A class that allows us to easily write code that will run in its own separate thread.
  *
  * @author Ryan Shavell
- * @version 2016.1.6
+ * @version 2016.1.10
  */
 
 public class CodeThread implements Runnable {
@@ -12,6 +12,18 @@ public class CodeThread implements Runnable {
     Thread t;
     boolean stop = false;
     boolean running = false;
+    double seconds = -1;
+    Timer timer = null;
+
+    public CodeThread() {}
+
+    /**
+     * When you give CodeThread seconds, it will run until that many seconds have gone by and then terminate.
+     * @param seconds How many seconds this CodeThread will last.
+     */
+    public CodeThread(double seconds) {
+        this.seconds = seconds;
+    }
 
     /**
      * Start this <code>CodeThread</code>
@@ -19,6 +31,20 @@ public class CodeThread implements Runnable {
     public void start() {
         t = new Thread(this);
         t.start();
+        final CodeThread self = this;
+        if (seconds > -1) {
+            timer = new Timer(seconds, new TimerUser() {
+                @Override
+                public void timer() {
+                    self.stop();
+                }
+
+                @Override
+                public void timerStop() {
+                    timer = null;
+                }
+            });
+        }
     }
 
     /**
@@ -37,7 +63,7 @@ public class CodeThread implements Runnable {
     }
 
     /**
-     * Override this with what code you want to run looped.
+     * Override this with what code you want to run in the thread.
      */
     public void code() {}
 

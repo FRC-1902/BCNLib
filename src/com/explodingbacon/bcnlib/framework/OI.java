@@ -13,7 +13,7 @@ import java.util.List;
  * @version 2016.1.7
  */
 
-public class OI extends CodeThread {
+public abstract class OI extends CodeThread {
 
     private List<Trigger> triggers = new ArrayList<>();
     private boolean started = false;
