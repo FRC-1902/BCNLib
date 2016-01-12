@@ -32,6 +32,7 @@ public class PIDController implements Runnable { //TODO: Check this
      *
      * @param m  Motor to actuate.
      * @param e  Encoder to read.
+     * @param mode The mode to run the controller in (RATE or POSITION)
      * @param kP Proportional tuning variable. Set to 0 to disable the P term.
      * @param kI Integral tuning variable. Set to 0 to disable to I term.
      * @param kD Derivative tuning variable. Set to 0 to disable the D term.
@@ -55,6 +56,7 @@ public class PIDController implements Runnable { //TODO: Check this
      *
      * @param m   Motor to actuate.
      * @param e   Encoder to read.
+     * @param mode The mode to run the controller in (RATE or POSITION)
      * @param kP  Proportional tuning variable. Set to 0 to disable the P term.
      * @param kI  Integral tuning variable. Set to 0 to disable to I term.
      * @param kD  Derivative tuning variable. Set to 0 to disable the D term.
