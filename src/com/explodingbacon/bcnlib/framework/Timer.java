@@ -1,4 +1,6 @@
-package com.explodingbacon.bcnlib.utils;
+package com.explodingbacon.bcnlib.framework;
+
+import com.explodingbacon.bcnlib.utils.TimerUser;
 
 /**
  * A class that lets us set a timer that will be called once (or every) X seconds.

@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.utils;
 
+import com.explodingbacon.bcnlib.framework.Timer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

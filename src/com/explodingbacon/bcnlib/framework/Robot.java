@@ -2,21 +2,38 @@ package com.explodingbacon.bcnlib.framework;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The main class of the robot. This takes care of creating, initializing, and running all other classes. MAKE SURE you
  * call super when you override a method, or else the entire framework will break.
  *
  * @author Ryan Shavell
- * @version 2016.1.10
+ * @version 2016.1.13
  */
 
 public abstract class Robot extends IterativeRobot {
+
+    public static List<Subsystem> subsystems = new ArrayList<>();
 
     private static Robot self;
 
     public Robot() {
         self = this;
+    }
+
+    @Override
+    public void testInit() {
+        for (Subsystem sub : subsystems) {
+            if (!SmartDashboard.getBoolean(sub.getName(), false)) {
+                OI.addCommand(new StopCommand(sub));
+                SmartDashboard.putBoolean(sub.getName(), false);
+            }
+            //Use subsystem.releaseControl() when you want to re-enable the subsystem.
+        }
     }
 
     /**
@@ -66,6 +83,12 @@ public abstract class Robot extends IterativeRobot {
     public static boolean isDSAttached() {
         return self.m_ds.isDSAttached();
     }
+
+    /**
+     * Gets the Driver Station.
+     * @return The Driver Station.
+     */
+    public static DriverStation getDS() { return self.m_ds; }
 
     /**
      * Gets the alliance our robot is on.

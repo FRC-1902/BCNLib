@@ -3,6 +3,7 @@ package com.explodingbacon.bcnlib.utils;
 import com.explodingbacon.bcnlib.actuators.Motor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,12 +28,8 @@ public class MotorGroup implements Motor {
 	}
 	
 	public MotorGroup(Motor[] array, Boolean[] invert) {
-		for (Motor m : array) {
-			motors.add(m);
-		}
-		for (Boolean b : invert) {
-			inverts.add(b);
-		}
+		Collections.addAll(motors, array);
+		Collections.addAll(inverts, invert);
 	}
 
     @Override

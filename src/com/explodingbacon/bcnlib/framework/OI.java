@@ -1,7 +1,6 @@
 package com.explodingbacon.bcnlib.framework;
 
 import com.explodingbacon.bcnlib.utils.CodeThread;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
 
 public abstract class OI extends CodeThread {
 
-    private List<Trigger> triggers = new ArrayList<>();
+    private static List<Trigger> triggers = new ArrayList<>();
     private boolean started = false;
 
     /**
@@ -24,11 +23,7 @@ public abstract class OI extends CodeThread {
      * @param c The command to be run.
      */
     public void whenPressed(Button b, Command c) {
-        if (!isRunning()) {
-            triggers.add(new Trigger(c, b, TriggerType.PRESS));
-        } else {
-            System.out.println("[ERROR] Commands are being added to OI while it is running!");
-        }
+        addTrigger(new Trigger(c, b, TriggerType.PRESS));
     }
 
     /**
@@ -37,11 +32,7 @@ public abstract class OI extends CodeThread {
      * @param c The command to be run.
      */
     public void whenReleased(Button b, Command c) {
-        if (!isRunning()) {
-            triggers.add(new Trigger(c, b, TriggerType.RELEASE));
-        } else {
-            System.out.println("[ERROR] Commands are being added to OI while it is running!");
-        }
+        addTrigger(new Trigger(c, b, TriggerType.RELEASE));
     }
 
     /**
@@ -50,11 +41,31 @@ public abstract class OI extends CodeThread {
      * @param c The command to be run.
      */
     public void whileHeld(Button b, Command c) {
-        if (!isRunning()) {
-            triggers.add(new Trigger(c, b, TriggerType.WHILE_HELD));
-        } else {
-            System.out.println("[ERROR] Commands are being added to OI while it is running!");
-        }
+        addTrigger(new Trigger(c, b, TriggerType.WHILE_HELD));
+    }
+
+    /**
+     * Adds a command to the trigger list. This is used for when you just want to run a command somewhere in the code
+     * without worrying about keeping the command object around.
+     *
+     * @param c The command to be added.
+     * @return The command you added (for method chaining)
+     */
+    public static Command addCommand(Command c) {
+        addTrigger(new Trigger(c, null, TriggerType.NOTHING));
+        return c;
+    }
+
+    public static boolean getJoystickExists(int id) {
+        return Robot.getDS().getJoystickType(id) != -1;
+    }
+
+    /**
+     * Adds a trigger to the trigger list.
+     * @param t The trigger to be added to the trigger list.
+     */
+    private static synchronized void addTrigger(Trigger t) {
+        triggers.add(t);
     }
 
     @Override
@@ -78,13 +89,15 @@ public abstract class OI extends CodeThread {
         }
     }
 
-    enum TriggerType {
+    public enum TriggerType {
         PRESS,
         RELEASE,
-        WHILE_HELD
+        WHILE_HELD,
+
+        NOTHING
     }
 
-    class Trigger {
+    public static class Trigger {
         public Command c;
         public Button b;
         public TriggerType t;

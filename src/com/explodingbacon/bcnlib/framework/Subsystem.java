@@ -9,6 +9,11 @@ public abstract class Subsystem {
      * <code>Command</code> object that is holding control of this <code>Subsystem</code>. <code>Null</code> when this
      * <code>Subsystem</code> is able to be changed
      */
+
+    public Subsystem() {
+        Robot.subsystems.add(this);
+    }
+
     private Command inUseBy;
 
     /**
@@ -37,12 +42,29 @@ public abstract class Subsystem {
     }
 
     /**
+     * Makes whatever command that is controlling this subsystem stop and release it.
+     */
+    public void releaseControl() {
+        if (inUseBy != null) {
+            inUseBy.stop();
+        }
+    }
+
+    /**
      * Gets whether this <code>Subsystem</code> is in use.
      *
      * @return True if this <code>Subsystem</code> is in use
      */
     public boolean isInUse() {
         return inUseBy != null;
+    }
+
+    /**
+     * Gets the name of this Subsystem.
+     * @return The name of this Subsystem.
+     */
+    public String getName() {
+        return getClass().getSimpleName();
     }
 
     /**
