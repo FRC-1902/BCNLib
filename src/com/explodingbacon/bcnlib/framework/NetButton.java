@@ -6,10 +6,11 @@ import edu.wpi.first.wpilibj.buttons.InternalButton;
  * @author Dominic Canora
  * @version 2016.1.0
  */
-public class NetButton {
-    InternalButton button;
-    boolean last = false;
-    String key;
+
+public class NetButton implements Button {
+    private InternalButton button;
+    private boolean last = false;
+    private String key;
 
     /**
      * Default Constructor
@@ -19,7 +20,7 @@ public class NetButton {
     public NetButton(String key) {
         button = new InternalButton();
         this.key = key;
-        Robot.getRobot().oi.addNetButton(this);
+        OI.addNetButton(this);
     }
 
     /**

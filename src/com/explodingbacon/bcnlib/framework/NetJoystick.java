@@ -5,8 +5,8 @@ package com.explodingbacon.bcnlib.framework;
  * @version 2016.1.0
  */
 public class NetJoystick {
-    private double xVal, yVal;
-    private String key;
+    protected double xVal, yVal;
+    protected String key;
 
     /**
      * Default Constructor
@@ -17,7 +17,7 @@ public class NetJoystick {
         xVal = 0;
         yVal = 0;
         this.key = key;
-        Robot.getRobot().oi.addNetJoystick(this);
+        OI.addNetJoystick(this);
     }
 
     /**

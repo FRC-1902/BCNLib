@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  * @author Dominic Canora
  * @version 2016.1.0
  */
+
 public class NetTable {
     NetworkTable table;
 
