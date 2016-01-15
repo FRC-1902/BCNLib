@@ -32,6 +32,7 @@ public class PIDAutoTuner implements Runnable {
      * @param target     The encoder target to use for the PID controller
      * @param scalar     Initial scalar for PID values. Should be a power of 10.
      * @param aggression How "aggressive" the PID tuner will be. Smaller numbers take more time but are more precise
+     * @param joystick   The joystick to use for tuning.
      */
     public PIDAutoTuner(PIDController controller, int target, double scalar, double aggression, Joystick joystick) {
         this.c = controller;
