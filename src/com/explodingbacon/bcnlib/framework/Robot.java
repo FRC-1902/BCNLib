@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.framework;
 
+import com.explodingbacon.bcnlib.utils.StopCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,6 +21,8 @@ public abstract class Robot extends IterativeRobot {
     public static List<Subsystem> subsystems = new ArrayList<>();
 
     private static Robot self;
+    public OI oi;
+    public RobotMap robotMap;
 
     public Robot() {
         self = this;

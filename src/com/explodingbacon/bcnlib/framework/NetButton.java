@@ -1,0 +1,51 @@
+package com.explodingbacon.bcnlib.framework;
+
+import edu.wpi.first.wpilibj.buttons.InternalButton;
+
+/**
+ * @author Dominic Canora
+ * @version 2016.1.0
+ */
+public class NetButton {
+    InternalButton button;
+    boolean last = false;
+    String key;
+
+    /**
+     * Default Constructor
+     *
+     * @param key A unique key to refer to this NetButton
+     */
+    public NetButton(String key) {
+        button = new InternalButton();
+        this.key = key;
+        Robot.getRobot().oi.addNetButton(this);
+    }
+
+    /**
+     * Refresh the value of this NetButton. Automatically handled by OI.
+     */
+    public void refresh() {
+        button.setPressed(OI.netTable.getBoolean(key, false));
+    }
+
+    /**
+     * Get the value of this NetButton
+     *
+     * @return The value of this NetButton
+     */
+    public boolean get() {
+        return last = button.get();
+    }
+
+    /**
+     * Gets the state the button was in last time it was checked.
+     *
+     * @return The state the button was in last time it was checked.
+     */
+    public boolean getPrevious() {
+        return last;
+    }
+
+
+}

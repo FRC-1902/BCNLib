@@ -1,6 +1,7 @@
 package com.explodingbacon.bcnlib.framework;
 
 import com.explodingbacon.bcnlib.utils.CodeThread;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,9 @@ import java.util.List;
 public abstract class OI extends CodeThread {
 
     private static List<Trigger> triggers = new ArrayList<>();
-    private boolean started = false;
+    public static NetTable netTable = new NetTable("Robot_OI");
+    private List<NetButton> netButtons = new ArrayList<>();
+    private List<NetJoystick> netJoysticks = new ArrayList<>();
 
     /**
      * Makes a command run when a button is pressed.
@@ -66,6 +69,36 @@ public abstract class OI extends CodeThread {
      */
     private static synchronized void addTrigger(Trigger t) {
         triggers.add(t);
+        addTrigger(new Trigger(c, b, TriggerType.WHILE_HELD));
+    }
+
+    /**
+     * Adds a command to the trigger list. This is used for when you just want to run a command somewhere in the code
+     * without worrying about keeping the command object around.
+     *
+     * @param c The command to be added.
+     * @return The command you added (for method chaining)
+     */
+    public static Command addCommand(Command c) {
+        addTrigger(new Trigger(c, null, TriggerType.NOTHING));
+        return c;
+    }
+
+    /**
+     * Adds a trigger to the trigger list.
+     *
+     * @param t The trigger to be added to the trigger list.
+     */
+    private static synchronized void addTrigger(Trigger t) {
+        triggers.add(t);
+    }
+
+    public synchronized void addNetButton(NetButton b) {
+        netButtons.add(b);
+    }
+
+    public synchronized void addNetJoystick(NetJoystick j) {
+        netJoysticks.add(j);
     }
 
     @Override
@@ -86,6 +119,14 @@ public abstract class OI extends CodeThread {
                     t.c.cancel();
                 }
             }
+        }
+
+        for (NetJoystick j : netJoysticks) {
+            j.refresh();
+        }
+
+        for (NetButton b : netButtons) {
+            b.refresh();
         }
     }
 
