@@ -47,15 +47,23 @@ public abstract class ExtendableOI extends CodeThread {
     }
 
     /**
-     * Adds a command to the trigger list. This is used for when you just want to run a command somewhere in the code
+     * Adds a command to the trigger list and runs it. This is used for when you just want to run a command somewhere in the code
      * without worrying about keeping the command object around.
-     *
-     * @param c The command to be added.
-     * @return The command you added (for method chaining)
+     * @param c The command to be run.
      */
-    public static Command addCommand(Command c) {
+    public static void runCommand(Command c) {
         addTrigger(new Trigger(c, null, TriggerType.NOTHING));
-        return c;
+    }
+
+    /**
+     * Adds multiple commands to the trigger list and runs them. This is used for when you just want to run commands somewhere in the code
+     * without worrying about keeping their objects around.
+     * @param cs The commands to be run.
+     */
+    public static void runCommands(Command... cs) {
+        for (Command c : cs) {
+            addTrigger(new Trigger(c, null, TriggerType.NOTHING));
+        }
     }
 
     public static synchronized void addNetButton(NetButton b) { netButtons.add(b); }
