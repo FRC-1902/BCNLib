@@ -9,10 +9,10 @@ import java.util.List;
  * A class that handles spawning commands based off of button inputs.
  *
  * @author Ryan Shavell
- * @version 2016.1.14
+ * @version 2016.1.18
  */
 
-public abstract class OI extends CodeThread {
+public abstract class ExtendableOI extends CodeThread {
 
     private static List<Trigger> triggers = new ArrayList<>();
     public static NetTable netTable = new NetTable("Robot_OI");

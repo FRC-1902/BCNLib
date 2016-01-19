@@ -11,7 +11,7 @@ public abstract class Subsystem {
      */
 
     public Subsystem() {
-        Robot.subsystems.add(this);
+        ExtendableRobot.subsystems.add(this);
     }
 
     private Command inUseBy;

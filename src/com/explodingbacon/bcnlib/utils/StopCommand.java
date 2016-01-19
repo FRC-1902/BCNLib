@@ -1,7 +1,7 @@
 package com.explodingbacon.bcnlib.utils;
 
 import com.explodingbacon.bcnlib.framework.Command;
-import com.explodingbacon.bcnlib.framework.Robot;
+import com.explodingbacon.bcnlib.framework.ExtendableRobot;
 import com.explodingbacon.bcnlib.framework.Subsystem;
 
 public class StopCommand extends Command {
@@ -26,7 +26,7 @@ public class StopCommand extends Command {
 
     @Override
     public boolean isFinished() {
-        return !Robot.getEnabled();
+        return !ExtendableRobot.getEnabled();
     }
 
 }

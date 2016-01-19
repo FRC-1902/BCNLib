@@ -13,18 +13,19 @@ import java.util.List;
  * call super when you override a method, or else the entire framework will break.
  *
  * @author Ryan Shavell
- * @version 2016.1.13
+ * @version 2016.1.18
  */
 
-public abstract class Robot extends IterativeRobot {
+public abstract class ExtendableRobot extends IterativeRobot {
 
     public static List<Subsystem> subsystems = new ArrayList<>();
 
-    private static Robot self;
-    public OI oi;
+    public ExtendableOI oi;
     public RobotMap robotMap;
 
-    public Robot() {
+    private static ExtendableRobot self;
+
+    public ExtendableRobot() {
         self = this;
     }
 
@@ -32,7 +33,7 @@ public abstract class Robot extends IterativeRobot {
     public void testInit() {
         for (Subsystem sub : subsystems) {
             if (!SmartDashboard.getBoolean(sub.getName(), false)) {
-                OI.addCommand(new StopCommand(sub));
+                ExtendableOI.addCommand(new StopCommand(sub));
                 SmartDashboard.putBoolean(sub.getName(), false);
             }
             //Use subsystem.releaseControl() when you want to re-enable the subsystem.
@@ -117,11 +118,14 @@ public abstract class Robot extends IterativeRobot {
     }
 
     /**
-     * Gets the Robot object.
-     * @return The Robot object.
+     * Gets the ExtendableRobot object.
+     * @return The ExtendableRobot object.
      */
-    public static Robot getRobot() { return self; }
+    public static ExtendableRobot getRobot() { return self; }
 
+    /**
+     * An enum that represents the different modes this Robot can be in.
+     */
     public enum Mode {
         AUTONOMOUS,
         TELEOP,
@@ -130,6 +134,9 @@ public abstract class Robot extends IterativeRobot {
         NONE
     }
 
+    /**
+     * An enum that represents the different robot alliances this Robot can be on.
+     */
     public enum Alliance {
         BLUE,
         RED,

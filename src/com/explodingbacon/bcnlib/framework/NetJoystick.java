@@ -17,15 +17,15 @@ public class NetJoystick {
         xVal = 0;
         yVal = 0;
         this.key = key;
-        OI.addNetJoystick(this);
+        ExtendableOI.addNetJoystick(this);
     }
 
     /**
-     * Refresh the value of this NetJoystick. Automatically handled by OI.
+     * Refresh the value of this NetJoystick. Automatically handled by ExtendableOI.
      */
     public void refresh() {
-        double x = OI.netTable.getNumber(key + "_x", 0);
-        double y = OI.netTable.getNumber(key + "_y", 0);
+        double x = ExtendableOI.netTable.getNumber(key + "_x", 0);
+        double y = ExtendableOI.netTable.getNumber(key + "_y", 0);
 
         x = Math.max(-1, x);
         y = Math.max(-1, y);

@@ -1,7 +1,5 @@
 package com.explodingbacon.bcnlib.utils;
 
-import com.explodingbacon.bcnlib.framework.Timer;
-
 /**
  * A class that allows us to easily write code that will run in its own separate thread.
  *

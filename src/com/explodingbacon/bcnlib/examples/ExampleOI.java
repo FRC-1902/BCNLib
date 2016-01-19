@@ -2,7 +2,7 @@ package com.explodingbacon.bcnlib.examples;
 
 import com.explodingbacon.bcnlib.framework.*;
 
-public class ExampleOI extends OI {
+public class ExampleOI extends ExtendableOI {
 
     NetGamepad xbox = new NetGamepad("xbox", 2, 10);
 

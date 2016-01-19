@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * @author Ryan Shavell
- * @version 2016.1.14
+ * @version 2016.1.18
  */
 
 public class JoystickButton implements Button {
@@ -12,6 +12,11 @@ public class JoystickButton implements Button {
     private edu.wpi.first.wpilibj.buttons.JoystickButton button;
     private boolean last = false;
 
+    /**
+     * Creates a JoystickButton that corresponds to a physical button on j.
+     * @param j The Joystick this Button is on.
+     * @param buttonID The ID of this Button.
+     */
     public JoystickButton(Joystick j, int buttonID) {
         button = new edu.wpi.first.wpilibj.buttons.JoystickButton(j, buttonID);
     }

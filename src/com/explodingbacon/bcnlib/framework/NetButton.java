@@ -20,14 +20,14 @@ public class NetButton implements Button {
     public NetButton(String key) {
         button = new InternalButton();
         this.key = key;
-        OI.addNetButton(this);
+        ExtendableOI.addNetButton(this);
     }
 
     /**
-     * Refresh the value of this NetButton. Automatically handled by OI.
+     * Refresh the value of this NetButton. Automatically handled by ExtendableOI.
      */
     public void refresh() {
-        button.setPressed(OI.netTable.getBoolean(key, false));
+        button.setPressed(ExtendableOI.netTable.getBoolean(key, false));
     }
 
     /**

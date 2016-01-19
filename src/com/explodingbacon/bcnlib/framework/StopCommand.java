@@ -1,7 +1,7 @@
 package com.explodingbacon.bcnlib.framework;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.explodingbacon.bcnlib.framework.Robot.*;
+import com.explodingbacon.bcnlib.framework.ExtendableRobot.*;
 
 /**
  * @author Ryan Shavell
@@ -29,6 +29,6 @@ public class StopCommand extends Command {
 
     @Override
     public boolean isFinished() {
-        return !Robot.getEnabled() || Robot.getMode() != Mode.TEST;
+        return !ExtendableRobot.getEnabled() || ExtendableRobot.getMode() != Mode.TEST;
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author Ryan Shavell
- * @version 2016.1.13
+ * @version 2016.1.18
  */
 
 public class CommandGroup extends Command {
@@ -23,10 +23,20 @@ public class CommandGroup extends Command {
         commands = new ArrayList<>(c);
     }
 
+    /**
+     * Adds a Command to this CommandGroup.
+     * @param c The Command to be added.
+     * @return This CommandGroup.
+     */
+    public CommandGroup add(Command c) {
+        commands.add(c);
+        return this;
+    }
+
     @Override
     public void init() {
         for (Command c : commands) {
-            OI.addCommand(c).waitTillFinished();
+            ExtendableOI.addCommand(c).waitTillFinished();
         }
     }
 
