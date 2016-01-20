@@ -36,7 +36,8 @@ public class CommandGroup extends Command {
     @Override
     public void init() {
         for (Command c : commands) {
-            ExtendableOI.addCommand(c).waitTillFinished();
+            ExtendableOI.runCommand(c);
+            c.waitTillFinished();
         }
     }
 
