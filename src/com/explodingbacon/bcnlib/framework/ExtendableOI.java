@@ -1,7 +1,6 @@
 package com.explodingbacon.bcnlib.framework;
 
 import com.explodingbacon.bcnlib.utils.CodeThread;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,7 @@ import java.util.List;
  * A class that handles spawning commands based off of button inputs.
  *
  * @author Ryan Shavell
- * @version 2016.1.18
+ * @version 2016.1.20
  */
 
 public abstract class ExtendableOI extends CodeThread {
@@ -18,7 +17,10 @@ public abstract class ExtendableOI extends CodeThread {
     public static NetTable netTable = new NetTable("Robot_OI");
     private static List<NetButton> netButtons = new ArrayList<>();
     private static List<NetJoystick> netJoysticks = new ArrayList<>();
+
     private static final Object TRIGGERS_EDIT = new Object();
+    private static final Object BUTTONS_EDIT = new Object();
+    private static final Object JOYSTICKS_EDIT = new Object();
 
     /**
      * Makes a command run when a button is pressed.
@@ -69,10 +71,16 @@ public abstract class ExtendableOI extends CodeThread {
         }
     }
 
-    public static void addNetButton(NetButton b) { netButtons.add(b); }
+    public static synchronized void addNetButton(NetButton b) {
+        synchronized (BUTTONS_EDIT) {
+            netButtons.add(b);
+        }
+    }
 
-    public static void addNetJoystick(NetJoystick j) {
-        netJoysticks.add(j);
+    public static synchronized void addNetJoystick(NetJoystick j) {
+        synchronized (JOYSTICKS_EDIT) {
+            netJoysticks.add(j);
+        }
     }
 
     private static synchronized void addTrigger(Trigger t) {
@@ -83,12 +91,15 @@ public abstract class ExtendableOI extends CodeThread {
 
     @Override
     public void code() {
-        for (NetJoystick j : netJoysticks) {
-            j.refresh();
+        synchronized (JOYSTICKS_EDIT) {
+            for (NetJoystick j : netJoysticks) {
+                j.refresh();
+            }
         }
-
-        for (NetButton b : netButtons) {
-            b.refresh();
+        synchronized (BUTTONS_EDIT) {
+            for (NetButton b : netButtons) {
+                b.refresh();
+            }
         }
         synchronized (TRIGGERS_EDIT) {
             for (Trigger t : triggers) {
