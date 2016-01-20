@@ -93,6 +93,7 @@ public class MotorGroup implements Motor {
                 for (int i = 0; i < ids.length; i++) {
                     T motor = (T) con.newInstance(ids[i]);
                     motors.add(motor);
+                    inverts.add(false);
                 }
             } else {
                 System.out.println("[ERROR] Motor type that doesn't have any constructors given to MotorGroup! WHAT?");

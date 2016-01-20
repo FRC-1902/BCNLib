@@ -18,6 +18,7 @@ public abstract class ExtendableOI extends CodeThread {
     public static NetTable netTable = new NetTable("Robot_OI");
     private static List<NetButton> netButtons = new ArrayList<>();
     private static List<NetJoystick> netJoysticks = new ArrayList<>();
+    private static final Object TRIGGERS_EDIT = new Object();
 
     /**
      * Makes a command run when a button is pressed.
@@ -53,6 +54,7 @@ public abstract class ExtendableOI extends CodeThread {
      */
     public static void runCommand(Command c) {
         addTrigger(new Trigger(c, null, TriggerType.NOTHING));
+        c.start();
     }
 
     /**
@@ -63,17 +65,20 @@ public abstract class ExtendableOI extends CodeThread {
     public static void runCommands(Command... cs) {
         for (Command c : cs) {
             addTrigger(new Trigger(c, null, TriggerType.NOTHING));
+            c.start();
         }
     }
 
-    public static synchronized void addNetButton(NetButton b) { netButtons.add(b); }
+    public static void addNetButton(NetButton b) { netButtons.add(b); }
 
-    public static synchronized void addNetJoystick(NetJoystick j) {
+    public static void addNetJoystick(NetJoystick j) {
         netJoysticks.add(j);
     }
 
     private static synchronized void addTrigger(Trigger t) {
-        triggers.add(t);
+        synchronized (TRIGGERS_EDIT) {
+            triggers.add(t);
+        }
     }
 
     @Override
@@ -85,20 +90,22 @@ public abstract class ExtendableOI extends CodeThread {
         for (NetButton b : netButtons) {
             b.refresh();
         }
-        for (Trigger t : triggers) {
-            if (t.t == TriggerType.PRESS) {
-                if (!t.b.getPrevious() && t.b.get()) { //If the button wasn't pressed before and now is
-                    t.c.start();
-                }
-            } else if (t.t == TriggerType.RELEASE) {
-                if (t.b.getPrevious() && !t.b.get()) { //If the button was pressed before and now isn't
-                    t.c.start();
-                }
-            } else if (t.t == TriggerType.WHILE_HELD) {
-                if (t.b.get() && !t.c.isRunning()) { //If the button is pressed and the command isn't started already
-                    t.c.start();
-                } else if (!t.b.get() && t.c.isRunning()) { //If the button is released and the command is still running
-                    t.c.cancel();
+        synchronized (TRIGGERS_EDIT) {
+            for (Trigger t : triggers) {
+                if (t.t == TriggerType.PRESS) {
+                    if (!t.b.getPrevious() && t.b.get()) { //If the button wasn't pressed before and now is
+                        t.c.start();
+                    }
+                } else if (t.t == TriggerType.RELEASE) {
+                    if (t.b.getPrevious() && !t.b.get()) { //If the button was pressed before and now isn't
+                        t.c.start();
+                    }
+                } else if (t.t == TriggerType.WHILE_HELD) {
+                    if (t.b.get() && !t.c.isRunning()) { //If the button is pressed and the command isn't started already
+                        t.c.start();
+                    } else if (!t.b.get() && t.c.isRunning()) { //If the button is released and the command is still running
+                        t.c.cancel();
+                    }
                 }
             }
         }
