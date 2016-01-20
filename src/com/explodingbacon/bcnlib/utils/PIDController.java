@@ -77,7 +77,7 @@ public class PIDController implements Runnable { //TODO: Check this
     }
 
     private void reset() {
-        this.enabled = false;
+        this.disable();
         this.p = 0;
         this.i = 0;
         this.d = 0;
@@ -93,10 +93,11 @@ public class PIDController implements Runnable { //TODO: Check this
     }
 
     /**
-     * Disables control of the motor.
+     * Disables control of the motor. This also stops the motor
      */
     public void disable() {
         enabled = false;
+        m.setPower(0);
     }
 
     /**
