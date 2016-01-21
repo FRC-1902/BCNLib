@@ -4,6 +4,7 @@ public class CANTalon extends edu.wpi.first.wpilibj.CANTalon implements com.expl
 
     int polarity = 1;
 
+    //Use this only for using a TalonSRX via CAN. If you want to control a SRX via PWM, use the TalonSRX class
     public CANTalon(int channel) {
         super(channel);
     }

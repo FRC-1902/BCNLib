@@ -71,12 +71,20 @@ public abstract class ExtendableOI extends CodeThread {
         }
     }
 
+    /**
+     * Adds a NetButton to the update list.
+     * @param b The NetButton to be added.
+     */
     public static synchronized void addNetButton(NetButton b) {
         synchronized (BUTTONS_EDIT) {
             netButtons.add(b);
         }
     }
 
+    /**
+     * Adds a NetJoystick to the update list.
+     * @param j The NetButton to be added.
+     */
     public static synchronized void addNetJoystick(NetJoystick j) {
         synchronized (JOYSTICKS_EDIT) {
             netJoysticks.add(j);

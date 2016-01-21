@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author Ryan Shavell
- * @version 2016.1.18
+ * @version 2016.1.20
  */
 
 public class CommandGroup extends Command {
@@ -15,12 +15,8 @@ public class CommandGroup extends Command {
 
     public CommandGroup(){}
 
-    public CommandGroup(Command[] c) {
+    public CommandGroup(Command... c) {
         Collections.addAll(commands, c);
-    }
-
-    public CommandGroup(List<Command> c) {
-        commands = new ArrayList<>(c);
     }
 
     /**
@@ -28,8 +24,10 @@ public class CommandGroup extends Command {
      * @param c The Command to be added.
      * @return This CommandGroup.
      */
-    public CommandGroup add(Command c) {
-        commands.add(c);
+    public CommandGroup add(Command... c) {
+        for (Command com : c) {
+            commands.add(com);
+        }
         return this;
     }
 

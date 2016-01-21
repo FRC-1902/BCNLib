@@ -1,14 +1,14 @@
 package com.explodingbacon.bcnlib.utils;
 
+import com.explodingbacon.bcnlib.framework.Button;
+import com.explodingbacon.bcnlib.framework.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * An extension class of Joystick that makes it much easier to do Xbox-specific things, such as reading from the DPad or rumbling.
  *
  * @author Ryan Shavell
- * @version 2016.1.6
+ * @version 2016.1.20
  */
 
 public class Xbox extends Joystick {
