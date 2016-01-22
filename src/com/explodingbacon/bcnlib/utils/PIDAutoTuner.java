@@ -24,7 +24,7 @@ public class PIDAutoTuner implements Runnable {
     Boolean sign = true;
     Joystick joy;
 
-    final int FIRST_MAGIC_PID_CONSTATNT = 25;
+    final int FIRST_MAGIC_PID_CONSTANT = 25;
     final int SECOND_MAGIC_PID_CONSTANT = 20;
 
     /**
@@ -91,7 +91,7 @@ public class PIDAutoTuner implements Runnable {
         switch (state) {
             case 0: //Tuning kP
                 //If we spend a significant amount of time below the target
-                if (error >= target * FIRST_MAGIC_PID_CONSTATNT) {
+                if (error >= target * FIRST_MAGIC_PID_CONSTANT) {
                     kP *= aggression;
                 } else {
                     kI = initialkI;
