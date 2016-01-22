@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.framework;
 
+import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.framework.StopCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -20,6 +21,7 @@ public abstract class ExtendableRobot extends IterativeRobot {
     public static List<Subsystem> subsystems = new ArrayList<>();
 
     public ExtendableOI oi;
+    public static NetTuner tuner = new NetTuner();
     public RobotMap robotMap;
 
     private static ExtendableRobot self;
