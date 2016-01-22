@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.framework;
 
-import com.explodingbacon.bcnlib.actuators.Motor;
+import com.explodingbacon.bcnlib.actuators.MotorInterface;
 
 public class NetTuner {
     private NetTable table;
@@ -13,7 +13,7 @@ public class NetTuner {
         return table.getNumber(key, 0);
     }
 
-    public void tune(Motor motor) {
+    public void tune(MotorInterface motor) {
 
     }
 }

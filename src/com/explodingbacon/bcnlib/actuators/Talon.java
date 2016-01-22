@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.actuators;
 
-public class Talon extends edu.wpi.first.wpilibj.Talon implements com.explodingbacon.bcnlib.actuators.Motor{
+public class Talon extends edu.wpi.first.wpilibj.Talon implements MotorInterface {
 
     int polarity = 1;
 

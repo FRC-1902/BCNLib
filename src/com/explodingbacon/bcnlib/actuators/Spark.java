@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.actuators;
 
-public class Spark extends edu.wpi.first.wpilibj.Spark implements com.explodingbacon.bcnlib.actuators.Motor {
+public class Spark extends edu.wpi.first.wpilibj.Spark implements MotorInterface {
 
     int polarity = 1;
 

@@ -1,6 +1,7 @@
 package com.explodingbacon.bcnlib.utils;
 
-import com.explodingbacon.bcnlib.actuators.Motor;
+import com.explodingbacon.bcnlib.actuators.MotorInterface;
+
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,10 +14,10 @@ import java.util.List;
  * @version 2016.1.19
  */
 
-public class MotorGroup implements Motor {
+public class MotorGroup implements MotorInterface {
 
-	private List<Motor> motors = new ArrayList<>();
-	private List<Boolean> inverts = new ArrayList<>();
+    private List<MotorInterface> motors = new ArrayList<>();
+    private List<Boolean> inverts = new ArrayList<>();
     private double power = 0;
     private boolean reversed = false;
 
@@ -29,9 +30,9 @@ public class MotorGroup implements Motor {
      * Creates a MotorGroup that consists of motorArray's Motors.
      * @param motorArray The Motors to be a part of this MotorGroup.
      */
-	public MotorGroup(Motor... motorArray) {
-		for (Motor m : motorArray) {
-			motors.add(m);
+    public MotorGroup(MotorInterface... motorArray) {
+        for (MotorInterface m : motorArray) {
+            motors.add(m);
 			inverts.add(false);
 		}
 	}
@@ -42,7 +43,7 @@ public class MotorGroup implements Motor {
      * @param ids The IDs of all the motors.
      * @param <T> Any class that extends Motor.
      */
-    public <T extends Motor> MotorGroup(Class<T> type, Integer... ids) {
+    public <T extends MotorInterface> MotorGroup(Class<T> type, Integer... ids) {
         addMotors(type, ids);
     }
 
@@ -51,7 +52,10 @@ public class MotorGroup implements Motor {
      * @param m The Motor to add.
      * @return This MotorGroup.
      */
-    public MotorGroup addMotor(Motor m) { addMotor(m, false); return this; }
+    public MotorGroup addMotor(MotorInterface m) {
+        addMotor(m, false);
+        return this;
+    }
 
     /**
      * Adds a Motor to this MotorGroup.
@@ -59,7 +63,7 @@ public class MotorGroup implements Motor {
      * @param invert Whether the Motor's direction should be reversed.
      * @return This MotorGroup.
      */
-    public MotorGroup addMotor(Motor m, boolean invert) {
+    public MotorGroup addMotor(MotorInterface m, boolean invert) {
         motors.add(m);
         inverts.add(invert);
         return this;
@@ -70,8 +74,8 @@ public class MotorGroup implements Motor {
      * @param moreMotors The Motors to be added.
      * @return This MotorGroup.
      */
-    public MotorGroup addMotors(Motor... moreMotors) {
-        for (Motor m : moreMotors) {
+    public MotorGroup addMotors(MotorInterface... moreMotors) {
+        for (MotorInterface m : moreMotors) {
             motors.add(m);
             inverts.add(false);
         }
@@ -85,7 +89,7 @@ public class MotorGroup implements Motor {
      * @param <T> Any class that extends Motor.
      * @return This MotorGroup.
      */
-    public <T extends Motor> MotorGroup addMotors(Class<T> type, Integer... ids) {
+    public <T extends MotorInterface> MotorGroup addMotors(Class<T> type, Integer... ids) {
         try {
             Constructor[] allCons = type.getConstructors();
             if (allCons.length > 0) {
@@ -120,7 +124,7 @@ public class MotorGroup implements Motor {
     @Override
 	public void setPower(double d) {
 		int index = 0;
-		for (Motor m : motors) {
+        for (MotorInterface m : motors) {
             double speed = inverts.get(index) ? -d : d; //Inverts the speed based off of that motor's invert value
 			m.setPower(reversed ? -speed : speed); //Sets the motor's speed and possibly inverts it if the MotorGroup as a whole is inverted
 			index++;
@@ -142,7 +146,7 @@ public class MotorGroup implements Motor {
      * Gets all the motors in this MotorGroup.
      * @return All the motors in this MotorGroup.
      */
-    public List<Motor> getMotors() {
+    public List<MotorInterface> getMotors() {
         return new ArrayList<>(motors);
     }
 

@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.actuators;
 
-public class Jaguar extends edu.wpi.first.wpilibj.Jaguar implements com.explodingbacon.bcnlib.actuators.Motor{
+public class Jaguar extends edu.wpi.first.wpilibj.Jaguar implements MotorInterface {
 
     int polarity = 1;
 

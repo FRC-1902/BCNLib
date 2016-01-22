@@ -6,7 +6,7 @@ package com.explodingbacon.bcnlib.actuators;
  * @author Dominic Canora
  * @version 2016.1.0
  */
-public interface Motor {
+public interface MotorInterface {
     /**
      * Set a motor's power
      * @param power Value between 1 and -1 where -1 is full reverse, 1 is full forward, and 0 is stopped.

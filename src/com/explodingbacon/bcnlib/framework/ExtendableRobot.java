@@ -1,10 +1,9 @@
 package com.explodingbacon.bcnlib.framework;
 
-import com.explodingbacon.bcnlib.actuators.Motor;
-import com.explodingbacon.bcnlib.framework.StopCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import java.util.ArrayList;
 import java.util.List;
 

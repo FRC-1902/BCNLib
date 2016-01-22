@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.actuators;
 
-public class Victor extends edu.wpi.first.wpilibj.Victor implements com.explodingbacon.bcnlib.actuators.Motor{
+public class Victor extends edu.wpi.first.wpilibj.Victor implements MotorInterface {
 
     int polarity = 1;
 

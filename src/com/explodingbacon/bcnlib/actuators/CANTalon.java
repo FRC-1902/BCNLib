@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.actuators;
 
-public class CANTalon extends edu.wpi.first.wpilibj.CANTalon implements com.explodingbacon.bcnlib.actuators.Motor{
+public class CANTalon extends edu.wpi.first.wpilibj.CANTalon implements MotorInterface {
 
     int polarity = 1;
 

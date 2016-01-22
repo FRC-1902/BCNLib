@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.actuators;
 
-public class SD540 extends edu.wpi.first.wpilibj.SD540 implements com.explodingbacon.bcnlib.actuators.Motor {
+public class SD540 extends edu.wpi.first.wpilibj.SD540 implements MotorInterface {
 
     int polarity = 1;
 

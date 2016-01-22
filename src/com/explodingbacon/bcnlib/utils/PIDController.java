@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.utils;
 
-import com.explodingbacon.bcnlib.actuators.Motor;
+import com.explodingbacon.bcnlib.actuators.MotorInterface;
 import edu.wpi.first.wpilibj.Encoder;
 
 /**
@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Encoder;
  * @version 2016.1.0
  */
 public class PIDController implements Runnable { //TODO: Check this
-    private Motor m;
+    private MotorInterface m;
     private Encoder e;
     private Mode mode;
     private double kP, kI, kD;
@@ -37,7 +37,7 @@ public class PIDController implements Runnable { //TODO: Check this
      * @param kI Integral tuning variable. Set to 0 to disable to I term.
      * @param kD Derivative tuning variable. Set to 0 to disable the D term.
      */
-    public PIDController(Motor m, Encoder e, Mode mode, int kP, int kI, int kD) {
+    public PIDController(MotorInterface m, Encoder e, Mode mode, int kP, int kI, int kD) {
         this.m = m;
         this.e = e;
         this.mode = mode;
@@ -63,7 +63,7 @@ public class PIDController implements Runnable { //TODO: Check this
      * @param min The minimum target to the motor. Values below this will be scaled down to 0.
      * @param max The maximum target to the motor. Values above this will be scaled to this value.
      */
-    public PIDController(Motor m, Encoder e, Mode mode, int kP, int kI, int kD, double min, double max) {
+    public PIDController(MotorInterface m, Encoder e, Mode mode, int kP, int kI, int kD, double min, double max) {
         this.m = m;
         this.e = e;
         this.mode = mode;

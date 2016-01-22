@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.actuators;
 
-public class Relay extends edu.wpi.first.wpilibj.Relay implements com.explodingbacon.bcnlib.actuators.Motor {
+public class Relay extends edu.wpi.first.wpilibj.Relay implements MotorInterface {
 
     boolean reversed = false;
     double currentPower = 0;
