@@ -7,7 +7,7 @@ package com.explodingbacon.bcnlib.framework;
 
 public interface Button {
 
-    public boolean get();
+    boolean get();
 
-    public boolean getPrevious();
+    boolean getPrevious();
 }
