@@ -5,7 +5,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * @author Ryan Shavell
- * @version 2016.1.21
+ * @version 2016.1.22
  */
 
 public class Motor {
@@ -20,12 +20,19 @@ public class Motor {
      * @param <T> A class that extends SpeedController.
      */
     public <T extends SpeedController> Motor(Class<T> clazz, int channel) {
-        Constructor[] constructors = clazz.getConstructors();
-        if (constructors.length > 0) {
-            try {
-                sc = (SpeedController) constructors[0].newInstance(channel);
-            } catch (Exception e) {}
-        }
+        try {
+            Constructor[] constructors = clazz.getConstructors();
+            if (constructors.length > 0) {
+                for (Constructor c : constructors) {
+                    Class[] paramTypes = c.getParameterTypes();
+                    if (paramTypes.length == 1 && (paramTypes[0] == Integer.class || paramTypes[0] == int.class)) {
+                        sc = (SpeedController) c.newInstance(channel);
+                        break;
+                    }
+                }
+                if (sc == null) System.out.println("The SpeedController class given to Motor.java does not have a constructor that accepts an Integer as it's only argument!");
+            }
+        } catch (Exception e) {}
     }
 
     /**

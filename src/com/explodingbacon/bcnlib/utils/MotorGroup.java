@@ -10,7 +10,7 @@ import java.util.List;
  * A class that lets you group together motors and mass-set their speeds. Specific motors can also be inverted.
  *
  * @author Ryan Shavell
- * @version 2016.1.21
+ * @version 2016.1.22
  */
 
 public class MotorGroup extends Motor {
@@ -23,24 +23,27 @@ public class MotorGroup extends Motor {
     /**
      * Creates a MotorGroup.
      */
-    public MotorGroup() {}
+    public MotorGroup() {
+    }
 
     /**
      * Creates a MotorGroup that consists of motorArray's Motors.
+     *
      * @param motorArray The Motors to be a part of this MotorGroup.
      */
     public MotorGroup(Motor... motorArray) {
         for (Motor m : motorArray) {
             motors.add(m);
-			inverts.add(false);
-		}
-	}
+            inverts.add(false);
+        }
+    }
 
     /**
      * Creates a MotorGroup full of Motors of class "type".
+     *
      * @param type The class that the Motor objects will be.
-     * @param ids The IDs of all the motors.
-     * @param <T> Any class that extends Motor.
+     * @param ids  The IDs of all the motors.
+     * @param <T>  Any class that extends Motor.
      */
     public <T extends SpeedController> MotorGroup(Class<T> type, Integer... ids) {
         addMotors(type, ids);
@@ -48,6 +51,7 @@ public class MotorGroup extends Motor {
 
     /**
      * Adds a Motor to this MotorGroup.
+     *
      * @param m The Motor to add.
      * @return This MotorGroup.
      */
@@ -58,7 +62,8 @@ public class MotorGroup extends Motor {
 
     /**
      * Adds a Motor to this MotorGroup.
-     * @param m The Motor to add.
+     *
+     * @param m      The Motor to add.
      * @param invert Whether the Motor's direction should be reversed.
      * @return This MotorGroup.
      */
@@ -70,6 +75,7 @@ public class MotorGroup extends Motor {
 
     /**
      * Adds Motors to this MotorGroup.
+     *
      * @param moreMotors The Motors to be added.
      * @return This MotorGroup.
      */
@@ -83,13 +89,14 @@ public class MotorGroup extends Motor {
 
     /**
      * Adds Motors of class "type".
+     *
      * @param type The class that the Motor objects will be.
-     * @param ids The IDs of the motors.
-     * @param <T> Any class that extends Motor.
+     * @param ids  The IDs of the motors.
+     * @param <T>  Any class that extends Motor.
      * @return This MotorGroup.
      */
     public <T extends SpeedController> MotorGroup addMotors(Class<T> type, Integer... ids) {
-        for (int i=0; i< ids.length; i++) {
+        for (int i = 0; i < ids.length; i++) {
             motors.add(new Motor(type, ids[i]));
             inverts.add(false);
         }
@@ -98,6 +105,7 @@ public class MotorGroup extends Motor {
 
     /**
      * Sets the invert statuses of all the Motors in this MotorGroup.
+     *
      * @param newInverts All the new invert statuses. Must be the same length as the motor list.
      * @return This MotorGroup.
      */
@@ -112,15 +120,15 @@ public class MotorGroup extends Motor {
     }
 
     @Override
-	public void setPower(double d) {
-		int index = 0;
+    public void setPower(double d) {
+        int index = 0;
         for (Motor m : motors) {
             double speed = inverts.get(index) ? -d : d; //Inverts the speed based off of that motor's invert value
-			m.setPower(reversed ? -speed : speed); //Sets the motor's speed and possibly inverts it if the MotorGroup as a whole is inverted
-			index++;
-		}
+            m.setPower(reversed ? -speed : speed); //Sets the motor's speed and possibly inverts it if the MotorGroup as a whole is inverted
+            index++;
+        }
         power = d;
-	}
+    }
 
     @Override
     public double getPower() {
@@ -134,6 +142,7 @@ public class MotorGroup extends Motor {
 
     /**
      * Gets all the motors in this MotorGroup.
+     *
      * @return All the motors in this MotorGroup.
      */
     public List<Motor> getMotors() {
@@ -142,6 +151,7 @@ public class MotorGroup extends Motor {
 
     /**
      * Gets how many motors are in this MotorGroup.
+     *
      * @return How many motors are in this MotorGroup.
      */
     public int getMotorCount() {
