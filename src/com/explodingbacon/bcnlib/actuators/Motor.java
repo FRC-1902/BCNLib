@@ -2,11 +2,11 @@ package com.explodingbacon.bcnlib.actuators;
 
 import java.lang.reflect.Constructor;
 
-public class GenericMotor implements MotorInterface {
+public class Motor implements MotorInterface {
 
     MotorInterface motor;
 
-    public <T extends MotorInterface> GenericMotor(Class<T> c, int id) {
+    public <T extends MotorInterface> Motor(Class<T> c, int id) {
         Constructor<?>[] constructor = c.getConstructors();
         try {
             this.motor = (MotorInterface) constructor[0].newInstance(id);
