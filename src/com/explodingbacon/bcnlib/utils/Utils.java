@@ -1,5 +1,7 @@
 package com.explodingbacon.bcnlib.utils;
 
+import java.lang.reflect.Method;
+
 public class Utils {
 
     /**
@@ -26,7 +28,18 @@ public class Utils {
         double sign = 1;
         if (d != 0) {
             sign = (Math.abs(d) / d);
+
         }
         return sign;
+    }
+
+    public static Object callMethod(Object o, String s, Object... args) {
+        try {
+            Method method = o.getClass().getMethod(s);
+            return method.invoke(o, args);
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return null;
+        }
     }
 }

@@ -5,15 +5,15 @@ import com.explodingbacon.bcnlib.framework.Command;
 public class ExampleCommand extends Command {
 
     @Override
-    public void init() {
+    public void onInit() {
         System.out.println("Oink Oink...");
     }
 
     @Override
-    public void loop() {}
+    public void onLoop() {}
 
     @Override
-    public void stop() {
+    public void onStop() {
         System.out.println("Boom!");
     }
 

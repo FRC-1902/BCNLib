@@ -32,7 +32,7 @@ public class CommandGroup extends Command {
     }
 
     @Override
-    public void init() {
+    public void onInit() {
         for (Command c : commands) {
             ExtendableOI.runCommand(c);
             c.waitTillFinished();
@@ -40,10 +40,10 @@ public class CommandGroup extends Command {
     }
 
     @Override
-    public void loop() {}
+    public void onLoop() {}
 
     @Override
-    public void stop() {}
+    public void onStop() {}
 
     @Override
     public boolean isFinished() { return true; }

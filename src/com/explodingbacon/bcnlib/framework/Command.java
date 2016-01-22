@@ -40,7 +40,7 @@ public abstract class Command implements Runnable {
     }
 
     /**
-     * Blocks until the command has finished execution. Note that this method will not return until the <code>stop</code>
+     * Blocks until the command has finished execution. Note that this method will not return until the <code>onStop</code>
      * method has returned.
      */
     public void waitTillFinished() {
@@ -62,31 +62,31 @@ public abstract class Command implements Runnable {
     }
 
     /**
-     * Forces this command to stop running.
+     * Forces this command to onStop running.
      */
-    public void cancel() {
+    public void forceStop() {
         cancel = true;
     }
 
     /**
      * Runs once every time the <code>Command</code> is started.
      */
-    public abstract void init();
+    public abstract void onInit();
 
     /**
      * Runs continuously until <code>isFinished</code> returns true. Is not guaranteed to run.
      */
-    public abstract void loop();
+    public abstract void onLoop();
 
     /**
-     * Runs once when <code>isFinished</code> returns true and <code>loop</code> finishes.
+     * Runs once when <code>isFinished</code> returns true and <code>onLoop</code> finishes.
      */
-    public abstract void stop();
+    public abstract void onStop();
 
     /**
-     * User-implemented method to check if <code>loop</code> should stop executing.
+     * User-implemented method to check if <code>onLoop</code> should onStop executing.
      *
-     * @return True when <code>loop</code> should stop executing
+     * @return True when <code>onLoop</code> should onStop executing
      */
     public abstract boolean isFinished();
 
@@ -99,12 +99,12 @@ public abstract class Command implements Runnable {
         if (requiredSub != null)
             requiredSub.takeControl(this);
 
-        init();
+        onInit();
         while (!isFinished() && !cancel) {
-            loop();
+            onLoop();
         }
         cancel = false;
-        stop();
+        onStop();
 
         if (requiredSub != null)
             requiredSub.releaseControl(this);

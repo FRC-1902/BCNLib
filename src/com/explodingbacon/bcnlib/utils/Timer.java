@@ -48,7 +48,7 @@ public class Timer implements Runnable {
     }
 
     /**
-     * The loop that makes this timer work. Don't call this.
+     * The onLoop that makes this timer work. Don't call this.
      */
     @Override
     public void run() {

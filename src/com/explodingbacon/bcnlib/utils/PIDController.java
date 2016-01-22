@@ -137,7 +137,7 @@ public class PIDController implements Runnable { //TODO: Check this
     }
 
     /**
-     * On-the-fly re-tuning of the loop. Be careful here, there shouldn't be any reason to use this except to tune.
+     * On-the-fly re-tuning of the onLoop. Be careful here, there shouldn't be any reason to use this except to tune.
      * For safety, this disables and resets the <code>PIDController</code>
      *
      * @param kP  Proportional tuning variable. Set to 0 to disable the P term.
