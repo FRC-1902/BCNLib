@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * UNFINISHED.
  * <p><p>
  * USAGE: Create the object and call start. Hold joystick button 1. ExtendableRobot will run for 5 seconds. When the robot stops,
- * release the button and reset any mechanism related to the PID loop. Repeat until the console shows a set of PID values.
+ * release the button and reset any mechanism related to the PID onLoop. Repeat until the console shows a set of PID values.
  *
  *
  * @author Dominic Canora

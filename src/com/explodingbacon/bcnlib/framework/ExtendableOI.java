@@ -14,6 +14,8 @@ import java.util.List;
 public abstract class ExtendableOI extends CodeThread {
 
     private static List<Trigger> triggers = new ArrayList<>();
+    private static List<Subsystem> disabledSubsystems = new ArrayList<>();
+
     public static NetTable netTable = new NetTable("Robot_OI");
     private static List<NetButton> netButtons = new ArrayList<>();
     private static List<NetJoystick> netJoysticks = new ArrayList<>();
@@ -72,6 +74,14 @@ public abstract class ExtendableOI extends CodeThread {
     }
 
     /**
+     * Disables a Subsystem, stopping all its running Commands and preventing new ones from being started.
+     * @param s The Subsystem to be disabled.
+     */
+    public static void disableSubsystem(Subsystem s) {
+        disabledSubsystems.add(s);
+    }
+
+    /**
      * Adds a NetButton to the update list.
      * @param b The NetButton to be added.
      */
@@ -111,19 +121,25 @@ public abstract class ExtendableOI extends CodeThread {
         }
         synchronized (TRIGGERS_EDIT) {
             for (Trigger t : triggers) {
-                if (t.t == TriggerType.PRESS) {
-                    if (!t.b.getPrevious() && t.b.get()) { //If the button wasn't pressed before and now is
-                        t.c.start();
+                if (t.c.requiredSub == null || !disabledSubsystems.contains(t.c.requiredSub)) {
+                    if (t.t == TriggerType.PRESS) {
+                        if (!t.b.getPrevious() && t.b.get()) { //If the button wasn't pressed before and now is
+                            t.c.start();
+                        }
+                    } else if (t.t == TriggerType.RELEASE) {
+                        if (t.b.getPrevious() && !t.b.get()) { //If the button was pressed before and now isn't
+                            t.c.start();
+                        }
+                    } else if (t.t == TriggerType.WHILE_HELD) {
+                        if (t.b.get() && !t.c.isRunning()) { //If the button is pressed and the command isn't started already
+                            t.c.start();
+                        } else if (!t.b.get() && t.c.isRunning()) { //If the button is released and the command is still running
+                            t.c.forceStop();
+                        }
                     }
-                } else if (t.t == TriggerType.RELEASE) {
-                    if (t.b.getPrevious() && !t.b.get()) { //If the button was pressed before and now isn't
-                        t.c.start();
-                    }
-                } else if (t.t == TriggerType.WHILE_HELD) {
-                    if (t.b.get() && !t.c.isRunning()) { //If the button is pressed and the command isn't started already
-                        t.c.start();
-                    } else if (!t.b.get() && t.c.isRunning()) { //If the button is released and the command is still running
-                        t.c.cancel();
+                } else if (t.c.requiredSub != null) {
+                    if (t.c.isRunning()) {
+                        t.c.forceStop();
                     }
                 }
             }

@@ -42,11 +42,11 @@ public abstract class Subsystem {
     }
 
     /**
-     * Makes whatever command that is controlling this subsystem stop and release it.
+     * Makes whatever command that is controlling this subsystem onStop and release it.
      */
     public void releaseControl() {
         if (inUseBy != null) {
-            inUseBy.stop();
+            inUseBy.onStop();
         }
     }
 
@@ -68,7 +68,7 @@ public abstract class Subsystem {
     }
 
     /**
-     * Void that should stop all motion in this <code>Subsystem</code> when called.
+     * Void that should onStop all motion in this <code>Subsystem</code> when called.
      * <p>
      * Called automatically when a <code>Command</code> takes control of this <code>Subsystem</code>, and can be called
      * by any <code>Command</code> using any <code>Subsystem</code> for ease of control.

@@ -15,17 +15,17 @@ public class StopCommand extends Command {
     }
 
     @Override
-    public void init() {}
+    public void onInit() {}
 
     @Override
-    public void loop() {
+    public void onLoop() {
         if (!SmartDashboard.getBoolean(requiredSub.getName(), false)) { //If the subsystem is not enabled in SmartDashboard
             requiredSub.stop();
         }
     }
 
     @Override
-    public void stop() { requiredSub.releaseControl(this); }
+    public void onStop() { requiredSub.releaseControl(this); }
 
     @Override
     public boolean isFinished() {
