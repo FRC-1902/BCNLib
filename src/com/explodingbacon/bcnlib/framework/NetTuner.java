@@ -14,17 +14,14 @@ public class NetTuner {
     }
 
     public void addTrackedKey(String key) {
-        key = key.replace(' ', '_');
         table.putNumber(key, 0);
     }
 
     public double get(String key) {
-        key = key.replace(' ', '_');
         return table.getNumber(key, 0);
     }
 
     public void tune(String key, Motor motor) {
-        key = key.replace(' ', '_');
         addTrackedKey(key);
         motors.put(key, motor);
     }
