@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.actuators;
 
+import com.explodingbacon.bcnlib.framework.ExtendableRobot;
 import com.explodingbacon.bcnlib.framework.NetTuner;
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -101,6 +102,10 @@ public class Motor {
      */
     public void setReversed(boolean b) {
         reverse = b;
+    }
+
+    public void tune(String key) {
+        ExtendableRobot.getRobot().oi.tuner.tune(key, this);
     }
 
     /**
