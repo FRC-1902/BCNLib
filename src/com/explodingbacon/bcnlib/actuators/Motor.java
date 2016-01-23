@@ -7,7 +7,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * @author Ryan Shavell
- * @version 2016.1.22
+ * @version 2016.1.23
  */
 
 public class Motor {
@@ -33,8 +33,7 @@ public class Motor {
                         break;
                     }
                 }
-                if (sc == null) System.out.println("The SpeedController class given to Motor.java does not have a " +
-                        "constructor that accepts an Integer as it's only argument!");
+                if (sc == null) System.out.println("The SpeedController class given to Motor.java does not have a constructor that accepts an Integer as its only argument!");
             }
         } catch (Exception ignored) {
         }
@@ -46,6 +45,10 @@ public class Motor {
      */
     public Motor(SpeedController s) {
         sc = s;
+        if (sc.getInverted()) {
+            sc.setInverted(false);
+            setReversed(true);
+        }
     }
 
     /**
@@ -97,5 +100,17 @@ public class Motor {
      */
     public void setReversed(boolean b) {
         reverse = b;
+    }
+
+    /**
+     * Gets this Motor's class.
+     * @return This Motor's class.
+     */
+    public Class getMotorClass() {
+        if (sc != null) {
+            return sc.getClass();
+        } else {
+            return getClass();
+        }
     }
 }

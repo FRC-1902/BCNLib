@@ -159,7 +159,7 @@ public abstract class ExtendableOI extends CodeThread {
         NOTHING
     }
 
-    public static class Trigger {
+    protected static class Trigger {
         public Command c;
         public Button b;
         public TriggerType t;
