@@ -26,6 +26,10 @@ public class NetTuner {
         motors.put(key, motor);
     }
 
+    public void stopTune(String key) {
+        motors.remove(key);
+    }
+
     protected void refresh() {
         for (String key : motors.keySet()) {
             motors.get(key).setPower(this, get(key));

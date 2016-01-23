@@ -10,7 +10,7 @@ import java.util.List;
  * A class that lets you group together motors and mass-set their speeds. Specific motors can also be inverted.
  *
  * @author Ryan Shavell
- * @version 2016.1.22
+ * @version 2016.1.23
  */
 
 public class MotorGroup extends Motor {
@@ -24,6 +24,7 @@ public class MotorGroup extends Motor {
      * Creates a MotorGroup.
      */
     public MotorGroup() {
+        super();
     }
 
     /**
@@ -32,6 +33,7 @@ public class MotorGroup extends Motor {
      * @param motorArray The Motors to be a part of this MotorGroup.
      */
     public MotorGroup(Motor... motorArray) {
+        super();
         for (Motor m : motorArray) {
             motors.add(m);
             inverts.add(false);
@@ -46,6 +48,7 @@ public class MotorGroup extends Motor {
      * @param <T>  Any class that extends Motor.
      */
     public <T extends SpeedController> MotorGroup(Class<T> type, Integer... ids) {
+        super();
         addMotors(type, ids);
     }
 

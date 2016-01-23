@@ -3,8 +3,10 @@ package com.explodingbacon.bcnlib.actuators;
 import com.explodingbacon.bcnlib.framework.ExtendableRobot;
 import com.explodingbacon.bcnlib.framework.NetTuner;
 import edu.wpi.first.wpilibj.SpeedController;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ryan Shavell
@@ -14,8 +16,11 @@ import java.lang.reflect.Constructor;
 public class Motor {
 
     protected SpeedController sc = null;
+    protected int channel = -1;
     protected boolean reverse = false;
     protected boolean isTuning = false;
+    protected String tuningKey = "";
+    private static List<Motor> allMotors = new ArrayList<>();
 
     /**
      * Standard constructor for Motor.
@@ -24,6 +29,7 @@ public class Motor {
      * @param <T> A class that extends SpeedController.
      */
     public <T extends SpeedController> Motor(Class<T> clazz, int channel) {
+        this.channel = channel;
         try {
             Constructor[] constructors = clazz.getConstructors();
             if (constructors.length > 0) {
@@ -39,6 +45,7 @@ public class Motor {
             }
         } catch (Exception ignored) {
         }
+        allMotors.add(this);
     }
 
     /**
@@ -47,13 +54,18 @@ public class Motor {
      */
     public Motor(SpeedController s) {
         sc = s;
+        if (s.getInverted()) {
+            s.setInverted(false);
+            setReversed(true);
+        }
+        allMotors.add(this);
     }
 
     /**
      * The constructor to be used when an implementation of Motor does not require the use of a SpeedController. If this
      * constructor is being used, you'll need to override getPower() and setPower() to not use the "sc" variable.
      */
-    protected Motor() {}
+    protected Motor() { allMotors.add(this); }
 
     /**
      * Gets the current power of this Motor. Motor power ranges from 1 to -1.
@@ -70,6 +82,7 @@ public class Motor {
     public void setPower(double d) {
         if (isTuning) return;
         sc.set(reverse ? -d : d);
+        SmartDashboard.putNumber(getDefaultSDBKey(), getPower());
     }
 
     /**
@@ -100,8 +113,38 @@ public class Motor {
         reverse = b;
     }
 
-    public void tune(String key) {
-        ExtendableRobot.getRobot().oi.tuner.tune(key, this);
+    /**
+     * Checks if this Motor is in tuning mode.
+     * @return If this Motor is in tuning mode.
+     */
+    public boolean isTuning() {
+        return isTuning;
+    }
+
+    /**
+     * Puts this Motor into tuning mode.
+     */
+    public void tune() {
+        tune(getDefaultSDBKey());
+    }
+
+    /**
+     * Puts this Motor into tuning mode under a specific key.
+     * @param k The specific key.
+     */
+    public void tune(String k) {
+        ExtendableRobot.getRobot().oi.tuner.tune(k, this);
+        isTuning = true;
+        tuningKey = k;
+    }
+
+    /**
+     * Takes this Motor out of tuning mode.
+     */
+    public void stopTuning() {
+        ExtendableRobot.getRobot().oi.tuner.stopTune(tuningKey);
+        isTuning = false;
+        tuningKey = "";
     }
 
     /**
@@ -114,5 +157,21 @@ public class Motor {
         } else {
             return getClass();
         }
+    }
+
+    /**
+     * Gets the default SmartDashboard key for this Motor.
+     * @return The default SmartDashboard key for this Motor.
+     */
+    public String getDefaultSDBKey() {
+        return "" + getMotorClass().getSimpleName() + "_" + channel;
+    }
+
+    /**
+     * Gets all the Motors that have been created.
+     * @return All the Motors that have been created.
+     */
+    public static List<Motor> getAllMotors() {
+        return new ArrayList<>(allMotors);
     }
 }
