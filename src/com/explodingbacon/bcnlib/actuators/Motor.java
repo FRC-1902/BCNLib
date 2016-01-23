@@ -73,7 +73,7 @@ public class Motor {
      */
     public void setPower(double d) {
         if (isTuning) return;
-        sc.set(d);
+        sc.set(reverse ? -d : d);
     }
 
     /**
@@ -85,7 +85,7 @@ public class Motor {
      */
     public void setPower(NetTuner t, double d) {
         if (t == null) return;
-        sc.set(d);
+        sc.set(reverse ? -d : d);
     }
 
     /**
