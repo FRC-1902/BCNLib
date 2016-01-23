@@ -47,10 +47,6 @@ public class Motor {
      */
     public Motor(SpeedController s) {
         sc = s;
-        if (sc.getInverted()) {
-            sc.setInverted(false);
-            setReversed(true);
-        }
     }
 
     /**
