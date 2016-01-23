@@ -33,7 +33,8 @@ public class Motor {
                         break;
                     }
                 }
-                if (sc == null) System.out.println("The SpeedController class given to Motor.java does not have a constructor that accepts an Integer as it's only argument!");
+                if (sc == null) System.out.println("The SpeedController class given to Motor.java does not have a " +
+                        "constructor that accepts an Integer as it's only argument!");
             }
         } catch (Exception ignored) {
         }
