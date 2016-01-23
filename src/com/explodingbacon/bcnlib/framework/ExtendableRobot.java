@@ -20,7 +20,6 @@ public abstract class ExtendableRobot extends IterativeRobot {
     public static List<Subsystem> subsystems = new ArrayList<>();
 
     public ExtendableOI oi;
-    public static NetTuner tuner = new NetTuner();
     public RobotMap robotMap;
 
     private static ExtendableRobot self;

@@ -1,6 +1,8 @@
 package com.explodingbacon.bcnlib.actuators;
 
+import com.explodingbacon.bcnlib.framework.NetTuner;
 import edu.wpi.first.wpilibj.SpeedController;
+
 import java.lang.reflect.Constructor;
 
 /**
@@ -12,6 +14,7 @@ public class Motor {
 
     protected SpeedController sc = null;
     protected boolean reverse = false;
+    protected boolean isTuning = false;
 
     /**
      * Standard constructor for Motor.
@@ -32,7 +35,8 @@ public class Motor {
                 }
                 if (sc == null) System.out.println("The SpeedController class given to Motor.java does not have a constructor that accepts an Integer as it's only argument!");
             }
-        } catch (Exception e) {}
+        } catch (Exception ignored) {
+        }
     }
 
     /**
@@ -62,6 +66,19 @@ public class Motor {
      * @param d The new power of this Motor.
      */
     public void setPower(double d) {
+        if (isTuning) return;
+        sc.set(d);
+    }
+
+    /**
+     * Sets the current power of this Motor. Motor power ranges from 1 to -1. This method should only be called from
+     * BCNLib packages, since it overrides any restrictions.
+     *
+     * @param t A valid NetTuner, for access control.
+     * @param d The new power of this Motor
+     */
+    public void setPower(NetTuner t, double d) {
+        if (t == null) return;
         sc.set(d);
     }
 

@@ -1,6 +1,7 @@
 package com.explodingbacon.bcnlib.framework;
 
 import com.explodingbacon.bcnlib.utils.CodeThread;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,8 @@ public abstract class ExtendableOI extends CodeThread {
     public static NetTable netTable = new NetTable("Robot_OI");
     private static List<NetButton> netButtons = new ArrayList<>();
     private static List<NetJoystick> netJoysticks = new ArrayList<>();
+
+    public static NetTuner tuner = new NetTuner();
 
     private static final Object TRIGGERS_EDIT = new Object();
     private static final Object BUTTONS_EDIT = new Object();
@@ -144,6 +147,8 @@ public abstract class ExtendableOI extends CodeThread {
                 }
             }
         }
+
+        tuner.refresh();
     }
 
     public enum TriggerType {
