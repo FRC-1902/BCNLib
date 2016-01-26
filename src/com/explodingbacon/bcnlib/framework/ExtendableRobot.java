@@ -1,9 +1,9 @@
 package com.explodingbacon.bcnlib.framework;
 
+import com.explodingbacon.bcnlib.actuators.Motor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * call super when you override a method, or else the entire framework will break.
  *
  * @author Ryan Shavell
- * @version 2016.1.18
+ * @version 2016.1.25
  */
 
 public abstract class ExtendableRobot extends IterativeRobot {
@@ -29,13 +29,16 @@ public abstract class ExtendableRobot extends IterativeRobot {
     }
 
     @Override
+    public void teleopInit() {
+        for (Motor m : Motor.getAllMotors()) {
+            if (m.isTuning()) m.stopTuning();
+        }
+    }
+
+    @Override
     public void testInit() {
-        for (Subsystem sub : subsystems) {
-            if (!SmartDashboard.getBoolean(sub.getName(), false)) {
-                ExtendableOI.runCommand(new StopCommand(sub));
-                SmartDashboard.putBoolean(sub.getName(), false);
-            }
-            //Use subsystem.releaseControl() when you want to re-enable the subsystem.
+        for (Motor m : Motor.getAllMotors()) {
+            if (!m.isTuning()) m.tune();
         }
     }
 

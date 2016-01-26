@@ -1,9 +1,13 @@
 package com.explodingbacon.bcnlib.framework;
 
 import com.explodingbacon.bcnlib.actuators.Motor;
-
 import java.util.HashMap;
 import java.util.Map;
+
+/**
+ * @author Dominic Canora
+ * @version 2016.1.0
+ */
 
 public class NetTuner {
     private NetTable table;

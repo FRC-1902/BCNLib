@@ -65,7 +65,9 @@ public class Motor {
      * The constructor to be used when an implementation of Motor does not require the use of a SpeedController. If this
      * constructor is being used, you'll need to override getPower() and setPower() to not use the "sc" variable.
      */
-    protected Motor() { allMotors.add(this); }
+    protected Motor() {
+        allMotors.add(this);
+    }
 
     /**
      * Gets the current power of this Motor. Motor power ranges from 1 to -1.
