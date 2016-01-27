@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author Ryan Shavell
- * @version 2016.1.23
+ * @version 2016.1.26
  */
 
 public class Motor {
@@ -20,6 +20,7 @@ public class Motor {
     protected boolean reverse = false;
     protected boolean isTuning = false;
     protected String tuningKey = "";
+    protected String name = "";
     private static List<Motor> allMotors = new ArrayList<>();
 
     /**
@@ -70,6 +71,16 @@ public class Motor {
     }
 
     /**
+     * Sets the name of this Motor.
+     * @param n The new name of the Motor.
+     * @return This Motor (for method chaining and variable saving)
+     */
+    public Motor setName(String n) {
+        name = n;
+        return this;
+    }
+
+    /**
      * Gets the current power of this Motor. Motor power ranges from 1 to -1.
      * @return The current power of this Motor.
      */
@@ -84,7 +95,7 @@ public class Motor {
     public void setPower(double d) {
         if (isTuning) return;
         sc.set(reverse ? -d : d);
-        SmartDashboard.putNumber(getDefaultSDBKey(), getPower());
+        SmartDashboard.putNumber(getSBKey(), getPower());
     }
 
     /**
@@ -127,7 +138,7 @@ public class Motor {
      * Puts this Motor into tuning mode.
      */
     public void tune() {
-        tune(getDefaultSDBKey());
+        tune(getSBKey());
     }
 
     /**
@@ -162,11 +173,15 @@ public class Motor {
     }
 
     /**
-     * Gets the default SmartDashboard key for this Motor.
-     * @return The default SmartDashboard key for this Motor.
+     * Gets the SmartDashboard key for this Motor.
+     * @return The SmartDashboard key for this Motor.
      */
-    public String getDefaultSDBKey() {
-        return "" + getMotorClass().getSimpleName() + "_" + channel;
+    public String getSBKey() {
+        if (!name.equals("")) {
+            return name;
+        } else {
+            return "" + getMotorClass().getSimpleName() + "_" + channel;
+        }
     }
 
     /**
