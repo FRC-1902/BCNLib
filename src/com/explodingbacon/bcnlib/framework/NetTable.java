@@ -66,4 +66,8 @@ public class NetTable {
     public void putBoolean(String key, boolean val) {
         table.putBoolean(key, val);
     }
+
+    public String[] getAllKeys() {
+        return null;
+    }
 }
