@@ -3,6 +3,8 @@ package com.explodingbacon.bcnlib.framework;
 import com.explodingbacon.bcnlib.actuators.Motor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import org.opencv.core.Core;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
  * call super when you override a method, or else the entire framework will break.
  *
  * @author Ryan Shavell
- * @version 2016.1.25
+ * @version 2016.1.27
  */
 
 public abstract class ExtendableRobot extends IterativeRobot {
@@ -19,11 +21,11 @@ public abstract class ExtendableRobot extends IterativeRobot {
     public static List<Subsystem> subsystems = new ArrayList<>();
 
     public ExtendableOI oi;
-    public RobotMap robotMap;
 
     private static ExtendableRobot self;
 
     public ExtendableRobot() {
+        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         self = this;
     }
 

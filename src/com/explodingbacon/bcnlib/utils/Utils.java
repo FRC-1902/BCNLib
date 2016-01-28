@@ -1,5 +1,7 @@
 package com.explodingbacon.bcnlib.utils;
 
+import java.awt.*;
+
 public class Utils {
 
     /**
