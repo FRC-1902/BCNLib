@@ -1,6 +1,14 @@
 package com.explodingbacon.bcnlib.vision;
 
+import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
+
+/**
+ * A wrapper class for OpenCV's VideoCapture object.
+ *
+ * @author Ryan Shavell
+ * @version 2016.1.28
+ */
 
 public class Camera {
 
@@ -12,8 +20,6 @@ public class Camera {
             Thread.sleep(1000);
             if (!isOpen()) {
                 System.out.println("Camera error!");
-            } else {
-                System.out.println("Camera working!");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -29,13 +35,13 @@ public class Camera {
     }
 
     /**
-     * Gets the current frame of the Camera.
-     * @return The current frame of the Camera.
+     * Gets the current image of the Camera.
+     * @return The current image of the Camera.
      */
-    public Image getFrame() {
-        Image i = new Image();
-        cam.read(i.getMat());
-        return i;
+    public Image getImage() {
+        Mat m = new Mat();
+        cam.read(m);
+        return new Image(m);
     }
 
     /**
