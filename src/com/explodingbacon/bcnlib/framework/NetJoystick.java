@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.framework;
  * @author Dominic Canora
  * @version 2016.1.0
  */
-public class NetJoystick {
+public class NetJoystick implements JoystickInterface {
     protected double xVal, yVal;
     protected String key;
 

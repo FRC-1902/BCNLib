@@ -66,7 +66,7 @@ public class MotorGroup extends Motor {
     /**
      * Adds a Motor to this MotorGroup.
      *
-     * @param m      The Motor to add.
+     * @param m The Motor to add.
      * @param invert Whether the Motor's direction should be reversed.
      * @return This MotorGroup.
      */
@@ -104,6 +104,13 @@ public class MotorGroup extends Motor {
             inverts.add(false);
         }
         return this;
+    }
+
+    /**
+     * Clears the list of Motors.
+     */
+    public void clearMotors() {
+        motors.clear();
     }
 
     /**
