@@ -1,6 +1,9 @@
 package com.explodingbacon.bcnlib.framework;
 
 import com.explodingbacon.bcnlib.actuators.Motor;
+import com.explodingbacon.bcnlib.event.AutonomousStartEvent;
+import com.explodingbacon.bcnlib.event.EventHandler;
+import com.explodingbacon.bcnlib.event.TeleopStartEvent;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import org.opencv.core.Core;
@@ -13,7 +16,7 @@ import java.util.List;
  * call super when you override a method, or else the entire framework will break.
  *
  * @author Ryan Shavell
- * @version 2016.1.27
+ * @version 2016.2.1
  */
 
 public abstract class ExtendableRobot extends IterativeRobot {
@@ -31,10 +34,16 @@ public abstract class ExtendableRobot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
+        EventHandler.fireEvent(new TeleopStartEvent());
         for (Motor m : Motor.getAllMotors()) {
             if (m.isTuning()) m.stopTuning();
         }
     }
+
+    @Override
+    public void autonomousInit() {
+        EventHandler.fireEvent(new AutonomousStartEvent())
+;    }
 
     @Override
     public void testInit() {
