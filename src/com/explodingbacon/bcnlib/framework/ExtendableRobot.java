@@ -1,8 +1,12 @@
 package com.explodingbacon.bcnlib.framework;
 
+import com.explodingbacon.bcnlib.actuators.Motor;
+import com.explodingbacon.bcnlib.event.AutonomousStartEvent;
+import com.explodingbacon.bcnlib.event.EventHandler;
+import com.explodingbacon.bcnlib.event.TeleopStartEvent;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.opencv.core.Core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +16,7 @@ import java.util.List;
  * call super when you override a method, or else the entire framework will break.
  *
  * @author Ryan Shavell
- * @version 2016.1.18
+ * @version 2016.2.1
  */
 
 public abstract class ExtendableRobot extends IterativeRobot {
@@ -20,23 +24,31 @@ public abstract class ExtendableRobot extends IterativeRobot {
     public static List<Subsystem> subsystems = new ArrayList<>();
 
     public ExtendableOI oi;
-    public static NetTuner tuner = new NetTuner();
-    public RobotMap robotMap;
 
     private static ExtendableRobot self;
 
     public ExtendableRobot() {
+        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         self = this;
     }
 
     @Override
+    public void teleopInit() {
+        EventHandler.fireEvent(new TeleopStartEvent());
+        for (Motor m : Motor.getAllMotors()) {
+            if (m.isTuning()) m.stopTuning();
+        }
+    }
+
+    @Override
+    public void autonomousInit() {
+        EventHandler.fireEvent(new AutonomousStartEvent())
+;    }
+
+    @Override
     public void testInit() {
-        for (Subsystem sub : subsystems) {
-            if (!SmartDashboard.getBoolean(sub.getName(), false)) {
-                ExtendableOI.runCommand(new StopCommand(sub));
-                SmartDashboard.putBoolean(sub.getName(), false);
-            }
-            //Use subsystem.releaseControl() when you want to re-enable the subsystem.
+        for (Motor m : Motor.getAllMotors()) {
+            if (!m.isTuning()) m.tune();
         }
     }
 
@@ -142,5 +154,4 @@ public abstract class ExtendableRobot extends IterativeRobot {
         RED,
         NONE
     }
-
 }

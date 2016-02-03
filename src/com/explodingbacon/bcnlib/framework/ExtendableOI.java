@@ -1,6 +1,10 @@
 package com.explodingbacon.bcnlib.framework;
 
+import com.explodingbacon.bcnlib.event.ButtonPressEvent;
+import com.explodingbacon.bcnlib.event.ButtonReleaseEvent;
+import com.explodingbacon.bcnlib.event.EventHandler;
 import com.explodingbacon.bcnlib.utils.CodeThread;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +12,7 @@ import java.util.List;
  * A class that handles spawning commands based off of button inputs.
  *
  * @author Ryan Shavell
- * @version 2016.1.20
+ * @version 2016.2.1
  */
 
 public abstract class ExtendableOI extends CodeThread {
@@ -19,6 +23,8 @@ public abstract class ExtendableOI extends CodeThread {
     public static NetTable netTable = new NetTable("Robot_OI");
     private static List<NetButton> netButtons = new ArrayList<>();
     private static List<NetJoystick> netJoysticks = new ArrayList<>();
+
+    public static NetTuner tuner = new NetTuner();
 
     private static final Object TRIGGERS_EDIT = new Object();
     private static final Object BUTTONS_EDIT = new Object();
@@ -125,10 +131,12 @@ public abstract class ExtendableOI extends CodeThread {
                     if (t.t == TriggerType.PRESS) {
                         if (!t.b.getPrevious() && t.b.get()) { //If the button wasn't pressed before and now is
                             t.c.start();
+                            if (EventHandler.isInitialized()) EventHandler.fireEvent(new ButtonPressEvent(t.b));
                         }
                     } else if (t.t == TriggerType.RELEASE) {
                         if (t.b.getPrevious() && !t.b.get()) { //If the button was pressed before and now isn't
                             t.c.start();
+                            if (EventHandler.isInitialized()) EventHandler.fireEvent(new ButtonReleaseEvent(t.b));
                         }
                     } else if (t.t == TriggerType.WHILE_HELD) {
                         if (t.b.get() && !t.c.isRunning()) { //If the button is pressed and the command isn't started already
@@ -144,6 +152,8 @@ public abstract class ExtendableOI extends CodeThread {
                 }
             }
         }
+
+        tuner.refresh();
     }
 
     public enum TriggerType {
@@ -154,7 +164,7 @@ public abstract class ExtendableOI extends CodeThread {
         NOTHING
     }
 
-    public static class Trigger {
+    protected static class Trigger {
         public Command c;
         public Button b;
         public TriggerType t;

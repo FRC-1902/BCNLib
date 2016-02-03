@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.utils;
 
-import java.lang.reflect.Method;
+import java.awt.*;
 
 public class Utils {
 
@@ -31,15 +31,5 @@ public class Utils {
 
         }
         return sign;
-    }
-
-    public static Object callMethod(Object o, String s, Object... args) {
-        try {
-            Method method = o.getClass().getMethod(s);
-            return method.invoke(o, args);
-        } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
-            return null;
-        }
     }
 }
