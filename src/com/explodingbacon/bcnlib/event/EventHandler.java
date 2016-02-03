@@ -1,7 +1,6 @@
 package com.explodingbacon.bcnlib.event;
 
 import com.explodingbacon.bcnlib.utils.CodeThread;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +8,7 @@ import java.util.List;
 
 /**
  * A class that handles the Event system. This has the functions for firing Events and is in charge of calling the
- * appropriate EventListener for said Events.
+ * appropriate EventListener method for said Events.
  *
  * @author Ryan Shavell
  * @version 2016.2.1

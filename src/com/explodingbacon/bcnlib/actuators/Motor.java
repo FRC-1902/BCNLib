@@ -1,7 +1,9 @@
 package com.explodingbacon.bcnlib.actuators;
 
 import com.explodingbacon.bcnlib.framework.ExtendableRobot;
+import com.explodingbacon.bcnlib.framework.MotorEncoder;
 import com.explodingbacon.bcnlib.framework.NetTuner;
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.lang.reflect.Constructor;
@@ -21,6 +23,7 @@ public class Motor {
     protected boolean isTuning = false;
     protected String tuningKey = "";
     protected String name = "";
+    protected MotorEncoder encoder = null;
     private static List<Motor> allMotors = new ArrayList<>();
 
     /**
@@ -46,7 +49,7 @@ public class Motor {
             }
         } catch (Exception ignored) {
         }
-        allMotors.add(this);
+        init();
     }
 
     /**
@@ -59,7 +62,7 @@ public class Motor {
             s.setInverted(false);
             setReversed(true);
         }
-        allMotors.add(this);
+        init();
     }
 
     /**
@@ -67,6 +70,13 @@ public class Motor {
      * constructor is being used, you'll need to override getPower() and setPower() to not use the "sc" variable.
      */
     protected Motor() {
+        init();
+    }
+
+    /**
+     * Initializes this Motor.
+     */
+    private void init() {
         allMotors.add(this);
     }
 
@@ -158,6 +168,22 @@ public class Motor {
         ExtendableRobot.getRobot().oi.tuner.stopTune(tuningKey);
         isTuning = false;
         tuningKey = "";
+    }
+
+    /**
+     * Gets the MotorEncoder for this Motor. Only for CANTalons currently.
+     * @return
+     */
+    public MotorEncoder getEncoder() {
+        if (encoder == null) {
+            if (sc instanceof CANTalon) {
+                encoder = new MotorEncoder((CANTalon) sc);
+            } else {
+                System.out.println("[ERROR] Attempted to get a MotorEncoder from a Motor that does not have an encoder!");
+                return null;
+            }
+        }
+        return encoder;
     }
 
     /**

@@ -1,7 +1,6 @@
 package com.explodingbacon.bcnlib.vision;
 
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
+import org.opencv.core.*;
 import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
@@ -62,7 +61,9 @@ public class Image {
      * @param high The highest acceptable color.
      */
     public void setColorRange(Color low, Color high) {
-        m.colRange(VisUtil.toBGR(low), VisUtil.toBGR(high));
+        Mat newM = new Mat();
+        Core.inRange(m, VisUtil.toScalar(low), VisUtil.toScalar(high), newM);
+        setMat(newM);
     }
 
     /**

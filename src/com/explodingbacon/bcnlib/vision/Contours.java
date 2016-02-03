@@ -11,4 +11,8 @@ public class Contours {
     protected Contours(List<MatOfPoint> con) {
         contours = new ArrayList<>(con);
     }
+
+    public List<MatOfPoint> getContours() {
+        return new ArrayList<>(contours);
+    }
 }

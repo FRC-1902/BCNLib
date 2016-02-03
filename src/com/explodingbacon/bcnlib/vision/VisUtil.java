@@ -34,6 +34,6 @@ public class VisUtil {
      * @return A Scalar.
      */
     public static Scalar toScalar(Color c) {
-        return new Scalar(c.getGreen(), c.getGreen(), c.getRed());
+        return new Scalar(c.getBlue(), c.getGreen(), c.getRed());
     }
 }
