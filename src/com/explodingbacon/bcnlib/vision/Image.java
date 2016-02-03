@@ -5,6 +5,7 @@ import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +13,18 @@ import java.util.List;
  * A wrapper class for OpenCV's Mat object.
  *
  * @author Ryan Shavell
- * @version 2016.1.28
+ * @version 2016.2.3
  */
 
 public class Image {
 
-    private Mat m;
+    protected Mat m;
 
-    protected Image() {
+    public Image() {
         m = new Mat();
     }
 
-    protected Image(Mat m) {
+    public Image(Mat m) {
         this.m = m;
     }
 
@@ -48,11 +49,17 @@ public class Image {
      *
      * @return The Contours in this Image.
      */
-    public Contours getContours() {
+    public List<Contour> getContours() {
+        List<Contour> result = new ArrayList<>();
         List<MatOfPoint> contours = new ArrayList<>();
-        Imgproc.findContours(m, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-        return new Contours(contours);
-    }
+        Mat copy = new Mat();
+        m.copyTo(copy);
+        Imgproc.findContours(copy, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        for (MatOfPoint mop : contours) {
+            result.add(new Contour(mop));
+        }
+        return result;
+}
 
     /**
      * Sets the color range of this Image. Anything outside this range becomes black.
@@ -60,10 +67,10 @@ public class Image {
      * @param low  The lowest acceptable color.
      * @param high The highest acceptable color.
      */
-    public void setColorRange(Color low, Color high) {
+    public Image colorRange(Color low, Color high) {
         Mat newM = new Mat();
         Core.inRange(m, VisUtil.toScalar(low), VisUtil.toScalar(high), newM);
-        setMat(newM);
+        return new Image(newM);
     }
 
     /**
@@ -96,8 +103,8 @@ public class Image {
      * @param con The Contours to be drawn.
      * @param c   The Color of the Contours.
      */
-    public void drawContours(Contours con, Color c) {
-        Imgproc.drawContours(m, con.contours, -1, VisUtil.toScalar(c));
+    public void drawContours(List<Contour> con, Color c) {
+        Imgproc.drawContours(m, Contour.toMatOfPoint(con), -1, VisUtil.toScalar(c));
     }
 
     /**
@@ -119,6 +126,8 @@ public class Image {
      * @param fileName The name of the file.
      */
     public void saveAs(String fileName) {
+        File f = new File(fileName);
+        if (f.exists()) f.delete();
         Imgcodecs.imwrite(fileName, m);
     }
 
