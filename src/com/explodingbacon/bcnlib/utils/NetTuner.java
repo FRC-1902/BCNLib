@@ -15,7 +15,7 @@ public class NetTuner {
     private NetTable table;
     private Map<String, Motor> motors = new HashMap<>();
 
-    protected NetTuner() {
+    public NetTuner() {
         table = new NetTable("NetTuner");
     }
 
