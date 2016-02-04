@@ -17,7 +17,7 @@ public class PIDController implements Runnable { //TODO: Check this
     private double p, i, d, lastP = 0, min, max;
     private int t = 0;
     private Thread thread;
-    private boolean enabled = false;
+    private boolean enabled = false, inverted = false;
 
 
     /**
@@ -109,6 +109,15 @@ public class PIDController implements Runnable { //TODO: Check this
     }
 
     /**
+     * Set the PIDController to invert its input
+     *
+     * @param inverted Whether the PIDController should invert its input
+     */
+    public void setInverted(Boolean inverted) {
+        this.inverted = inverted;
+    }
+
+    /**
      * Get the difference between the target and the current position, in encoder clicks.
      *
      * @return The current error, in encoder clicks
@@ -144,21 +153,25 @@ public class PIDController implements Runnable { //TODO: Check this
 
     @Override
     public void run() {
-        p = t - s.getForPID();
-        i += p;
-        d = lastP - p;
-        lastP = p;
+        if (enabled) {
+            p = t - s.getForPID();
 
-        double setpoint = p * kP + i * kI + d * kD;
-        setpoint = Utils.minMax(setpoint, 0.1, 1);
+            if (inverted) p *= -1;
 
-        if (enabled)
+            i += p;
+            d = lastP - p;
+            lastP = p;
+
+            double setpoint = p * kP + i * kI + d * kD;
+            setpoint = Utils.minMax(setpoint, 0.1, 1);
+
             m.setPower(Utils.minMax(setpoint, min, max));
 
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e1) {
-            assert false; //Not exactly sure what is proper to do here, I found this on StackExchange
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e1) {
+                assert false; //Not exactly sure what is proper to do here, I found this on StackExchange
+            }
         }
     }
 }
