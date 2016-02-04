@@ -1,7 +1,5 @@
 package com.explodingbacon.bcnlib.utils;
 
-import java.awt.*;
-
 public class Utils {
 
     /**
@@ -31,5 +29,14 @@ public class Utils {
 
         }
         return sign;
+    }
+
+    /**
+     * Rounds a Double to an Integer.
+     * @param d The Double to be rounded.
+     * @return The Integer.
+     */
+    public static int round(double d) {
+        return (int) Math.round(d);
     }
 }

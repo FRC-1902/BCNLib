@@ -1,9 +1,9 @@
 package com.explodingbacon.bcnlib.vision;
 
+import com.explodingbacon.bcnlib.utils.Utils;
 import org.opencv.core.*;
 import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,9 +67,15 @@ public class Contour extends Image {
         return getY() + (getHeight() / 2);
     }
 
+    /**
+     * Gets the bounding Rectangle of this Contour.
+     * @return The bounding Rectangle of this Contour.
+     */
     public Rectangle getBoundingRectangle() {
         Rect r = Imgproc.boundingRect(getMatOfPoint());
-        Rectangle rect = new Rectangle();
+        Point tl = r.tl();
+        Point br = r.br();
+        return new Rectangle(Utils.round(tl.x), Utils.round(tl.y), Utils.round(br.x - tl.x), Utils.round(br.y - tl.y));
     }
 
     /**

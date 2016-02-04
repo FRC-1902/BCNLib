@@ -4,6 +4,8 @@ import org.opencv.core.*;
 import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
+
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -59,7 +61,21 @@ public class Image {
             result.add(new Contour(mop));
         }
         return result;
-}
+    }
+
+    /**
+     * Gets all the human faces in this Image. TODO: Do not return an OpenCV class, return a BCNLib equivalent (Normal rectangles?)
+     * @return All the human faces in this Image.
+     */
+    public Rect[] getFaces() {
+        //TODO: Fix the resource path to the xml file
+        CascadeClassifier faceDetector = new CascadeClassifier(getClass().getResource("/lbpcascade_frontalface.xml").getPath());
+
+        MatOfRect faceDetections = new MatOfRect();
+        faceDetector.detectMultiScale(m, faceDetections);
+
+        return faceDetections.toArray();
+    }
 
     /**
      * Sets the color range of this Image. Anything outside this range becomes black.
