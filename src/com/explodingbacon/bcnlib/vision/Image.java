@@ -86,6 +86,15 @@ public class Image {
 
     /**
      * Draws a Rectangle on this Image.
+     * @param r The Rectangle to draw.
+     * @param c The Color of the Rectangle.
+     */
+    public void drawRectangle(Rectangle r, Color c) {
+        drawRectangle(r.x, r.y, r.x + r.width, r.y + r.height, c);
+    }
+
+    /**
+     * Draws a Rectangle on this Image.
      *
      * @param x  The X coordinate of the Rectangle.
      * @param y  The Y coordinate of the Rectangle.

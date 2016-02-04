@@ -1,11 +1,10 @@
 package com.explodingbacon.bcnlib.vision;
 
-import org.opencv.core.CvType;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.*;
 import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +65,11 @@ public class Contour extends Image {
      */
     public double getMiddleY() {
         return getY() + (getHeight() / 2);
+    }
+
+    public Rectangle getBoundingRectangle() {
+        Rect r = Imgproc.boundingRect(getMatOfPoint());
+        Rectangle rect = new Rectangle();
     }
 
     /**
