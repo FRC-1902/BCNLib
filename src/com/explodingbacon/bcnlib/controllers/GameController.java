@@ -1,6 +1,7 @@
-package com.explodingbacon.bcnlib.utils;
+package com.explodingbacon.bcnlib.controllers;
 
-import com.explodingbacon.bcnlib.control.Joystick;
+import com.explodingbacon.bcnlib.utils.Timer;
+import com.explodingbacon.bcnlib.utils.TimerUser;
 
 /**
  * An extension class of Joystick that makes it much easier to do XboxController-specific things, such as reading from the DPad or rumbling.

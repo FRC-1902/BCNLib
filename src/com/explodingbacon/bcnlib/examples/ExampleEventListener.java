@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.examples;
 
-import com.explodingbacon.bcnlib.control.Button;
+import com.explodingbacon.bcnlib.controllers.Button;
 import com.explodingbacon.bcnlib.event.AutonomousStartEvent;
 import com.explodingbacon.bcnlib.event.ButtonPressEvent;
 import com.explodingbacon.bcnlib.event.EventListener;

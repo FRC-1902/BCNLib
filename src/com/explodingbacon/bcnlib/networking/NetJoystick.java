@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.networking;
 
-import com.explodingbacon.bcnlib.control.JoystickInterface;
+import com.explodingbacon.bcnlib.controllers.JoystickInterface;
 import com.explodingbacon.bcnlib.framework.ExtendableOI;
 
 /**

@@ -6,7 +6,7 @@ package com.explodingbacon.bcnlib.framework;
  */
 public abstract class Subsystem {
     /**
-     * <code>Command</code> object that is holding control of this <code>Subsystem</code>. <code>Null</code> when this
+     * <code>Command</code> object that is holding controllers of this <code>Subsystem</code>. <code>Null</code> when this
      * <code>Subsystem</code> is able to be changed
      */
 
@@ -17,9 +17,9 @@ public abstract class Subsystem {
     private Command inUseBy;
 
     /**
-     * Allows a <code>Command</code> to take exclusive control of a <code>Subsystem</code>.
+     * Allows a <code>Command</code> to take exclusive controllers of a <code>Subsystem</code>.
      *
-     * @param c Subclass of <code>Command</code> that is taking exclusive control of this <code>Subsystem</code>
+     * @param c Subclass of <code>Command</code> that is taking exclusive controllers of this <code>Subsystem</code>
      */
     public void takeControl(Command c) {
         if (this.inUseBy == null)
@@ -29,9 +29,9 @@ public abstract class Subsystem {
     }
 
     /**
-     * Allows a <code>Command</code> to release control of a <code>Subsystem</code>.
+     * Allows a <code>Command</code> to release controllers of a <code>Subsystem</code>.
      *
-     * @param c Subclass of <code>Command</code> that is releasing control of this <code>Subsystem</code>
+     * @param c Subclass of <code>Command</code> that is releasing controllers of this <code>Subsystem</code>
      */
     public void releaseControl(Command c) {
         if (c == inUseBy) {
@@ -70,8 +70,8 @@ public abstract class Subsystem {
     /**
      * Void that should onStop all motion in this <code>Subsystem</code> when called.
      * <p>
-     * Called automatically when a <code>Command</code> takes control of this <code>Subsystem</code>, and can be called
-     * by any <code>Command</code> using any <code>Subsystem</code> for ease of control.
+     * Called automatically when a <code>Command</code> takes controllers of this <code>Subsystem</code>, and can be called
+     * by any <code>Command</code> using any <code>Subsystem</code> for ease of controllers.
      */
     public abstract void stop();
 }

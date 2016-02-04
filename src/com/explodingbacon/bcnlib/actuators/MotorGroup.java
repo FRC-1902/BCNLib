@@ -1,7 +1,7 @@
-package com.explodingbacon.bcnlib.utils;
+package com.explodingbacon.bcnlib.actuators;
 
-import com.explodingbacon.bcnlib.actuators.Motor;
 import edu.wpi.first.wpilibj.SpeedController;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

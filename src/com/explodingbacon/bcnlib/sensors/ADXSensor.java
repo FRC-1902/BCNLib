@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.sensors;
 
+import com.explodingbacon.bcnlib.framework.PIDSource;
 import edu.wpi.first.wpilibj.ADXL362;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
@@ -12,7 +13,7 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
  * @version 2016.1.26
  */
 
-public class ADXSensor {
+public class ADXSensor implements PIDSource {
 
     private ADXL362 acc;
     private ADXRS450_Gyro gyro;
@@ -128,5 +129,15 @@ public class ADXSensor {
      */
     public void setAccelerometerRange(Accelerometer.Range range) {
         acc.setRange(range);
+    }
+
+    @Override
+    public double getForPID() {
+        return getAngle();
+    }
+
+    @Override
+    public void reset() {
+        //TODO: Decide if we're going to implement this
     }
 }

@@ -1,10 +1,10 @@
-package com.explodingbacon.bcnlib.utils;
+package com.explodingbacon.bcnlib.framework;
 
 import com.explodingbacon.bcnlib.actuators.Motor;
-import com.explodingbacon.bcnlib.framework.PIDSource;
+import com.explodingbacon.bcnlib.utils.Utils;
 
 /**
- * All-encompassing PID controller that can be used for rate and for position control. Set any tuning parameter to 0 to
+ * All-encompassing PID controller that can be used for rate and for position controllers. Set any tuning parameter to 0 to
  * disable that parameter.
  *
  * @author Dominic Canora
@@ -75,7 +75,7 @@ public class PIDController implements Runnable { //TODO: Check this
     }
 
     /**
-     * Enables control of the motor.
+     * Enables controllers of the motor.
      */
     public void enable() {
         reset();
@@ -83,7 +83,7 @@ public class PIDController implements Runnable { //TODO: Check this
     }
 
     /**
-     * Disables control of the motor. This also stops the motor
+     * Disables controllers of the motor. This also stops the motor
      */
     public void disable() {
         enabled = false;

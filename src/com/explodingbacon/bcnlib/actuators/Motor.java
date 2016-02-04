@@ -1,8 +1,8 @@
 package com.explodingbacon.bcnlib.actuators;
 
 import com.explodingbacon.bcnlib.framework.ExtendableRobot;
-import com.explodingbacon.bcnlib.framework.NetTuner;
 import com.explodingbacon.bcnlib.sensors.MotorEncoder;
+import com.explodingbacon.bcnlib.utils.NetTuner;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -113,7 +113,7 @@ public class Motor {
      * Sets the current power of this Motor. Motor power ranges from 1 to -1. This method should only be called from
      * BCNLib packages, since it overrides any restrictions.
      *
-     * @param t A valid NetTuner, for access control.
+     * @param t A valid NetTuner, for access controllers.
      * @param d The new power of this Motor
      */
     public void setPower(NetTuner t, double d) {

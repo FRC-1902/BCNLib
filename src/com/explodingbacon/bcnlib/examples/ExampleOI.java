@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.examples;
 
-import com.explodingbacon.bcnlib.control.Button;
+import com.explodingbacon.bcnlib.controllers.Button;
 import com.explodingbacon.bcnlib.framework.ExtendableOI;
 import com.explodingbacon.bcnlib.networking.NetGamepad;
 import com.explodingbacon.bcnlib.networking.NetJoystick;

@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.control;
+package com.explodingbacon.bcnlib.controllers;
 
 import edu.wpi.first.wpilibj.Joystick;
 

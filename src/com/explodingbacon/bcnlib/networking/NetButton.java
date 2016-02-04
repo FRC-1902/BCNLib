@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.networking;
 
-import com.explodingbacon.bcnlib.control.Button;
+import com.explodingbacon.bcnlib.controllers.Button;
 import com.explodingbacon.bcnlib.framework.ExtendableOI;
 import edu.wpi.first.wpilibj.buttons.InternalButton;
 

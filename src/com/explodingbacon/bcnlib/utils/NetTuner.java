@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.framework;
+package com.explodingbacon.bcnlib.utils;
 
 import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.networking.NetTable;
@@ -36,7 +36,7 @@ public class NetTuner {
         motors.remove(key);
     }
 
-    protected void refresh() {
+    public void refresh() {
         for (String key : motors.keySet()) {
             motors.get(key).setPower(this, get(key));
         }

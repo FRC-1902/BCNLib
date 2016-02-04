@@ -1,5 +1,7 @@
 package com.explodingbacon.bcnlib.utils;
 
+import com.explodingbacon.bcnlib.framework.PIDController;
+
 /**
  * A way to manually tune PID Loops in a network table (and a GUI that reads/writes from the NetworkTable)
  *

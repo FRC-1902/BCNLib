@@ -19,7 +19,7 @@ public abstract class Command implements Runnable {
     }
 
     /**
-     * Specify that this <code>Command</code> needs exclusive control of a <code>Subsystem</code> to run correctly
+     * Specify that this <code>Command</code> needs exclusive controllers of a <code>Subsystem</code> to run correctly
      *
      * @param subsystem <code>Subsystem</code> that this <code>Command</code> requires
      */

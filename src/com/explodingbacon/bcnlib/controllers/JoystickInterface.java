@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.control;
+package com.explodingbacon.bcnlib.controllers;
 
 public interface JoystickInterface {
 

@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.utils;
+package com.explodingbacon.bcnlib.controllers;
 
 public enum Direction {
     UP(0),
