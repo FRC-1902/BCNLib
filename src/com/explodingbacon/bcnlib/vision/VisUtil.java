@@ -1,5 +1,8 @@
 package com.explodingbacon.bcnlib.vision;
 
+import org.opencv.core.CvType;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Scalar;
 import java.awt.*;
 
@@ -35,5 +38,17 @@ public class VisUtil {
      */
     public static Scalar toScalar(Color c) {
         return new Scalar(c.getBlue(), c.getGreen(), c.getRed());
+    }
+
+    public static MatOfPoint toMOP(MatOfPoint2f mop2f) {
+        MatOfPoint mop = new MatOfPoint();
+        mop2f.convertTo(mop, CvType.CV_32S);
+        return mop;
+    }
+
+    public static MatOfPoint2f toMOP2f(MatOfPoint mop) {
+        MatOfPoint2f mop2f = new MatOfPoint2f();
+        mop.convertTo(mop2f, CvType.CV_32FC2);
+        return mop2f;
     }
 }
