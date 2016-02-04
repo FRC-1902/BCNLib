@@ -1,7 +1,7 @@
 package com.explodingbacon.bcnlib.utils;
 
 import com.explodingbacon.bcnlib.actuators.Motor;
-import edu.wpi.first.wpilibj.Encoder;
+import com.explodingbacon.bcnlib.framework.PIDSource;
 
 /**
  * All-encompassing PID controller that can be used for rate and for position control. Set any tuning parameter to 0 to
@@ -12,18 +12,12 @@ import edu.wpi.first.wpilibj.Encoder;
  */
 public class PIDController implements Runnable { //TODO: Check this
     private Motor m;
-    private Encoder e;
-    private Mode mode;
+    private PIDSource s;
     private double kP, kI, kD;
     private double p, i, d, lastP = 0, min, max;
     private int t = 0;
     private Thread thread;
     private boolean enabled = false;
-
-    public enum  Mode {
-        RATE,
-        POSITION
-    }
 
 
     /**
@@ -31,16 +25,14 @@ public class PIDController implements Runnable { //TODO: Check this
      * motor target.
      *
      * @param m  Motor to actuate.
-     * @param e  Encoder to read.
-     * @param mode The mode to run the controller in (RATE or POSITION)
+     * @param s  Encoder to read.
      * @param kP Proportional tuning variable. Set to 0 to disable the P term.
      * @param kI Integral tuning variable. Set to 0 to disable to I term.
      * @param kD Derivative tuning variable. Set to 0 to disable the D term.
      */
-    public PIDController(Motor m, Encoder e, Mode mode, int kP, int kI, int kD) {
+    public PIDController(Motor m, PIDSource s, int kP, int kI, int kD) {
         this.m = m;
-        this.e = e;
-        this.mode = mode;
+        this.s = s;
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
@@ -55,18 +47,16 @@ public class PIDController implements Runnable { //TODO: Check this
      * Creates a new <code>PIDController</code> object with given values.
      *
      * @param m   Motor to actuate.
-     * @param e   Encoder to read.
-     * @param mode The mode to run the controller in (RATE or POSITION)
+     * @param s   Encoder to read.
      * @param kP  Proportional tuning variable. Set to 0 to disable the P term.
      * @param kI  Integral tuning variable. Set to 0 to disable to I term.
      * @param kD  Derivative tuning variable. Set to 0 to disable the D term.
      * @param min The minimum target to the motor. Values below this will be scaled down to 0.
      * @param max The maximum target to the motor. Values above this will be scaled to this value.
      */
-    public PIDController(Motor m, Encoder e, Mode mode, int kP, int kI, int kD, double min, double max) {
+    public PIDController(Motor m, PIDSource s, int kP, int kI, int kD, double min, double max) {
         this.m = m;
-        this.e = e;
-        this.mode = mode;
+        this.s = s;
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
@@ -123,8 +113,8 @@ public class PIDController implements Runnable { //TODO: Check this
      *
      * @return The current error, in encoder clicks
      */
-    public int getCurrentError() {
-        return t - e.getRaw();
+    public double getCurrentError() {
+        return t - s.getForPID();
     }
 
     /**
@@ -132,8 +122,8 @@ public class PIDController implements Runnable { //TODO: Check this
      * <p>
      * NOTE: This will reset the encoder object <b>EVERYWHERE</b> it is used.
      */
-    public void resetPosition() {
-        e.reset();
+    public void resetSource() {
+        s.reset();
     }
 
     /**
@@ -152,23 +142,9 @@ public class PIDController implements Runnable { //TODO: Check this
         this.kD = kD;
     }
 
-    /**
-     * Get the current position or rate of the encoder
-     * @return The current position/rate of the encoder.
-     */
-    private double getCurrent() {
-        if (mode == Mode.POSITION) {
-            return e.getRaw();
-        } else if (mode == Mode.RATE) {
-            return e.getRate();
-        } else {
-            return 0;
-        }
-    }
-
     @Override
     public void run() {
-        p = t - getCurrent();
+        p = t - s.getForPID();
         i += p;
         d = lastP - p;
         lastP = p;

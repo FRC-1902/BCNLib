@@ -1,10 +1,10 @@
 package com.explodingbacon.bcnlib.examples;
 
+import com.explodingbacon.bcnlib.control.Button;
 import com.explodingbacon.bcnlib.event.AutonomousStartEvent;
 import com.explodingbacon.bcnlib.event.ButtonPressEvent;
 import com.explodingbacon.bcnlib.event.EventListener;
 import com.explodingbacon.bcnlib.event.TeleopStartEvent;
-import com.explodingbacon.bcnlib.framework.Button;
 
 public class ExampleEventListener {
 

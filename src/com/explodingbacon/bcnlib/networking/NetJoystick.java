@@ -1,4 +1,7 @@
-package com.explodingbacon.bcnlib.framework;
+package com.explodingbacon.bcnlib.networking;
+
+import com.explodingbacon.bcnlib.control.JoystickInterface;
+import com.explodingbacon.bcnlib.framework.ExtendableOI;
 
 /**
  * @author Dominic Canora

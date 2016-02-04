@@ -1,8 +1,12 @@
 package com.explodingbacon.bcnlib.framework;
 
+import com.explodingbacon.bcnlib.control.Button;
 import com.explodingbacon.bcnlib.event.ButtonPressEvent;
 import com.explodingbacon.bcnlib.event.ButtonReleaseEvent;
 import com.explodingbacon.bcnlib.event.EventHandler;
+import com.explodingbacon.bcnlib.networking.NetButton;
+import com.explodingbacon.bcnlib.networking.NetJoystick;
+import com.explodingbacon.bcnlib.networking.NetTable;
 import com.explodingbacon.bcnlib.utils.CodeThread;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.framework;
+package com.explodingbacon.bcnlib.utils;
 
 public class I2C {
 
@@ -10,6 +10,7 @@ public class I2C {
 
     /**
      * Sends a String over I2C.
+     *
      * @param s The String to be sent.
      */
     public void sendString(String s) {
@@ -18,6 +19,7 @@ public class I2C {
 
     /**
      * Sends bytes over I2C.
+     *
      * @param bytes The bytes to be sent.
      */
     public synchronized void sendBytes(byte... bytes) {
@@ -32,6 +34,7 @@ public class I2C {
     /**
      * Gets the WPILib I2C object. To be used if functionality that is not available in this class is available in WPI's
      * implementation.
+     *
      * @return The WPILib I2C object.
      */
     public edu.wpi.first.wpilibj.I2C getWPII2C() {

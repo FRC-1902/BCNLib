@@ -1,8 +1,6 @@
 package com.explodingbacon.bcnlib.utils;
 
-import com.explodingbacon.bcnlib.framework.Button;
-import com.explodingbacon.bcnlib.framework.Joystick;
-import com.explodingbacon.bcnlib.framework.JoystickButton;
+import com.explodingbacon.bcnlib.control.Joystick;
 
 /**
  * An extension class of Joystick that makes it much easier to do XboxController-specific things, such as reading from the DPad or rumbling.

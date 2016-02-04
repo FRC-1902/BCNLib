@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.event;
 
-import com.explodingbacon.bcnlib.framework.Button;
+import com.explodingbacon.bcnlib.control.Button;
 
 public class ButtonPressEvent extends Event {
 

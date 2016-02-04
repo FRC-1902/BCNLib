@@ -1,6 +1,9 @@
 package com.explodingbacon.bcnlib.examples;
 
-import com.explodingbacon.bcnlib.framework.*;
+import com.explodingbacon.bcnlib.control.Button;
+import com.explodingbacon.bcnlib.framework.ExtendableOI;
+import com.explodingbacon.bcnlib.networking.NetGamepad;
+import com.explodingbacon.bcnlib.networking.NetJoystick;
 
 public class ExampleOI extends ExtendableOI {
 

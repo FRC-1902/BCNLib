@@ -1,7 +1,7 @@
 package com.explodingbacon.bcnlib.utils;
 
-import com.explodingbacon.bcnlib.framework.Button;
-import com.explodingbacon.bcnlib.framework.JoystickButton;
+import com.explodingbacon.bcnlib.control.Button;
+import com.explodingbacon.bcnlib.control.JoystickButton;
 
 /**
  * An extension of GameController made specific for XboxController controllers.

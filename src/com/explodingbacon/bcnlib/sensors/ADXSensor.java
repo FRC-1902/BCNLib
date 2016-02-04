@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.framework;
+package com.explodingbacon.bcnlib.sensors;
 
 import edu.wpi.first.wpilibj.ADXL362;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -19,6 +19,7 @@ public class ADXSensor {
 
     /**
      * Creates an ADXSensor on port.
+     *
      * @param port The SPI.Port this sensor is on.
      */
     public ADXSensor(SPI.Port port) {
@@ -28,7 +29,8 @@ public class ADXSensor {
 
     /**
      * Creates an ADXSensor on port, and sets the Accelerometer's range to range.
-     * @param port The SPI.Port this sensor is on.
+     *
+     * @param port  The SPI.Port this sensor is on.
      * @param range The range you want the Accelerometer to have.
      */
     public ADXSensor(SPI.Port port, Accelerometer.Range range) {
@@ -38,6 +40,7 @@ public class ADXSensor {
 
     /**
      * Creates an ADXSensor that uses existing instances of the Accelerometer and Gyroscope.
+     *
      * @param a The Accelerometer.
      * @param g The Gyroscope.
      */
@@ -55,6 +58,7 @@ public class ADXSensor {
 
     /**
      * Gets the current angle of the Gyroscope.
+     *
      * @return The current angle of the Gyroscope.
      */
     public double getAngle() {
@@ -63,6 +67,7 @@ public class ADXSensor {
 
     /**
      * Gets the rate of the Gyroscope.
+     *
      * @return The rate of the Gyroscope.
      */
     public double getGyroRate() {
@@ -72,6 +77,7 @@ public class ADXSensor {
 
     /**
      * Gets the acceleration of a certain Axis of the Accelerometer.
+     *
      * @param axis The axis who's acceleration you're getting.
      * @return The acceleration of a certain Axis of the Accelerometer.
      */
@@ -81,6 +87,7 @@ public class ADXSensor {
 
     /**
      * Gets the accelerations of all the Axises.
+     *
      * @return The accelerations of all the Axises.
      */
     public ADXL362.AllAxes getAccelerations() {
@@ -89,6 +96,7 @@ public class ADXSensor {
 
     /**
      * Gets the X axis of the Accelerometer.
+     *
      * @return The X axis of the Accelerometer.
      */
     public double getX() {
@@ -97,6 +105,7 @@ public class ADXSensor {
 
     /**
      * Gets the Y axis of the Accelerometer.
+     *
      * @return The Y axis of the Accelerometer.
      */
     public double getY() {
@@ -105,6 +114,7 @@ public class ADXSensor {
 
     /**
      * Gets the Z axis of the Accelerometer.
+     *
      * @return The Z axis of the Accelerometer.
      */
     public double getZ() {
@@ -113,6 +123,7 @@ public class ADXSensor {
 
     /**
      * Sets the range of accelerometer.
+     *
      * @param range The new range of the Accelerometer.
      */
     public void setAccelerometerRange(Accelerometer.Range range) {

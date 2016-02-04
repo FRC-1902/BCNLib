@@ -1,6 +1,8 @@
 package com.explodingbacon.bcnlib.framework;
 
 import com.explodingbacon.bcnlib.actuators.Motor;
+import com.explodingbacon.bcnlib.networking.NetTable;
+
 import java.util.HashMap;
 import java.util.Map;
 

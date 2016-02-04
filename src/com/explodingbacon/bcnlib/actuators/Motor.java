@@ -1,11 +1,12 @@
 package com.explodingbacon.bcnlib.actuators;
 
 import com.explodingbacon.bcnlib.framework.ExtendableRobot;
-import com.explodingbacon.bcnlib.framework.MotorEncoder;
 import com.explodingbacon.bcnlib.framework.NetTuner;
+import com.explodingbacon.bcnlib.sensors.MotorEncoder;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;

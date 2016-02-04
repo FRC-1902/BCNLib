@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.framework;
+package com.explodingbacon.bcnlib.networking;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +14,17 @@ public class NetGamepad {
     private List<NetButton> buttons = new ArrayList<>();
 
     public NetGamepad(String key, int joyNum, int buttonNum) {
-        for (int i=1; i<=joyNum; i++) {
+        for (int i = 1; i <= joyNum; i++) {
             joys.add(new NetJoystick(key + "_joy_" + i));
         }
-        for (int i=1; i<=buttonNum; i++) {
+        for (int i = 1; i <= buttonNum; i++) {
             buttons.add(new NetButton(key + "_button_" + i));
         }
     }
 
     /**
      * Checks if the NetButton at buttonIndex is pressed.
+     *
      * @param buttonIndex The index of the NetButton.
      * @return If the NetButton at buttonIndex is pressed.
      */
@@ -33,6 +34,7 @@ public class NetGamepad {
 
     /**
      * Gets the X axis value of the NetJoystick at joystickIndex.
+     *
      * @param joystickIndex The index of the NetJoystick.
      * @return The X axis value of the NetJoystick at joystickIndex.
      */
@@ -42,6 +44,7 @@ public class NetGamepad {
 
     /**
      * Gets the Y axis value of the NetJoystick at joystickIndex.
+     *
      * @param joystickIndex The index of the NetJoystick.
      * @return The Y axis value of the NetJoystick at joystickIndex.
      */
@@ -51,15 +54,21 @@ public class NetGamepad {
 
     /**
      * Gets the NetJoystick at index.
+     *
      * @param index The index of the NetJoystick.
      * @return The NetJoystick at index.
      */
-    public NetJoystick getJoystick(int index) { return joys.get(index); }
+    public NetJoystick getJoystick(int index) {
+        return joys.get(index);
+    }
 
     /**
      * Gets the NetButton at index.
+     *
      * @param index The index of the NetButton
      * @return The NetButton.
      */
-    public NetButton getButton(int index) { return buttons.get(index); }
+    public NetButton getButton(int index) {
+        return buttons.get(index);
+    }
 }

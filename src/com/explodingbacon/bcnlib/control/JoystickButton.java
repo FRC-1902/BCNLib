@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.framework;
+package com.explodingbacon.bcnlib.control;
 
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -14,7 +14,8 @@ public class JoystickButton implements Button {
 
     /**
      * Creates a JoystickButton that corresponds to a physical button on j.
-     * @param j The Joystick this Button is on.
+     *
+     * @param j        The Joystick this Button is on.
      * @param buttonID The ID of this Button.
      */
     public JoystickButton(Joystick j, int buttonID) {
@@ -23,6 +24,7 @@ public class JoystickButton implements Button {
 
     /**
      * Gets the current state of the button.
+     *
      * @return The current state of the button.
      */
     public boolean get() {
@@ -31,6 +33,7 @@ public class JoystickButton implements Button {
 
     /**
      * Gets the state the button was in last time it was checked.
+     *
      * @return The state the button was in last time it was checked.
      */
     public boolean getPrevious() {

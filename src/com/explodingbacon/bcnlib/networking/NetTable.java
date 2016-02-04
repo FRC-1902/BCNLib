@@ -1,4 +1,4 @@
-package com.explodingbacon.bcnlib.framework;
+package com.explodingbacon.bcnlib.networking;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
