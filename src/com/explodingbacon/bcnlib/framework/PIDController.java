@@ -15,9 +15,9 @@ public class PIDController implements Runnable { //TODO: Check this
     private PIDSource s;
     private double kP, kI, kD;
     private double p, i, d, lastP = 0, min, max;
-    private int t = 0;
+    private double t = 0;
     private Thread thread;
-    private boolean enabled = false, inverted = false;
+    private boolean enabled = false, inverted = false, done = false;
 
 
     /**
@@ -30,7 +30,7 @@ public class PIDController implements Runnable { //TODO: Check this
      * @param kI Integral tuning variable. Set to 0 to disable to I term.
      * @param kD Derivative tuning variable. Set to 0 to disable the D term.
      */
-    public PIDController(Motor m, PIDSource s, int kP, int kI, int kD) {
+    public PIDController(Motor m, PIDSource s, double kP, double kI, double kD) {
         this.m = m;
         this.s = s;
         this.kP = kP;
@@ -54,7 +54,7 @@ public class PIDController implements Runnable { //TODO: Check this
      * @param min The minimum target to the motor. Values below this will be scaled down to 0.
      * @param max The maximum target to the motor. Values above this will be scaled to this value.
      */
-    public PIDController(Motor m, PIDSource s, int kP, int kI, int kD, double min, double max) {
+    public PIDController(Motor m, PIDSource s, double kP, double kI, double kD, double min, double max) {
         this.m = m;
         this.s = s;
         this.kP = kP;
@@ -95,7 +95,7 @@ public class PIDController implements Runnable { //TODO: Check this
      *
      * @param target Position target in encoder clicks from encoder zero
      */
-    public void setTarget(int target) {
+    public void setTarget(double target) {
         t = target;
     }
 
@@ -104,7 +104,7 @@ public class PIDController implements Runnable { //TODO: Check this
      *
      * @return Position target in encoder clicks from encoder zero
      */
-    public int getTarget() {
+    public double getTarget() {
         return t;
     }
 
@@ -113,8 +113,9 @@ public class PIDController implements Runnable { //TODO: Check this
      *
      * @param inverted Whether the PIDController should invert its input
      */
-    public void setInverted(Boolean inverted) {
+    public PIDController setInverted(Boolean inverted) {
         this.inverted = inverted;
+        return this;
     }
 
     /**
@@ -151,6 +152,33 @@ public class PIDController implements Runnable { //TODO: Check this
         this.kD = kD;
     }
 
+    /**
+     * Checks if this PIDController is done.
+     * @return If this PIDController is done.
+     */
+    public boolean isDone() {
+        return done;
+    }
+
+    /**
+     * Checks if this PIDController is enabled.
+     * @return If this PIDController is enabled.
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * Makes the Thread wait until this PIDController has reached its destination.
+     */
+    public void waitUntilDone() { //TODO: Make sure that you can reliably call this then disable the PIDController and not be cutting the PID loop short
+        while (!isDone()) {
+            try {
+                Thread.sleep(25);
+            } catch (Exception e) {}
+        }
+    }
+
     @Override
     public void run() {
         if (enabled) {
@@ -165,7 +193,14 @@ public class PIDController implements Runnable { //TODO: Check this
             double setpoint = p * kP + i * kI + d * kD;
             setpoint = Utils.minMax(setpoint, 0.1, 1);
 
-            m.setPower(Utils.minMax(setpoint, min, max));
+            double power = Utils.minMax(setpoint, min, max);
+
+            m.setPower(power);
+            if (power == 0) {
+                done = true;
+            } else {
+                done = false;
+            }
 
             try {
                 Thread.sleep(10);

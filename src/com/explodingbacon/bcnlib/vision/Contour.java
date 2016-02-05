@@ -12,7 +12,7 @@ import java.util.List;
  * A wrapper class for OpenCV's MatOfPoint object.
  *
  * @author Ryan Shavell
- * @version 2016.2.3
+ * @version 2016.2.4
  */
 
 public class Contour extends Image {

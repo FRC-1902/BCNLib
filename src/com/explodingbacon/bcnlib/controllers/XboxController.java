@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.controllers;
  * An extension of GameController made specific for XboxController controllers.
  *
  * @author Ryan Shavell
- * @version 2016.2.2
+ * @version 2016.2.4
  */
 
 public class XboxController extends GameController {
@@ -13,6 +13,7 @@ public class XboxController extends GameController {
     public Button start, select;
     public Button leftBumper, rightBumper;
     public Button leftJoyButton, rightJoyButton;
+    public ButtonGroup bumpers;
 
     public XboxController(int port) {
         super(port);
@@ -30,6 +31,8 @@ public class XboxController extends GameController {
 
         leftJoyButton = new JoystickButton(this, 9);
         rightJoyButton = new JoystickButton(this, 10);
+
+        bumpers = new ButtonGroup(leftBumper, rightBumper);
     }
 
     /**

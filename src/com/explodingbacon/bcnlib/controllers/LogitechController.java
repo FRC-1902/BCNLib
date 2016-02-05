@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.controllers;
  * An extension of GameController made specific for Logitech controllers.
  *
  * @author Ryan Shavell
- * @version 2016.2.2
+ * @version 2016.2.4
  */
 
 public class LogitechController extends GameController {
@@ -14,6 +14,8 @@ public class LogitechController extends GameController {
     public Button leftBumper, rightBumper;
     public Button leftJoyButton, rightJoyButton;
     public Button leftTrigger, rightTrigger;
+    public ButtonGroup triggers;
+    public ButtonGroup bumpers;
 
     public LogitechController(int port) {
         super(port);
@@ -34,6 +36,9 @@ public class LogitechController extends GameController {
 
         leftTrigger = new JoystickButton(this, 7);
         rightTrigger = new JoystickButton(this, 8);
+
+        triggers = new ButtonGroup(leftTrigger, rightTrigger);
+        bumpers = new ButtonGroup(leftBumper, rightBumper);
     }
 
     @Override
