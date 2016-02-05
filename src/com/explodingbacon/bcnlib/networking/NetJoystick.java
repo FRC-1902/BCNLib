@@ -27,8 +27,8 @@ public class NetJoystick implements JoystickInterface {
      * Refresh the value of this NetJoystick. Automatically handled by ExtendableOI.
      */
     public void refresh() {
-        double x = ExtendableOI.netTable.getNumber(key + "_x", 0d);
-        double y = ExtendableOI.netTable.getNumber(key + "_y", 0d);
+        double x = ExtendableOI.table.getNumber(key + "_x", 0d);
+        double y = ExtendableOI.table.getNumber(key + "_y", 0d);
 
         x = Math.max(-1, x);
         y = Math.max(-1, y);

@@ -2,6 +2,7 @@ package com.explodingbacon.bcnlib.utils;
 
 import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.networking.NetTable;
+import com.explodingbacon.bcnlib.networking.TableInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 
 public class NetTuner {
-    private NetTable table;
+    private TableInterface table;
     private Map<String, Motor> motors = new HashMap<>();
 
     public NetTuner() {

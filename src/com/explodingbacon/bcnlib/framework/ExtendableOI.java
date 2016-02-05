@@ -7,6 +7,7 @@ import com.explodingbacon.bcnlib.event.EventHandler;
 import com.explodingbacon.bcnlib.networking.NetButton;
 import com.explodingbacon.bcnlib.networking.NetJoystick;
 import com.explodingbacon.bcnlib.networking.NetTable;
+import com.explodingbacon.bcnlib.networking.TableInterface;
 import com.explodingbacon.bcnlib.utils.CodeThread;
 import com.explodingbacon.bcnlib.utils.NetTuner;
 
@@ -25,7 +26,7 @@ public abstract class ExtendableOI extends CodeThread {
     private static List<Trigger> triggers = new ArrayList<>();
     private static List<Subsystem> disabledSubsystems = new ArrayList<>();
 
-    public static NetTable netTable = new NetTable("Robot_OI");
+    public static TableInterface table = new NetTable("Robot_OI");
     private static List<NetButton> netButtons = new ArrayList<>();
     private static List<NetJoystick> netJoysticks = new ArrayList<>();
 

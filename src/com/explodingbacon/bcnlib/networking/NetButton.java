@@ -29,7 +29,7 @@ public class NetButton implements Button {
      * Refresh the value of this NetButton. Automatically handled by ExtendableOI.
      */
     public void refresh() {
-        button.setPressed(ExtendableOI.netTable.getBoolean(key, false));
+        button.setPressed(ExtendableOI.table.getBoolean(key, false));
     }
 
     /**
