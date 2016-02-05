@@ -20,11 +20,11 @@ public class NetTuner {
     }
 
     public void addTrackedKey(String key) {
-        table.putNumber(key, 0);
+        table.putNumber(key, 0d);
     }
 
     public double get(String key) {
-        return table.getNumber(key, 0);
+        return table.getNumber(key, 0d);
     }
 
     public void tune(String key, Motor motor) {

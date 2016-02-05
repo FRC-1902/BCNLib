@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  * @version 2016.1.0
  */
 
-public class NetTable {
+public class NetTable implements TableInterface {
     NetworkTable table;
 
     /**
@@ -39,7 +39,7 @@ public class NetTable {
         }
     }
 
-    public double getNumber(String val, double defaultVal) {
+    public Double getNumber(String val, Double defaultVal) {
         try {
             return table.getNumber(val, defaultVal);
         } catch (ClassCastException e) {
@@ -47,7 +47,7 @@ public class NetTable {
         }
     }
 
-    public boolean getBoolean(String val, Boolean defaultVal) {
+    public Boolean getBoolean(String val, Boolean defaultVal) {
         try {
             return table.getBoolean(val, defaultVal);
         } catch (ClassCastException e) {
@@ -59,11 +59,11 @@ public class NetTable {
         table.putString(key, val);
     }
 
-    public void putNumber(String key, double val) {
+    public void putNumber(String key, Double val) {
         table.putNumber(key, val);
     }
 
-    public void putBoolean(String key, boolean val) {
+    public void putBoolean(String key, Boolean val) {
         table.putBoolean(key, val);
     }
 
