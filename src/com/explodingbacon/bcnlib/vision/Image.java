@@ -15,7 +15,7 @@ import java.util.List;
  * A wrapper class for OpenCV's Mat object.
  *
  * @author Ryan Shavell
- * @version 2016.2.3
+ * @version 2016.2.4
  */
 
 public class Image {
@@ -44,6 +44,14 @@ public class Image {
      */
     public int getHeight() {
         return m.height();
+    }
+
+    /**
+     * Gets the area of this Image.
+     * @return The area of this Image.
+     */
+    public int getArea() {
+        return getWidth() * getHeight();
     }
 
     /**

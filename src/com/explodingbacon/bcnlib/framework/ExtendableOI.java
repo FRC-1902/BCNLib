@@ -10,7 +10,6 @@ import com.explodingbacon.bcnlib.networking.NetTable;
 import com.explodingbacon.bcnlib.networking.TableInterface;
 import com.explodingbacon.bcnlib.utils.CodeThread;
 import com.explodingbacon.bcnlib.utils.NetTuner;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +17,14 @@ import java.util.List;
  * A class that handles spawning commands based off of button inputs.
  *
  * @author Ryan Shavell
- * @version 2016.2.1
+ * @version 2016.2.4
  */
 
 public abstract class ExtendableOI extends CodeThread {
 
     private static List<Trigger> triggers = new ArrayList<>();
     private static List<Subsystem> disabledSubsystems = new ArrayList<>();
+    private static List<Boolean> prevButtonValues = new ArrayList<>();
 
     public static TableInterface table = new NetTable("Robot_OI");
     private static List<NetButton> netButtons = new ArrayList<>();
@@ -69,7 +69,7 @@ public abstract class ExtendableOI extends CodeThread {
      * @param c The command to be run.
      */
     public static void runCommand(Command c) {
-        addTrigger(new Trigger(c, null, TriggerType.NOTHING));
+        addTrigger(new Trigger(c, null, TriggerType.NONE));
         c.start();
     }
 
@@ -80,7 +80,7 @@ public abstract class ExtendableOI extends CodeThread {
      */
     public static void runCommands(Command... cs) {
         for (Command c : cs) {
-            addTrigger(new Trigger(c, null, TriggerType.NOTHING));
+            addTrigger(new Trigger(c, null, TriggerType.NONE));
             c.start();
         }
     }
@@ -132,15 +132,17 @@ public abstract class ExtendableOI extends CodeThread {
             }
         }
         synchronized (TRIGGERS_EDIT) {
+            int index = 0;
+            List<Trigger> triggersToRemove = new ArrayList<>();
             for (Trigger t : triggers) {
                 if (t.c.requiredSub == null || !disabledSubsystems.contains(t.c.requiredSub)) {
                     if (t.t == TriggerType.PRESS) {
-                        if (!t.b.getPrevious() && t.b.get()) { //If the button wasn't pressed before and now is
+                        if (getButtonPrevious(index, t.b) && t.b.get()) { //If the button wasn't pressed before and now is
                             t.c.start();
                             if (EventHandler.isInitialized()) EventHandler.fireEvent(new ButtonPressEvent(t.b));
                         }
                     } else if (t.t == TriggerType.RELEASE) {
-                        if (t.b.getPrevious() && !t.b.get()) { //If the button was pressed before and now isn't
+                        if (getButtonPrevious(index, t.b) && !t.b.get()) { //If the button was pressed before and now isn't
                             t.c.start();
                             if (EventHandler.isInitialized()) EventHandler.fireEvent(new ButtonReleaseEvent(t.b));
                         }
@@ -150,16 +152,36 @@ public abstract class ExtendableOI extends CodeThread {
                         } else if (!t.b.get() && t.c.isRunning()) { //If the button is released and the command is still running
                             t.c.forceStop();
                         }
+                    } else if (t.t == TriggerType.NONE) {
+                        if (!t.c.isRunning()) { //This command will never be restarted, so it will be deleted from the trigger list
+                            triggersToRemove.add(t);
+                        }
                     }
                 } else if (t.c.requiredSub != null) {
                     if (t.c.isRunning()) {
                         t.c.forceStop();
                     }
                 }
+                index++;
+            }
+            for (Trigger t : triggersToRemove) {
+                triggers.remove(t);
+            }
+            prevButtonValues.clear();
+            for (Trigger t : triggers) {
+                prevButtonValues.add(t.b.get());
             }
         }
 
         tuner.refresh();
+    }
+
+    public boolean getButtonPrevious(int index, Button b) {
+        if (prevButtonValues.size() > index) {
+            return prevButtonValues.get(index);
+        } else {
+            return false;
+        }
     }
 
     public enum TriggerType {
@@ -167,7 +189,7 @@ public abstract class ExtendableOI extends CodeThread {
         RELEASE,
         WHILE_HELD,
 
-        NOTHING
+        NONE
     }
 
     protected static class Trigger {
