@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.vision;
 
+import com.explodingbacon.bcnlib.utils.Utils;
 import org.opencv.core.*;
 import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -7,6 +8,7 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,23 +37,17 @@ public class Image {
      *
      * @return The width of this Image.
      */
-    public int getWidth() { return m.width(); }
+    public double getWidth() {
+        return m.width();
+    }
 
     /**
      * Gets the height of this Image.
      *
      * @return The height of this Image.
      */
-    public int getHeight() {
+    public double getHeight() {
         return m.height();
-    }
-
-    /**
-     * Gets the area of this Image.
-     * @return The area of this Image.
-     */
-    public int getArea() {
-        return getWidth() * getHeight();
     }
 
     /**

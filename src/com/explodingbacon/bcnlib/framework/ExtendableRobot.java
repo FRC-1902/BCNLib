@@ -33,7 +33,7 @@ public abstract class ExtendableRobot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-        EventHandler.fireEvent(new TeleopStartEvent());
+        EventHandler.fireEvent(new TeleopStartEvent(this));
         for (Motor m : Motor.getAllMotors()) {
             if (m.isTuning()) m.stopTuning();
         }
@@ -41,7 +41,7 @@ public abstract class ExtendableRobot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-        EventHandler.fireEvent(new AutonomousStartEvent())
+        EventHandler.fireEvent(new AutonomousStartEvent(this))
 ;    }
 
     @Override
