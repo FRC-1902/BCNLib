@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.framework;
 
+import com.explodingbacon.bcnlib.actuators.FakeMotor;
 import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.utils.Utils;
 
@@ -31,7 +32,7 @@ public class PIDController implements Runnable { //TODO: Check this
      * @param kD Derivative tuning variable. Set to 0 to disable the D term.
      */
     public PIDController(Motor m, PIDSource s, double kP, double kI, double kD) {
-        this.m = m;
+        this.m = (m == null) ? m : new FakeMotor();
         this.s = s;
         this.kP = kP;
         this.kI = kI;
@@ -55,7 +56,7 @@ public class PIDController implements Runnable { //TODO: Check this
      * @param max The maximum target to the motor. Values above this will be scaled to this value.
      */
     public PIDController(Motor m, PIDSource s, double kP, double kI, double kD, double min, double max) {
-        this.m = m;
+        this.m = (m == null) ? m : new FakeMotor();
         this.s = s;
         this.kP = kP;
         this.kI = kI;
@@ -125,6 +126,15 @@ public class PIDController implements Runnable { //TODO: Check this
      */
     public double getCurrentError() {
         return t - s.getForPID();
+    }
+
+    /**
+     * Get the power that is currently being sent to the motor.
+     *
+     * @return The power sent to the motor
+     */
+    public double getMotorPower() {
+        return m.getPower();
     }
 
     /**
