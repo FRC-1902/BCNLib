@@ -1,5 +1,12 @@
 package com.explodingbacon.bcnlib.controllers;
 
+/**
+ * An enum  for DPad directions on GameControllers.
+ *
+ * @author Ryan Shavell
+ * @version 2016.2.6
+ */
+
 public enum Direction {
     UP(0),
     UP_RIGHT(45),

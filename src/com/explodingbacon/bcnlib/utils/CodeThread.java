@@ -4,26 +4,29 @@ package com.explodingbacon.bcnlib.utils;
  * A class that allows us to easily write code that will run in its own separate thread.
  *
  * @author Ryan Shavell
- * @version 2016.1.10
+ * @version 2016.2.6
  */
 
-public class CodeThread implements Runnable {
+public abstract class CodeThread implements Runnable {
 
-    Thread t;
-    boolean stop = false;
-    boolean running = false;
-    double seconds = -1;
-    Timer timer = null;
+    private Thread t;
+    private boolean loop = true;
+    private boolean stop = false;
+    private boolean running = false;
 
+    /**
+     * Creates a CodeThread.
+     */
     public CodeThread() {}
 
     /**
-     * When you give CodeThread seconds, it will run until that many seconds have gone by and then terminate.
-     * @param seconds How many seconds this CodeThread will last.
+     * Creates a CodeThread.
+     * @param l If the CodeThread will loop.
      */
-    public CodeThread(double seconds) {
-        this.seconds = seconds;
+    public CodeThread(boolean l) {
+        loop = l;
     }
+
 
     /**
      * Start this <code>CodeThread</code>
@@ -31,20 +34,6 @@ public class CodeThread implements Runnable {
     public void start() {
         t = new Thread(this);
         t.start();
-        final CodeThread self = this;
-        if (seconds > -1) {
-            timer = new Timer(seconds, new TimerUser() {
-                @Override
-                public void timer() {
-                    self.stop();
-                }
-
-                @Override
-                public void timerStop() {
-                    timer = null;
-                }
-            });
-        }
     }
 
     /**
@@ -56,6 +45,7 @@ public class CodeThread implements Runnable {
         while (true) {
             if (stop) break;
             code();
+            if (!loop) break;
         }
         stop = false;
         t = null;
@@ -65,7 +55,7 @@ public class CodeThread implements Runnable {
     /**
      * Override this with what code you want to run in the thread.
      */
-    public void code() {}
+    public abstract void code();
 
     /**
      * Stop execution of this <code>CodeThread</code>

@@ -1,5 +1,12 @@
 package com.explodingbacon.bcnlib.utils;
 
+/**
+ * A Utility class that contains functions that are often used in various parts of robot programming.
+ *
+ * @author Ryan Shavell
+ * @version 2016.2.6
+ */
+
 public class Utils {
 
     /**
@@ -15,6 +22,18 @@ public class Utils {
         val = Math.abs(val) < min ? 0 : val;
         val = Math.abs(val) > max ? max * (Math.abs(val) / val) : val;
         return val;
+    }
+
+    /**
+     * Applies a deadzone to a value. If the value is bigger than the value, the value is returned. Otherwise, 0 is returned.
+     * Useful for deadzones on motor/joystick values.
+     *
+     * @param d The value to be deadzoned.
+     * @param deadzone The deadzone.
+     * @return If the value is bigger than the value, the value is returned. Otherwise, 0 is returned.
+     */
+    public static double deadzone(double d, double deadzone) {
+        return Math.abs(d) > Math.abs(deadzone) ? d : 0;
     }
 
     /**

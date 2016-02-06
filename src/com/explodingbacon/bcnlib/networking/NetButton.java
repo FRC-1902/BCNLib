@@ -41,14 +41,4 @@ public class NetButton implements Button {
         return last = button.get();
     }
 
-    /**
-     * Gets the state the button was in last time it was checked.
-     *
-     * @return The state the button was in last time it was checked.
-     */
-    public boolean getPrevious() {
-        return last;
-    }
-
-
 }

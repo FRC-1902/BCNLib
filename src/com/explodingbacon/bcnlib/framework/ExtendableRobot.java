@@ -28,7 +28,6 @@ public abstract class ExtendableRobot extends IterativeRobot {
     private static ExtendableRobot self;
 
     public ExtendableRobot() {
-        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         self = this;
     }
 

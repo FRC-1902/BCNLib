@@ -16,6 +16,7 @@ public class Camera {
 
     public Camera(int index) {
         try {
+            if (!Vision.isInitialized()) System.out.println("[ERROR] Camera initialized without initializing the Vision Tracking library!");
             cam = new VideoCapture(index);
             Thread.sleep(1000);
             if (!isOpen()) {

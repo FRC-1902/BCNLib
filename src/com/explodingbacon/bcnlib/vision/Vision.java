@@ -1,12 +1,36 @@
 package com.explodingbacon.bcnlib.vision;
 
-import org.opencv.core.CvType;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.MatOfPoint2f;
-import org.opencv.core.Scalar;
+import org.opencv.core.*;
+
 import java.awt.*;
 
-public class VisUtil {
+/**
+ * A Vision utility class. Used for initializing the library and contains functions for converting between normal Java
+ * objects and OpenCV's weird stuff (i.e. Color -> Scalar, RGB -> BGR)
+ *
+ * @author Ryan Shavell
+ * @version 2016.2.6
+ */
+
+public class Vision {
+
+    private static boolean init = false;
+
+    /**
+     * Initializes the Vision Tracking library.
+     */
+    public static void init() {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        init = true;
+    }
+
+    /**
+     * Checks if the Vision Tracking library is initialized.
+     * @return If the Vision Tracking library is initialized.
+     */
+    public static boolean isInitialized() {
+        return init;
+    }
 
     /**
      * Converts a Color to a BGR int.

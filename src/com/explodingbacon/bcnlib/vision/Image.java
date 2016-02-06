@@ -93,7 +93,7 @@ public class Image {
      */
     public Image colorRange(Color low, Color high) {
         Mat newM = new Mat();
-        Core.inRange(m, VisUtil.toScalar(low), VisUtil.toScalar(high), newM);
+        Core.inRange(m, Vision.toScalar(low), Vision.toScalar(high), newM);
         return new Image(newM);
     }
 
@@ -127,7 +127,7 @@ public class Image {
      * @param c  The Color of the Rectangle.
      */
     public void drawRectangle(int x, int y, int x2, int y2, Color c) {
-        Imgproc.rectangle(m, new Point(x, y), new Point(x2, y2), VisUtil.toScalar(c));
+        Imgproc.rectangle(m, new Point(x, y), new Point(x2, y2), Vision.toScalar(c));
     }
 
     /**
@@ -137,7 +137,7 @@ public class Image {
      * @param c   The Color of the Contours.
      */
     public void drawContours(List<Contour> con, Color c) {
-        Imgproc.drawContours(m, Contour.toMatOfPoint(con), -1, VisUtil.toScalar(c));
+        Imgproc.drawContours(m, Contour.toMatOfPoint(con), -1, Vision.toScalar(c));
     }
 
     /**
@@ -150,7 +150,7 @@ public class Image {
      * @param c  The Color of the arrow.
      */
     public void drawArrow(double x, double y, double x2, double y2, Color c) {
-        Imgproc.arrowedLine(m, new Point(x, y), new Point(x2, y2), VisUtil.toScalar(c));
+        Imgproc.arrowedLine(m, new Point(x, y), new Point(x2, y2), Vision.toScalar(c));
     }
 
     /**

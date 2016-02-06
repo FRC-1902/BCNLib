@@ -7,7 +7,7 @@ public class JedisTable implements TableInterface {
     private JedisPool pool;
 
     public JedisTable(String host, int port) {
-        pool = new JedisPool(host, port);
+        //pool = new JedisPool(host, port); //TODO: Figure out why this line does not compile due to missing class
     }
 
     @Override

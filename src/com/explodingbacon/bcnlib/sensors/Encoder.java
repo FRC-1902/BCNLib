@@ -2,6 +2,13 @@ package com.explodingbacon.bcnlib.sensors;
 
 import com.explodingbacon.bcnlib.framework.PIDSource;
 
+/**
+ * A class for standard Encoders.
+ *
+ * @author Ryan Shavell
+ * @version 2016.2.6
+ */
+
 public class Encoder implements EncoderInterface, PIDSource {
 
     private edu.wpi.first.wpilibj.Encoder enc;

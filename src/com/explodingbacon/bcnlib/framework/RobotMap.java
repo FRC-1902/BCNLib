@@ -3,6 +3,8 @@ package com.explodingbacon.bcnlib.framework;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO: Either rework to be useful or delete this?
+
 /**
  * A class to manage what ports each actuator and sensor are in.
  * <br><br>

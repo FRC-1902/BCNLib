@@ -1,7 +1,7 @@
 package com.explodingbacon.bcnlib.controllers;
 
 /**
- * An extension of GameController made specific for XboxController controllers.
+ * An extension of GameController made specific for Xbox controllers.
  *
  * @author Ryan Shavell
  * @version 2016.2.4

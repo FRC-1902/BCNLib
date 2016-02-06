@@ -1,7 +1,7 @@
 package com.explodingbacon.bcnlib.utils;
 
 /**
- * A class that lets us set a timer that will be called once (or every) X seconds.
+ * A class that lets you set a timer that will be called once (or every) X seconds.
  *
  * @author Ryan Shavell
  * @version 2016.1.18

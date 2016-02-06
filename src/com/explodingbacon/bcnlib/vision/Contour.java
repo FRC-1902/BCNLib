@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A wrapper class for OpenCV's MatOfPoint object.
+ * A wrapper class for OpenCV's MatOfPoint and MatOfPoint2f objects.
  *
  * @author Ryan Shavell
  * @version 2016.2.4
@@ -27,7 +27,7 @@ public class Contour extends Image {
     }
 
     public Contour(MatOfPoint2f mop2f) {
-        super(VisUtil.toMOP(mop2f));
+        super(Vision.toMOP(mop2f));
         this.mop = (MatOfPoint) getMat();
         this.mop2f = mop2f;
     }
@@ -38,7 +38,7 @@ public class Contour extends Image {
      * @return
      */
     public double getX() {
-        if (coords  == null) setCoords();
+        if (coords  == null) setCoordsVar();
         return coords.x;
     }
 
@@ -47,7 +47,7 @@ public class Contour extends Image {
      * @return
      */
     public double getY() {
-        if (coords == null) setCoords();
+        if (coords == null) setCoordsVar();
         return coords.y;
     }
 
@@ -83,7 +83,7 @@ public class Contour extends Image {
      * @return The MatOfPoint.
      */
     public MatOfPoint getMatOfPoint() {
-        if (mop == null) mop = VisUtil.toMOP(mop2f);
+        if (mop == null) mop = Vision.toMOP(mop2f);
         return mop;
     }
 
@@ -92,7 +92,7 @@ public class Contour extends Image {
      * @return The MatOfPoint2f.
      */
     public MatOfPoint2f getMatOfPoint2f() {
-        if (mop2f == null) mop2f = VisUtil.toMOP2f(mop);
+        if (mop2f == null) mop2f = Vision.toMOP2f(mop);
         return mop2f;
     }
 
@@ -112,9 +112,9 @@ public class Contour extends Image {
     }
 
     /**
-     * sets the Point object that represents this Contour's X and Y values.
+     * Sets the Point object that represents this Contour's X and Y values.
      */
-    private void setCoords() {
+    private void setCoordsVar() {
         coords = ((MatOfPoint)m).toArray()[0];
     }
 

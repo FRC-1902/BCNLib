@@ -4,7 +4,7 @@ import com.explodingbacon.bcnlib.utils.Timer;
 import com.explodingbacon.bcnlib.utils.TimerUser;
 
 /**
- * An extension class of Joystick that makes it much easier to do XboxController-specific things, such as reading from the DPad or rumbling.
+ * An extension class of Joystick that makes it much easier to do game controller specific things, such as reading from the DPad or rumbling.
  *
  * @author Ryan Shavell
  * @version 2016.2.2
@@ -22,15 +22,13 @@ public abstract class GameController extends Joystick {
      * Gets the X axis of the second joystick.
      * @return The X axis of the right XboxController joystick.
      */
-    public double getX2() { return -2; }
+    public abstract double getX2();
 
     /**
      * Gets the Y axis of the second joystick.
      * @return The Y axis of the second joystick.
      */
-    public double getY2() {
-        return -2;
-    }
+    public abstract double getY2();
 
     /**
      * Gives the current Direction of the DPad.

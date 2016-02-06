@@ -1,5 +1,12 @@
 package com.explodingbacon.bcnlib.utils;
 
+/**
+ * A class used for communicating over I2C.
+ *
+ * @author Ryan Shavell
+ * @version 2016.2.6
+ */
+
 public class I2C {
 
     private edu.wpi.first.wpilibj.I2C i2c;

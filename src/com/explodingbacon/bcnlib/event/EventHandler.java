@@ -1,6 +1,10 @@
 package com.explodingbacon.bcnlib.event;
 
+import com.explodingbacon.bcnlib.examples.ExampleCommand;
 import com.explodingbacon.bcnlib.utils.CodeThread;
+import com.explodingbacon.bcnlib.utils.Timer;
+import com.explodingbacon.bcnlib.utils.TimerUser;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +29,7 @@ public abstract class EventHandler {
      * Initializes the EventHandler.
      * @param l The class that contains the EventListener methods.
      */
-    public static void init(Object l) {
+    public static void init(Object l) { //TODO: Check how memory intensive this is
         listener = l;
         thread = new CodeThread() {
             @Override
@@ -39,9 +43,15 @@ public abstract class EventHandler {
                                     List<Class> params = new ArrayList<>();
                                     Collections.addAll(params, m.getParameterTypes());
                                     if (params.contains(ewa.e.getClass())) {
-                                        try {
-                                            m.invoke(listener, ewa.args);
-                                        } catch (Exception e) {}
+                                        CodeThread c = new CodeThread(false) { //TODO: Check if this works for calling the method in it's own temporary thread
+                                            @Override
+                                            public void code() {
+                                                try {
+                                                    m.invoke(listener, ewa.args);
+                                                } catch (Exception e) {}
+                                            }
+                                        };
+                                        c.start();
                                         break;
                                     }
                                 }

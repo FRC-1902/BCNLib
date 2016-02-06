@@ -32,10 +32,6 @@ public abstract class ExtendableOI extends CodeThread {
 
     public static NetTuner tuner = new NetTuner();
 
-    private static final Object TRIGGERS_EDIT = new Object();
-    private static final Object BUTTONS_EDIT = new Object();
-    private static final Object JOYSTICKS_EDIT = new Object();
-
     /**
      * Makes a command run when a button is pressed.
      * @param b The button to trigger the command.
@@ -98,7 +94,7 @@ public abstract class ExtendableOI extends CodeThread {
      * @param b The NetButton to be added.
      */
     public static synchronized void addNetButton(NetButton b) {
-        synchronized (BUTTONS_EDIT) {
+        synchronized (netButtons) {
             netButtons.add(b);
         }
     }
@@ -108,30 +104,30 @@ public abstract class ExtendableOI extends CodeThread {
      * @param j The NetButton to be added.
      */
     public static synchronized void addNetJoystick(NetJoystick j) {
-        synchronized (JOYSTICKS_EDIT) {
+        synchronized (netJoysticks) {
             netJoysticks.add(j);
         }
     }
 
     private static synchronized void addTrigger(Trigger t) {
-        synchronized (TRIGGERS_EDIT) {
+        synchronized (triggers) {
             triggers.add(t);
         }
     }
 
     @Override
     public void code() {
-        synchronized (JOYSTICKS_EDIT) {
+        synchronized (netJoysticks) {
             for (NetJoystick j : netJoysticks) {
                 j.refresh();
             }
         }
-        synchronized (BUTTONS_EDIT) {
+        synchronized (netButtons) {
             for (NetButton b : netButtons) {
                 b.refresh();
             }
         }
-        synchronized (TRIGGERS_EDIT) {
+        synchronized (triggers) {
             int index = 0;
             List<Trigger> triggersToRemove = new ArrayList<>();
             for (Trigger t : triggers) {
