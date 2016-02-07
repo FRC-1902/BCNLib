@@ -9,7 +9,6 @@ public abstract class Subsystem {
      * <code>Command</code> object that is holding controllers of this <code>Subsystem</code>. <code>Null</code> when this
      * <code>Subsystem</code> is able to be changed
      */
-
     public Subsystem() {
         ExtendableRobot.subsystems.add(this);
     }

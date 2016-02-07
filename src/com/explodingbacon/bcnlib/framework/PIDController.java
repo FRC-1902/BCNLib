@@ -113,6 +113,7 @@ public class PIDController implements Runnable { //TODO: Check this
      * Set the PIDController to invert its input
      *
      * @param inverted Whether the PIDController should invert its input
+     * @return This PIDController (for method chaining)
      */
     public PIDController setInverted(Boolean inverted) {
         this.inverted = inverted;

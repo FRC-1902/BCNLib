@@ -173,7 +173,7 @@ public class Motor {
 
     /**
      * Gets the MotorEncoder for this Motor. Only for CANTalons currently.
-     * @return
+     * @return The MotorEncoder for this Motor.
      */
     public MotorEncoder getEncoder() {
         if (encoder == null) {
