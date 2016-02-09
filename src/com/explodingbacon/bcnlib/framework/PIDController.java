@@ -32,7 +32,7 @@ public class PIDController implements Runnable { //TODO: Check this
      * @param kD Derivative tuning variable. Set to 0 to disable the D term.
      */
     public PIDController(Motor m, PIDSource s, double kP, double kI, double kD) {
-        this.m = (m == null) ? m : new FakeMotor();
+        this.m = (m != null) ? m : new FakeMotor();
         this.s = s;
         this.kP = kP;
         this.kI = kI;
@@ -56,7 +56,7 @@ public class PIDController implements Runnable { //TODO: Check this
      * @param max The maximum target to the motor. Values above this will be scaled to this value.
      */
     public PIDController(Motor m, PIDSource s, double kP, double kI, double kD, double min, double max) {
-        this.m = (m == null) ? m : new FakeMotor();
+        this.m = (m != null) ? m : new FakeMotor();
         this.s = s;
         this.kP = kP;
         this.kI = kI;
@@ -207,11 +207,7 @@ public class PIDController implements Runnable { //TODO: Check this
             double power = Utils.minMax(setpoint, min, max);
 
             m.setPower(power);
-            if (power == 0) {
-                done = true;
-            } else {
-                done = false;
-            }
+            done = power == 0;
 
             try {
                 Thread.sleep(10);

@@ -2,8 +2,8 @@ package com.explodingbacon.bcnlib.controllers;
 
 public interface JoystickInterface {
 
-    public double getX();
+    double getX();
 
-    public double getY();
+    double getY();
 
 }

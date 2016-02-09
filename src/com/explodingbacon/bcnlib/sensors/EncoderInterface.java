@@ -4,17 +4,17 @@ package com.explodingbacon.bcnlib.sensors;
  * An interface for Encoders.
  *
  * @author Ryan Shavell
- * @version 2016.2.6
+ * @version 2016.2.8
  */
 
 public interface EncoderInterface {
-    public byte RATE = 1;
-    public byte POSITION = 2;
+    byte RATE = 1;
+    byte POSITION = 2;
 
-    public void reset();
+    void reset();
 
-    public double getRate();
+    double getRate();
 
-    public int get();
+    int get();
 
 }

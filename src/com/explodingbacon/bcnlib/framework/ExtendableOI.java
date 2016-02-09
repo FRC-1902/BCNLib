@@ -26,6 +26,10 @@ public abstract class ExtendableOI extends CodeThread {
     private static List<Subsystem> disabledSubsystems = new ArrayList<>();
     private static List<Boolean> prevButtonValues = new ArrayList<>();
 
+    private static final Object TRIGGERS_RW = new Object();
+    private static final Object BUTTONS_RW = new Object();
+    private static final Object JOYSTICKS_RW = new Object();
+
     public static TableInterface table = new NetTable("Robot_OI");
     private static List<NetButton> netButtons = new ArrayList<>();
     private static List<NetJoystick> netJoysticks = new ArrayList<>();
@@ -94,7 +98,7 @@ public abstract class ExtendableOI extends CodeThread {
      * @param b The NetButton to be added.
      */
     public static synchronized void addNetButton(NetButton b) {
-        synchronized (netButtons) {
+        synchronized (BUTTONS_RW) {
             netButtons.add(b);
         }
     }
@@ -104,30 +108,30 @@ public abstract class ExtendableOI extends CodeThread {
      * @param j The NetButton to be added.
      */
     public static synchronized void addNetJoystick(NetJoystick j) {
-        synchronized (netJoysticks) {
+        synchronized (JOYSTICKS_RW) {
             netJoysticks.add(j);
         }
     }
 
     private static synchronized void addTrigger(Trigger t) {
-        synchronized (triggers) {
+        synchronized (TRIGGERS_RW) {
             triggers.add(t);
         }
     }
 
     @Override
     public void code() {
-        synchronized (netJoysticks) {
+        synchronized (JOYSTICKS_RW) {
             for (NetJoystick j : netJoysticks) {
                 j.refresh();
             }
         }
-        synchronized (netButtons) {
+        synchronized (BUTTONS_RW) {
             for (NetButton b : netButtons) {
                 b.refresh();
             }
         }
-        synchronized (triggers) {
+        synchronized (TRIGGERS_RW) {
             int index = 0;
             List<Trigger> triggersToRemove = new ArrayList<>();
             for (Trigger t : triggers) {

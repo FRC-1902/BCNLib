@@ -1,9 +1,6 @@
 package com.explodingbacon.bcnlib.event;
 
-import com.explodingbacon.bcnlib.examples.ExampleCommand;
 import com.explodingbacon.bcnlib.utils.CodeThread;
-import com.explodingbacon.bcnlib.utils.Timer;
-import com.explodingbacon.bcnlib.utils.TimerUser;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -21,6 +18,7 @@ import java.util.List;
 public abstract class EventHandler {
 
     private static List<EventWithArgs> events = new ArrayList<>();
+    private static final Object EVENTS_RW = new Object();
     private static CodeThread thread;
     private static Object listener = null;
     private static boolean init = false;
@@ -34,7 +32,7 @@ public abstract class EventHandler {
         thread = new CodeThread() {
             @Override
             public void code() {
-                synchronized (events) {
+                synchronized (EVENTS_RW) {
                     if (!events.isEmpty()) {
                         Method[] methods = listener.getClass().getMethods();
                         for (Method m : methods) {
@@ -72,7 +70,7 @@ public abstract class EventHandler {
      * @param args Optional arguments that are currently not used.
      */
     public static void fireEvent(Event e, Object... args) {
-        synchronized (events) {
+        synchronized (EVENTS_RW) {
             events.add(new EventWithArgs(e, args));
         }
     }

@@ -6,7 +6,6 @@ import com.explodingbacon.bcnlib.event.EventHandler;
 import com.explodingbacon.bcnlib.event.TeleopStartEvent;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import org.opencv.core.Core;
 
 import java.util.ArrayList;
 import java.util.List;

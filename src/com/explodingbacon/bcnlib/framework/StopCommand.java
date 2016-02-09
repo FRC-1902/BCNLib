@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.explodingbacon.bcnlib.framework.ExtendableRobot.*;
 
 /**
- * Keeps a subsystem from being able to actuate any of it's actuators. Currently not used and may be subject to deletion.
+ * Keeps a subsystem from being able to actuate any of it's actuators. TODO: Currently not used and may be subject to deletion.
  *
  * @author Ryan Shavell
  * @version 2016.1.26

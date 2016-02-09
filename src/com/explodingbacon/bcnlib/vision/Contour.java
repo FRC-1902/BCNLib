@@ -1,10 +1,8 @@
 package com.explodingbacon.bcnlib.vision;
 
-import com.explodingbacon.bcnlib.utils.Utils;
 import org.opencv.core.*;
-import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;
-import java.awt.*;
+
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;

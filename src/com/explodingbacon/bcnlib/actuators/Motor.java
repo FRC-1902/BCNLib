@@ -1,6 +1,7 @@
 package com.explodingbacon.bcnlib.actuators;
 
 import com.explodingbacon.bcnlib.framework.ExtendableRobot;
+import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.sensors.MotorEncoder;
 import com.explodingbacon.bcnlib.utils.NetTuner;
 import edu.wpi.first.wpilibj.CANTalon;
@@ -45,7 +46,7 @@ public class Motor {
                         break;
                     }
                 }
-                if (sc == null) System.out.println("The SpeedController class given to Motor.java does not have a " +
+                if (sc == null) Log.e("The SpeedController class given to Motor.java does not have a " +
                         "constructor that accepts an Integer as its only argument!");
             }
         } catch (Exception ignored) {
@@ -180,7 +181,7 @@ public class Motor {
             if (sc instanceof CANTalon) {
                 encoder = new MotorEncoder((CANTalon) sc);
             } else {
-                System.out.println("[ERROR] Attempted to get a MotorEncoder from a Motor that does not have an encoder!");
+                Log.e("Attempted to get a MotorEncoder from a Motor that does not have an encoder!");
                 return null;
             }
         }
