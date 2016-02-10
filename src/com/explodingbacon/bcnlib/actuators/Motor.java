@@ -200,6 +200,10 @@ public class Motor {
         }
     }
 
+    public SpeedController getInternalSpeedController() {
+        return sc;
+    }
+
     /**
      * Gets the SmartDashboard key for this Motor.
      * @return The SmartDashboard key for this Motor.

@@ -16,11 +16,11 @@ public class MotorEncoder implements EncoderInterface, PIDSource {
     private byte pidMode;
 
     public MotorEncoder(CANTalon t) {
-        this.tal = t;
+        tal = t;
     }
 
     public void setPidMode(byte mode) {
-        this.pidMode = mode;
+        pidMode = mode;
     }
 
     @Override

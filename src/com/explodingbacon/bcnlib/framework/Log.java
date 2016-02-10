@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.framework;
  * A Logging class for logging different types of messages.
  *
  * @author Ryan Shavell
- * @version 2016.2.8
+ * @version 2016.2.9
  */
 
 public class Log {
@@ -47,6 +47,15 @@ public class Log {
      */
     public static void l(String s) {
         log("LOG", s);
+    }
+
+    /**
+     * Logs a message with a custom tag.
+     * @param tag The tag the message will have. Will appear as [TAG]
+     * @param message The message to be logged.
+     */
+    public static void c(String tag, String message) {
+        log(tag, message);
     }
 
     /**

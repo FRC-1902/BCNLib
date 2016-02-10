@@ -1,10 +1,12 @@
 package com.explodingbacon.bcnlib.utils;
 
+import java.lang.management.ManagementFactory;
+
 /**
  * A Utility class that contains functions that are often used in various parts of robot programming.
  *
  * @author Ryan Shavell
- * @version 2016.2.6
+ * @version 2016.2.9
  */
 
 public class Utils {
@@ -51,11 +53,28 @@ public class Utils {
     }
 
     /**
+     * Gets a distance from a certain object. TODO: Make a version of this that works for other cameras with different FOVs and stuff
+     * @param sizeInPx The size of the object in pixels.
+     * @return The distance from the object.
+     */
+    public static double getDistanceFromPx(double sizeInPx) {
+        return 10.25/Math.tan(Math.toRadians((62.5/1280)*sizeInPx));
+    }
+
+    /**
      * Rounds a Double to an Integer.
      * @param d The Double to be rounded.
      * @return The Integer.
      */
     public static int round(double d) {
         return (int) Math.round(d);
+    }
+
+    /**
+     * Gets the amount of Threads running.
+     * @return The amount of Threads running.
+     */
+    public static int getThreadCount() {
+        return ManagementFactory.getThreadMXBean().getThreadCount();
     }
 }
