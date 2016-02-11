@@ -32,7 +32,7 @@ public class CommandGroup extends Command {
     @Override
     public void onInit() {
         for (Command c : commands) {
-            ExtendableOI.runCommand(c);
+            AbstractOI.runCommand(c);
             c.waitTillFinished();
         }
     }

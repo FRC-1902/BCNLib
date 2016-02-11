@@ -4,6 +4,13 @@ import com.explodingbacon.bcnlib.framework.Log;
 import edu.wpi.first.wpilibj.SpeedController;
 import se.hirt.pi.adafruit.pwm.PWMDevice.PWMChannel;
 
+/**
+ * An implementation of SpeedController that controls a Motor via a Raspberry Pi.
+ *
+ * @author Ryan Shavell
+ * @version 2016.2.10
+ */
+
 public class PiMotor implements SpeedController {
 
     private PWMChannel channel;
@@ -46,31 +53,28 @@ public class PiMotor implements SpeedController {
     }
 
     /**
-     * Converts a raw PWM value to a one-based value (a range of 1 to -1)
-     * @param raw The raw PWM value.
-     * @return A one-based value (a range of 1 to -1)
+     * Converts a PWM value to a motor speed value (1 to -1)
+     * @param raw The PWM value.
+     * @return A motor speed value.
      */
-    private double rawToOne(double raw) { //TODO: implement
+    private double pwmToMotor(double raw) { //TODO: implement
         return 1;
-    }
+    } //TODO: Implement
 
     /**
-     * Converts a one-based value (a range of 1 to -1) to a raw PWM value.
-     * @param one The one-based value (a range of 1 to -1)
-     * @return A raw PWM value.
+     * Converts a motor speed value (1 to -1) to a PWM vlaue.
+     * @param one The motor speed value.
+     * @return A PWM value.
      */
-    private double oneToRaw(double one) { //TODO: implement
+    private double motorToPWM(double one) { //TODO: implement
         return 0;
-    }
+    } //TODO: Implement
 
-    public int doPWMValue(int val) {
-        return 0;
-    }
-
+/*
     public double getPositiveScaleFactor() {
         return max - min;
     }
-
+*/
 
     @Override
     public void setInverted(boolean isInverted) {} //Not implemented due to not being needed by BCNLib's Motor.java

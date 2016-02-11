@@ -1,11 +1,11 @@
 package com.explodingbacon.bcnlib.examples;
 
 import com.explodingbacon.bcnlib.controllers.Button;
-import com.explodingbacon.bcnlib.framework.ExtendableOI;
+import com.explodingbacon.bcnlib.framework.AbstractOI;
 import com.explodingbacon.bcnlib.networking.NetGamepad;
 import com.explodingbacon.bcnlib.networking.NetJoystick;
 
-public class ExampleOI extends ExtendableOI {
+public class ExampleOI extends AbstractOI {
 
     NetGamepad xbox = new NetGamepad("xbox", 2, 10);
 

@@ -20,7 +20,7 @@ import java.util.List;
  * @version 2016.2.4
  */
 
-public abstract class ExtendableOI extends CodeThread {
+public abstract class AbstractOI extends CodeThread {
 
     private static List<Trigger> triggers = new ArrayList<>();
     private static List<Subsystem> disabledSubsystems = new ArrayList<>();

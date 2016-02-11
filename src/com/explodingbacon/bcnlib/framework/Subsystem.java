@@ -10,7 +10,7 @@ public abstract class Subsystem {
      * <code>Subsystem</code> is able to be changed
      */
     public Subsystem() {
-        ExtendableRobot.subsystems.add(this);
+        RobotCore.subsystems.add(this);
     }
 
     private Command inUseBy;

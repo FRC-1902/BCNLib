@@ -1,7 +1,7 @@
 package com.explodingbacon.bcnlib.networking;
 
 import com.explodingbacon.bcnlib.controllers.Button;
-import com.explodingbacon.bcnlib.framework.ExtendableOI;
+import com.explodingbacon.bcnlib.framework.AbstractOI;
 import edu.wpi.first.wpilibj.buttons.InternalButton;
 
 /**
@@ -22,14 +22,14 @@ public class NetButton implements Button {
     public NetButton(String key) {
         button = new InternalButton();
         this.key = key;
-        ExtendableOI.addNetButton(this);
+        AbstractOI.addNetButton(this);
     }
 
     /**
-     * Refresh the value of this NetButton. Automatically handled by ExtendableOI.
+     * Refresh the value of this NetButton. Automatically handled by AbstractOI.
      */
     public void refresh() {
-        button.setPressed(ExtendableOI.table.getBoolean(key, false));
+        button.setPressed(AbstractOI.table.getBoolean(key, false));
     }
 
     /**

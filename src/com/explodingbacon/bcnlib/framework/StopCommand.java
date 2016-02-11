@@ -1,7 +1,6 @@
 package com.explodingbacon.bcnlib.framework;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.explodingbacon.bcnlib.framework.ExtendableRobot.*;
 
 /**
  * Keeps a subsystem from being able to actuate any of it's actuators. TODO: Currently not used and may be subject to deletion.
@@ -31,6 +30,6 @@ public class StopCommand extends Command {
 
     @Override
     public boolean isFinished() {
-        return !ExtendableRobot.getEnabled() || ExtendableRobot.getMode() != Mode.TEST;
+        return !RobotCore.getEnabled() || RobotCore.getMode() != RobotCore.Mode.TEST;
     }
 }

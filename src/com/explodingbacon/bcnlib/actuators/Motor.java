@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.actuators;
 
-import com.explodingbacon.bcnlib.framework.ExtendableRobot;
+import com.explodingbacon.bcnlib.framework.AbstractOI;
 import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.sensors.MotorEncoder;
 import com.explodingbacon.bcnlib.utils.NetTuner;
@@ -158,7 +158,7 @@ public class Motor {
      * @param k The specific key.
      */
     public void tune(String k) {
-        ExtendableRobot.getRobot().oi.tuner.tune(k, this);
+        AbstractOI.tuner.tune(k, this);
         isTuning = true;
         tuningKey = k;
     }
@@ -167,7 +167,7 @@ public class Motor {
      * Takes this Motor out of tuning mode.
      */
     public void stopTuning() {
-        ExtendableRobot.getRobot().oi.tuner.stopTune(tuningKey);
+        AbstractOI.tuner.stopTune(tuningKey);
         isTuning = false;
         tuningKey = "";
     }

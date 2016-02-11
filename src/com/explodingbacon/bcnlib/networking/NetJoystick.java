@@ -1,7 +1,7 @@
 package com.explodingbacon.bcnlib.networking;
 
 import com.explodingbacon.bcnlib.controllers.JoystickInterface;
-import com.explodingbacon.bcnlib.framework.ExtendableOI;
+import com.explodingbacon.bcnlib.framework.AbstractOI;
 
 /**
  * @author Dominic Canora
@@ -20,15 +20,15 @@ public class NetJoystick implements JoystickInterface {
         xVal = 0;
         yVal = 0;
         this.key = key;
-        ExtendableOI.addNetJoystick(this);
+        AbstractOI.addNetJoystick(this);
     }
 
     /**
-     * Refresh the value of this NetJoystick. Automatically handled by ExtendableOI.
+     * Refresh the value of this NetJoystick. Automatically handled by AbstractOI.
      */
     public void refresh() {
-        double x = ExtendableOI.table.getNumber(key + "_x", 0d);
-        double y = ExtendableOI.table.getNumber(key + "_y", 0d);
+        double x = AbstractOI.table.getNumber(key + "_x", 0d);
+        double y = AbstractOI.table.getNumber(key + "_y", 0d);
 
         x = Math.max(-1, x);
         y = Math.max(-1, y);
