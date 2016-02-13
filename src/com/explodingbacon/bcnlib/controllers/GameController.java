@@ -1,13 +1,12 @@
 package com.explodingbacon.bcnlib.controllers;
 
 import com.explodingbacon.bcnlib.utils.Timer;
-import com.explodingbacon.bcnlib.utils.TimerUser;
 
 /**
  * An extension class of Joystick that makes it much easier to do game controller specific things, such as reading from the DPad or rumbling.
  *
  * @author Ryan Shavell
- * @version 2016.2.2
+ * @version 2016.2.13
  */
 
 public abstract class GameController extends Joystick {
@@ -56,13 +55,10 @@ public abstract class GameController extends Joystick {
      */
     public void rumble(float l, float r, double seconds) {
         rumble(l, r);
-        rumbleTimer = new Timer(seconds, false, new TimerUser() {
-            public void timer() {
-                rumble(0, 0);
-            }
-            public void timerStop() {
-                rumbleTimer = null;
-            }
+
+        rumbleTimer = new Timer(seconds, false, () -> {
+            rumble(0, 0);
+            rumbleTimer = null;
         }).start();
     }
 }

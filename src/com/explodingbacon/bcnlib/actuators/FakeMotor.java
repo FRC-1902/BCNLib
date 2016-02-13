@@ -1,10 +1,11 @@
 package com.explodingbacon.bcnlib.actuators;
 
+import com.explodingbacon.bcnlib.framework.Log;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Ryan Shavell
- * @version 2016.2.12
+ * @version 2016.2.13
  */
 
 public class FakeMotor extends Motor {
@@ -22,14 +23,19 @@ public class FakeMotor extends Motor {
 
     @Override
     public double getPower() {
-        if (log) System.out.println(getSBKey() + " power is \"" + power + "\".");
+        if (log) Log.i(getSBKey() + " power is \"" + power + "\".");
         return power;
     }
 
     @Override
     public void setPower(double d) {
         power = d;
-        if (log) System.out.println(getSBKey() + "'s power has been set to \"" + power + "\".");
+        if (log) Log.i(getSBKey() + "'s power has been set to \"" + power + "\".");
         SmartDashboard.putNumber(getSBKey(), getPower());
+    }
+
+    @Override
+    public void stopMotor() {
+        if (log) Log.i(getSBKey() + " has been stopped!");
     }
 }

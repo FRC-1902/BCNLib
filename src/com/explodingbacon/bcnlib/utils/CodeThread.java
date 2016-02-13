@@ -4,15 +4,17 @@ package com.explodingbacon.bcnlib.utils;
  * A class that allows us to easily write code that will run in its own separate thread.
  *
  * @author Ryan Shavell
- * @version 2016.2.6
+ * @version 2016.2.13
  */
 
-public abstract class CodeThread implements Runnable {
+public class CodeThread implements Runnable {
 
     private Thread t;
     private boolean loop = true;
     private boolean stop = false;
     private boolean running = false;
+
+    private Runnable passedCode = null;
 
     /**
      * Creates a CodeThread.
@@ -20,10 +22,28 @@ public abstract class CodeThread implements Runnable {
     public CodeThread() {}
 
     /**
+     * Creates a CodeThread that will repeatedly run r.
+     * @param r The code to be repeatedly.
+     */
+    public CodeThread(Runnable r) {
+        passedCode = r;
+    }
+
+    /**
      * Creates a CodeThread.
      * @param l If the CodeThread will loop.
      */
     public CodeThread(boolean l) {
+        loop = l;
+    }
+
+
+    /**
+     * Creates a CodeThread that will run r (possibly repeatedly).
+     * @param r The code to be run.
+     */
+    public CodeThread(boolean l, Runnable r) {
+        passedCode = r;
         loop = l;
     }
 
@@ -44,7 +64,11 @@ public abstract class CodeThread implements Runnable {
         running = true;
         while (true) {
             if (stop) break;
-            code();
+            if (passedCode != null) {
+                passedCode.run();
+            } else {
+                code();
+            }
             if (!loop) break;
         }
         stop = false;
@@ -55,7 +79,7 @@ public abstract class CodeThread implements Runnable {
     /**
      * Override this with what code you want to run in the thread.
      */
-    public abstract void code();
+    public void code() {}
 
     /**
      * Stop execution of this <code>CodeThread</code>

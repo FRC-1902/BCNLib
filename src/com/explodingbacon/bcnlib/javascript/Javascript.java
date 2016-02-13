@@ -10,7 +10,7 @@ import java.io.FileReader;
  * A class that makes it easier to run and use Javascript code.
  *
  * @author Ryan Shavell
- * @version 2016.2.9
+ * @version 2016.2.13
  */
 
 public class Javascript {

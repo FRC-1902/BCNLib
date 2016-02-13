@@ -10,7 +10,7 @@ import java.util.List;
  * A class that lets you group together motors and mass-set their speeds. Specific motors can also be inverted.
  *
  * @author Ryan Shavell
- * @version 2016.2.2
+ * @version 2016.2.13
  */
 
 public class MotorGroup extends Motor {
@@ -148,6 +148,11 @@ public class MotorGroup extends Motor {
     @Override
     public void setReversed(boolean reversed) {
         this.reversed = reversed;
+    }
+
+    @Override
+    public void stopMotor() {
+        motors.forEach(Motor::stopMotor);
     }
 
     /**

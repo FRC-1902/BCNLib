@@ -1,5 +1,7 @@
 package com.explodingbacon.bcnlib.framework;
 
+import com.explodingbacon.bcnlib.javascript.Javascript;
+
 /**
  * @author Dominic Canora
  * @version 2016.1.0
@@ -10,7 +12,12 @@ public abstract class Subsystem {
      * <code>Subsystem</code> is able to be changed
      */
     public Subsystem() {
-        RobotCore.subsystems.add(this);
+        RobotCore.subsystems.add(this); //var RobotCore = Java.type('com.explodingbacon.bcnlib.framework.RobotCore');
+        if (Javascript.isInit()) {
+            String js = String.format("var %s = Java.type('%s');", getClass().getSimpleName(), getClass().getPackage());
+            Log.d("Subsystem package: " + getClass().getPackage());
+            Javascript.run(js);
+        }
     }
 
     private Command inUseBy;

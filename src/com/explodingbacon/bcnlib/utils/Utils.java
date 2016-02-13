@@ -77,4 +77,13 @@ public class Utils {
     public static int getThreadCount() {
         return ManagementFactory.getThreadMXBean().getThreadCount();
     }
+
+    /**
+     * Runs code in it's own separate Thread. TODO: Check if this works properly
+     * @param r The code to be run.
+     */
+    public static void runInOwnThread(Runnable r) {
+        CodeThread c = new CodeThread(false, r);
+        c.start();
+    }
 }

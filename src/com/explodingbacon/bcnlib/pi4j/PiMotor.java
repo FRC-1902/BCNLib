@@ -77,14 +77,19 @@ public class PiMotor implements SpeedController {
 */
 
     @Override
-    public void setInverted(boolean isInverted) {} //Not implemented due to not being needed by BCNLib's Motor.java
+    public void setInverted(boolean isInverted) {} //Not implemented due to not being needed by Motor.java
 
     @Override
-    public boolean getInverted() { return false; } //Not implemented due to not being needed by BCNLib's Motor.java
+    public boolean getInverted() { return false; }
 
     @Override
-    public void disable() {} //Not implemented due to not being needed by BCNLib's Motor.java
+    public void disable() {} //Not implemented due to not being needed by Motor.java
 
     @Override
-    public void pidWrite(double output) {} //Not implemented due to not being needed by BCNLib's Motor.java
+    public void stopMotor() {
+        //TODO: Implement?
+    }
+
+    @Override
+    public void pidWrite(double output) {} //Not implemented due to not being needed by Motor.java
 }

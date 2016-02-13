@@ -174,6 +174,13 @@ public class Motor {
     }
 
     /**
+     * Stops this Motor.
+     */
+    public void stopMotor() {
+        sc.stopMotor();
+    }
+
+    /**
      * Gets the MotorEncoder for this Motor. Only for CANTalons currently.
      * @return The MotorEncoder for this Motor.
      */

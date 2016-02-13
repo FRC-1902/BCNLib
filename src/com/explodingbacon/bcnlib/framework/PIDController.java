@@ -18,6 +18,7 @@ public class PIDController implements Runnable { //TODO: Check this
     private double p, i, d, lastP = 0, min, max;
     private double t = 0;
     private Thread thread;
+    private Runnable whenFinished = null;
     private boolean enabled = false, inverted = false, done = false;
 
 
@@ -190,6 +191,16 @@ public class PIDController implements Runnable { //TODO: Check this
         }
     }
 
+    /**
+     * Defines code that runs when this PID loop is done.
+     * @param r The code to be run.
+     * @return This PIDController.
+     */
+    public PIDController whenFinished(Runnable r) {
+        whenFinished = r;
+        return this;
+    }
+
     @Override
     public void run() {
         if (enabled) {
@@ -208,6 +219,12 @@ public class PIDController implements Runnable { //TODO: Check this
 
             m.setPower(power);
             done = power == 0;
+
+            if (done && whenFinished != null) {
+                try {
+                    whenFinished.run();
+                } catch (Exception e) {}
+            }
 
             try {
                 Thread.sleep(10);

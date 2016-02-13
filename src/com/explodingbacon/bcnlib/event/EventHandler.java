@@ -1,6 +1,7 @@
 package com.explodingbacon.bcnlib.event;
 
 import com.explodingbacon.bcnlib.utils.CodeThread;
+import com.explodingbacon.bcnlib.utils.Utils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -41,15 +42,13 @@ public abstract class EventHandler {
                                     List<Class> params = new ArrayList<>();
                                     Collections.addAll(params, m.getParameterTypes());
                                     if (params.contains(ewa.e.getClass())) {
-                                        CodeThread c = new CodeThread(false) { //TODO: Check if this works for calling the method in it's own temporary thread
-                                            @Override
-                                            public void code() {
-                                                try {
-                                                    m.invoke(listener, ewa.args);
-                                                } catch (Exception e) {}
-                                            }
-                                        };
-                                        c.start();
+
+                                        Utils.runInOwnThread(() -> {
+                                            try {
+                                                m.invoke(listener, ewa.args);
+                                            } catch (Exception e) {}
+                                        });
+
                                         break;
                                     }
                                 }
