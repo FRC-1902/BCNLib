@@ -7,14 +7,15 @@ import com.explodingbacon.bcnlib.utils.NetTuner;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A class for controlling Motors on the Robot.
+ *
  * @author Ryan Shavell
- * @version 2016.1.26
+ * @version 2016.2.12
  */
 
 public class Motor {
@@ -199,6 +200,7 @@ public class Motor {
             return getClass();
         }
     }
+
 
     public SpeedController getInternalSpeedController() {
         return sc;

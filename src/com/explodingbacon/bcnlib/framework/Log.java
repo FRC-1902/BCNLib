@@ -42,6 +42,14 @@ public class Log {
     }
 
     /**
+     * Logs an info message.
+     * @param s The message to be logged.
+     */
+    public static void i(String s) {
+        log("INFO", s);
+    }
+
+    /**
      * Logs a standard message.
      * @param s The message to be logged.
      */

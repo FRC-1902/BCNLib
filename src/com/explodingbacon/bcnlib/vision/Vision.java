@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.vision;
 
+import com.explodingbacon.bcnlib.framework.Log;
 import org.opencv.core.*;
 
 import java.awt.*;
@@ -20,7 +21,11 @@ public class Vision {
      * Initializes the Vision Tracking library.
      */
     public static void init() {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        try {
+            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        } catch (UnsatisfiedLinkError e) {
+            Log.e("Vision library not detected! Vision processing will not be available.");
+        }
         init = true;
     }
 

@@ -21,22 +21,23 @@ public class ADXSensor implements PIDSource {
     /**
      * Creates an ADXSensor on port.
      *
-     * @param port The SPI.Port this sensor is on.
+     * @param aPort The SPI.Port the accelerometer is on.
+     * @param gPort The SPI.Port the gyroscope is on.
      */
-    public ADXSensor(SPI.Port port) {
-        acc = new ADXL362(port, Accelerometer.Range.k4G);
-        gyro = new ADXRS450_Gyro(port);
+    public ADXSensor(SPI.Port aPort, SPI.Port gPort) {
+        acc = new ADXL362(aPort, Accelerometer.Range.k4G);
+        gyro = new ADXRS450_Gyro(gPort);
     }
 
     /**
      * Creates an ADXSensor on port, and sets the Accelerometer's range to range.
      *
-     * @param port  The SPI.Port this sensor is on.
-     * @param range The range you want the Accelerometer to have.
+     * @param aPort The SPI.Port the accelerometer is on.
+     * @param gPort The SPI.Port the gyroscope is on.
      */
-    public ADXSensor(SPI.Port port, Accelerometer.Range range) {
-        acc = new ADXL362(port, range);
-        gyro = new ADXRS450_Gyro(port);
+    public ADXSensor(SPI.Port aPort, SPI.Port gPort, Accelerometer.Range range) {
+        acc = new ADXL362(aPort, range);
+        gyro = new ADXRS450_Gyro(gPort);
     }
 
     /**
