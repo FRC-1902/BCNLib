@@ -15,8 +15,27 @@ import java.io.FileReader;
 
 public class Javascript {
 
-    private static ScriptEngineManager engineManager = new ScriptEngineManager();
-    private static ScriptEngine engine = engineManager.getEngineByName("bcnlib"); //use nashorn as the name if this doesn't work
+    private static boolean init = false;
+    private static ScriptEngineManager engineManager = null
+    private static ScriptEngine engine = null;
+
+    /**
+     * Initializes the Javascript engine.
+     */
+    public static void init() {
+        init = true;
+        engineManager = new ScriptEngineManager();
+        engine = engineManager.getEngineByName("bcnlib");
+        run("var RobotCore = Java.type('com.explodingbacon.bcnlib.framework.RobotCore');");
+    }
+
+    /**
+     * Checks if the Javascript engine is initialized.
+     * @return If the Javascript engine is initialized.
+     */
+    public static boolean isInit() {
+        return init;
+    }
 
     /**
      * Runs Javascript code. Functions previously defined through run() are available for use.
