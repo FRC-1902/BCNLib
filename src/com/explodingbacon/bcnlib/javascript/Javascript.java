@@ -1,10 +1,8 @@
 package com.explodingbacon.bcnlib.javascript;
 
 import com.explodingbacon.bcnlib.framework.Log;
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import java.io.FileReader;
+import com.explodingbacon.bcnlib.framework.RobotCore;
+import javax.script.*;
 
 /**
  * A class that makes it easier to run and use Javascript code.
@@ -16,8 +14,11 @@ import java.io.FileReader;
 public class Javascript {
 
     private static boolean init = false;
-    private static ScriptEngineManager engineManager = null
+    private static ScriptEngineManager engineManager = null;
     private static ScriptEngine engine = null;
+
+    private static Bindings scope = null;
+    private static ScriptContext context = null;
 
     /**
      * Initializes the Javascript engine.
@@ -26,7 +27,10 @@ public class Javascript {
         init = true;
         engineManager = new ScriptEngineManager();
         engine = engineManager.getEngineByName("bcnlib");
-        run("var RobotCore = Java.type('com.explodingbacon.bcnlib.framework.RobotCore');");
+
+        resetContext();
+
+        importToEngine(RobotCore.class); //TODO: Delete and instead add Robot.class in the 2016 project?
     }
 
     /**
@@ -38,29 +42,44 @@ public class Javascript {
     }
 
     /**
-     * Runs Javascript code. Functions previously defined through run() are available for use.
+     * Takes a class and imports it into the Javascript engine as a variable.
+     * @param c The class to import.
+     */
+    public static void importToEngine(Class c) {
+        runGlobal(String.format("var %s = Java.type('%s');", c.getSimpleName(), c.getPackage()));
+    }
+
+    /**
+     * Runs Javascript code in the current context.
      * @param js The Javascript code to run.
      */
     public static void run(String js) {
         try {
-            engine.eval(js);
+            engine.eval(js, context);
         } catch (Exception e) {
-            Log.e("Javascript.run(String) error!");
-            e.printStackTrace();
+            Log.e("Javascript.run() error!");
         }
     }
 
     /**
-     * Runs Javascript code. Functions previously defined through run() are available for use.
-     * @param r A FileReader pointing to a Javascript file.
+     * Runs Javascript code in the entire Javascript engine. Only use for function/global variable declarations.
+     * @param js The Javascript code to run.
      */
-    public static void run(FileReader r) {
+    public static void runGlobal(String js) {
         try {
-            engine.eval(r);
+            engine.eval(js);
         } catch (Exception e) {
-            Log.e("Javascript.run(FileReader) error!");
-            e.printStackTrace();
+            Log.e("Javascript.runGlobal() error!");
         }
+    }
+
+    /**
+     * Resets the Context of the Javascript engine, reverting any changes that were made to the specific Context being used.
+     */
+    public static void resetContext() {
+        context = new SimpleScriptContext();
+        context.setBindings(engine.createBindings(), ScriptContext.ENGINE_SCOPE);
+        scope = context.getBindings(ScriptContext.ENGINE_SCOPE);
     }
 
     /**

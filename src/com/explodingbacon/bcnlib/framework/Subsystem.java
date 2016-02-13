@@ -14,9 +14,8 @@ public abstract class Subsystem {
     public Subsystem() {
         RobotCore.subsystems.add(this); //var RobotCore = Java.type('com.explodingbacon.bcnlib.framework.RobotCore');
         if (Javascript.isInit()) {
-            String js = String.format("var %s = Java.type('%s');", getClass().getSimpleName(), getClass().getPackage());
+            Javascript.importToEngine(getClass());
             Log.d("Subsystem package: " + getClass().getPackage());
-            Javascript.run(js);
         }
     }
 
