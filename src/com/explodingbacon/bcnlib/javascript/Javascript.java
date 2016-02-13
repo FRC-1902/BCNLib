@@ -58,6 +58,7 @@ public class Javascript {
             engine.eval(js, context);
         } catch (Exception e) {
             Log.e("Javascript.run() error!");
+            //Javascript.resetContext(); TODO: If running code with an error in it ruins the context, reset the context
         }
     }
 
@@ -70,6 +71,7 @@ public class Javascript {
             engine.eval(js);
         } catch (Exception e) {
             Log.e("Javascript.runGlobal() error!");
+            //TODO: If running code with an error in it kills the whole engine, what do?
         }
     }
 
