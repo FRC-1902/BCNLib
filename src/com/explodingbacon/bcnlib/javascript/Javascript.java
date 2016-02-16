@@ -2,23 +2,23 @@ package com.explodingbacon.bcnlib.javascript;
 
 import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.framework.RobotCore;
+import com.explodingbacon.bcnlib.utils.Utils;
+
 import javax.script.*;
 
 /**
  * A class that makes it easier to run and use Javascript code.
  *
  * @author Ryan Shavell
- * @version 2016.2.13
+ * @version 2016.2.15
  */
 
 public class Javascript {
 
     private static boolean init = false;
+    private static String imports = "";
     private static ScriptEngineManager engineManager = null;
     private static ScriptEngine engine = null;
-
-    private static Bindings scope = null;
-    private static ScriptContext context = null;
 
     /**
      * Initializes the Javascript engine.
@@ -26,11 +26,7 @@ public class Javascript {
     public static void init() {
         init = true;
         engineManager = new ScriptEngineManager();
-        engine = engineManager.getEngineByName("bcnlib");
-
-        resetContext();
-
-        importToEngine(RobotCore.class); //TODO: Delete and instead add Robot.class in the 2016 project?
+        engine = engineManager.getEngineByName("nashorn");
     }
 
     /**
@@ -42,46 +38,31 @@ public class Javascript {
     }
 
     /**
-     * Takes a class and imports it into the Javascript engine as a variable.
+     * Takes a class and imports it as a variable.
      * @param c The class to import.
      */
-    public static void importToEngine(Class c) {
-        runGlobal(String.format("var %s = Java.type('%s');", c.getSimpleName(), c.getPackage()));
+    public static void importClass(Class c) {
+        String s = "var " + c.getSimpleName() + " = Java.type('" + c.getPackage().getName() + "." + c.getSimpleName() + "');";
+        imports = imports + s + Utils.newLine();
     }
 
     /**
      * Runs Javascript code in the current context.
      * @param js The Javascript code to run.
      */
-    public static void run(String js) {
+    public static void run(String js) { //TODO: Only add the needed imports?
         try {
-            engine.eval(js, context);
+            engine.eval(imports + js);
         } catch (Exception e) {
             Log.e("Javascript.run() error!");
-            //Javascript.resetContext(); TODO: If running code with an error in it ruins the context, reset the context
         }
     }
 
     /**
-     * Runs Javascript code in the entire Javascript engine. Only use for function/global variable declarations.
-     * @param js The Javascript code to run.
+     * Clears the imports
      */
-    public static void runGlobal(String js) {
-        try {
-            engine.eval(js);
-        } catch (Exception e) {
-            Log.e("Javascript.runGlobal() error!");
-            //TODO: If running code with an error in it kills the whole engine, what do?
-        }
-    }
-
-    /**
-     * Resets the Context of the Javascript engine, reverting any changes that were made to the specific Context being used.
-     */
-    public static void resetContext() {
-        context = new SimpleScriptContext();
-        context.setBindings(engine.createBindings(), ScriptContext.ENGINE_SCOPE);
-        scope = context.getBindings(ScriptContext.ENGINE_SCOPE);
+    public static void clearImports() {
+        imports = "";
     }
 
     /**

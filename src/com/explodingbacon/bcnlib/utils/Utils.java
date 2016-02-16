@@ -11,6 +11,8 @@ import java.lang.management.ManagementFactory;
 
 public class Utils {
 
+    private static String newLine = null;
+
     /**
      * Taking a value, bound it with a max and a deadzone respecting the sign of the input. Useful for sending values to motors.
      *
@@ -76,6 +78,17 @@ public class Utils {
      */
     public static int getThreadCount() {
         return ManagementFactory.getThreadMXBean().getThreadCount();
+    }
+
+    /**
+     * Gets the new line character for the current operating system.
+     * @return The new line character for the current operating system.
+     */
+    public static String newLine() {
+        if (newLine == null) {
+            newLine = System.getProperty("line.separator");
+        }
+        return newLine;
     }
 
     /**

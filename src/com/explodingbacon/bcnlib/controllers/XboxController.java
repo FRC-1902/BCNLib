@@ -13,7 +13,11 @@ public class XboxController extends GameController {
     public Button start, select;
     public Button leftBumper, rightBumper;
     public Button leftJoyButton, rightJoyButton;
+    public Button leftTrigger, rightTrigger;
     public ButtonGroup bumpers;
+    public ButtonGroup triggers;
+
+    private static final double TRIGGER_PRESSED = 0.1;
 
     public XboxController(int port) {
         super(port);
@@ -32,7 +36,17 @@ public class XboxController extends GameController {
         leftJoyButton = new JoystickButton(this, 9);
         rightJoyButton = new JoystickButton(this, 10);
 
+        leftTrigger = new FakeButton(() -> {
+            return isLeftTriggerPressed();
+        });
+
+        rightTrigger = new FakeButton(() -> {
+            return isRightTriggerPressed();
+        });
+
         bumpers = new ButtonGroup(leftBumper, rightBumper);
+
+        triggers = new ButtonGroup(leftTrigger, rightTrigger);
     }
 
     /**
@@ -49,6 +63,22 @@ public class XboxController extends GameController {
      */
     public double getRightTrigger() {
         return getRawAxis(3);
+    }
+
+    /**
+     * Checks if the left trigger is pressed down.
+     * @return If the left trigger is pressed down.
+     */
+    public boolean isLeftTriggerPressed() {
+        return Math.abs(getLeftTrigger()) > TRIGGER_PRESSED;
+    }
+
+    /**
+     * Checks if the right trigger is pressed down.
+     * @return If the right trigger is pressed down.
+     */
+    public boolean isRightTriggerPressed() {
+        return Math.abs(getRightTrigger()) > TRIGGER_PRESSED;
     }
 
     @Override

@@ -9,6 +9,13 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Server code (robot-side) for communication between the robot and a client.
+ *
+ * @author Ryan Shavell
+ * @version 2016.2.15
+ */
+
 public class Server extends CodeThread {
 
     private ServerSocket server;
@@ -31,6 +38,7 @@ public class Server extends CodeThread {
     public void code() {
         try {
             if (!init) {
+                Log.i("Server init!");
                 client = server.accept();
 
                 out = new PrintWriter(client.getOutputStream(), true);
@@ -41,13 +49,15 @@ public class Server extends CodeThread {
             String input;
 
             while ((input = in.readLine()) != null) {
-                Log.c("SERVER", input);
+                //Log.i(String.format("Server got message \"%s\"", input));
                 if (input.contains("js=")) {
                     input = input.replaceFirst("js=", "");
                     Javascript.run(input);
                 }
             }
         } catch (Exception e) {
+            Log.e("Server error!");
+            e.printStackTrace();
         }
     }
 }

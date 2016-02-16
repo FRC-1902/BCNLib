@@ -33,7 +33,7 @@ public class Vision {
      * Checks if the Vision Tracking library is initialized.
      * @return If the Vision Tracking library is initialized.
      */
-    public static boolean isInitialized() {
+    public static boolean isInit() {
         return init;
     }
 

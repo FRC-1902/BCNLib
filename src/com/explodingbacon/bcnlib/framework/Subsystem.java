@@ -12,10 +12,9 @@ public abstract class Subsystem {
      * <code>Subsystem</code> is able to be changed
      */
     public Subsystem() {
-        RobotCore.subsystems.add(this); //var RobotCore = Java.type('com.explodingbacon.bcnlib.framework.RobotCore');
+        RobotCore.subsystems.add(this);
         if (Javascript.isInit()) {
-            Javascript.importToEngine(getClass());
-            Log.d("Subsystem package: " + getClass().getPackage());
+            Javascript.importClass(getClass());
         }
     }
 

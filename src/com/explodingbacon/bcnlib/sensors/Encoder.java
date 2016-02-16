@@ -1,18 +1,15 @@
 package com.explodingbacon.bcnlib.sensors;
 
-import com.explodingbacon.bcnlib.framework.PIDSource;
-
 /**
  * A class for standard Encoders.
  *
  * @author Ryan Shavell
- * @version 2016.2.6
+ * @version 2016.2.15
  */
 
-public class Encoder implements EncoderInterface, PIDSource {
+public class Encoder extends AbstractEncoder {
 
     private edu.wpi.first.wpilibj.Encoder enc;
-    private byte pidMode;
 
     public Encoder(int aChannel, int bChannel) {
         enc = new edu.wpi.first.wpilibj.Encoder(aChannel, bChannel);
@@ -20,17 +17,6 @@ public class Encoder implements EncoderInterface, PIDSource {
 
     public Encoder(int aChannel, int bChannel, boolean reverse) {
         enc = new edu.wpi.first.wpilibj.Encoder(aChannel, bChannel, reverse);
-    }
-
-    public void setPidMode(byte mode) {
-        this.pidMode = mode;
-    }
-
-    @Override
-    public double getForPID() {
-        if (pidMode == EncoderInterface.POSITION) return get();
-        if (pidMode == EncoderInterface.RATE) return getRate();
-        return 0;
     }
 
     @Override

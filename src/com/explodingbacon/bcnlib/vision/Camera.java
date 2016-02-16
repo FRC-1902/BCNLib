@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.vision;
 
+import com.explodingbacon.bcnlib.framework.Log;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 
@@ -7,7 +8,7 @@ import org.opencv.videoio.VideoCapture;
  * A wrapper class for OpenCV's VideoCapture object.
  *
  * @author Ryan Shavell
- * @version 2016.1.28
+ * @version 2016.2.15
  */
 
 public class Camera {
@@ -16,7 +17,6 @@ public class Camera {
 
     public Camera(int index) {
         try {
-            if (!Vision.isInitialized()) System.out.println("[ERROR] Camera initialized without initializing the Vision Tracking library!");
             cam = new VideoCapture(index);
             Thread.sleep(1000);
             if (!isOpen()) {
