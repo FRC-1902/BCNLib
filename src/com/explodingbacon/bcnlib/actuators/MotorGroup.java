@@ -1,7 +1,8 @@
 package com.explodingbacon.bcnlib.actuators;
 
+import com.explodingbacon.bcnlib.framework.Log;
+import com.explodingbacon.bcnlib.utils.Utils;
 import edu.wpi.first.wpilibj.SpeedController;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * A class that lets you group together motors and mass-set their speeds. Specific motors can also be inverted.
  *
  * @author Ryan Shavell
- * @version 2016.2.13
+ * @version 2016.2.17
  */
 
 public class MotorGroup extends Motor {
@@ -124,9 +125,26 @@ public class MotorGroup extends Motor {
             inverts.clear();
             Collections.addAll(inverts, newInverts);
         } else {
-            System.out.println("[ERROR] MotorGroup.setInverts() got an array of inverts that is not the same size as the motor list!");
+            Log.e("MotorGroup.setInverts() got an array of inverts that is not the same size as the motor list!");
         }
         return this;
+    }
+
+    /**
+     * Tests each Motor in this MotorGroup one at a time.
+     * @param p The speed the Motors will run at while being tested.
+     */
+    public void testOneAtATime(double p) { //TODO: give better name :)
+        Utils.runInOwnThread(() -> {
+            for (Motor m : motors) {
+                try {
+                    m.setPower(p);
+                    Thread.sleep(2000);
+                    m.setPower(0);
+                    Thread.sleep(1000);
+                } catch (Exception e) {}
+            }
+        });
     }
 
     @Override

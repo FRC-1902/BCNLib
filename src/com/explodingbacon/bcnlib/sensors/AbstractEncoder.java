@@ -6,7 +6,7 @@ import com.explodingbacon.bcnlib.framework.PIDSource;
  * A abstract class for Encoders.
  *
  * @author Ryan Shavell
- * @version 2016.2.15
+ * @version 2016.2.17
  */
 
 public abstract class AbstractEncoder implements PIDSource {
@@ -28,6 +28,18 @@ public abstract class AbstractEncoder implements PIDSource {
         return mode;
     }
 
+    /**
+     * Gets the rate of this Encoder.
+     * @return The rate of this Encoder.
+     */
+    public abstract double getRate();
+
+    /**
+     * Gets the value of this Encoder.
+     * @return The value of this Encoder.
+     */
+    public abstract int get();
+
     @Override
     public double getForPID() {
         if (getPIDMode() == PIDMode.POSITION) return get();
@@ -35,11 +47,8 @@ public abstract class AbstractEncoder implements PIDSource {
         return 0;
     }
 
+    @Override
     public abstract void reset();
-
-    public abstract double getRate();
-
-    public abstract int get();
 
     public enum PIDMode {
         RATE,

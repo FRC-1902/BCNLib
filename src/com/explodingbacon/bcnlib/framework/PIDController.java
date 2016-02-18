@@ -68,6 +68,9 @@ public class PIDController implements Runnable { //TODO: Check this
         this.thread.start();
     }
 
+    /**
+     * Resets the P, I, D, and lastP variables.
+     */
     private void reset() {
         this.disable();
         this.p = 0;

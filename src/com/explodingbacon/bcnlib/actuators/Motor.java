@@ -4,18 +4,20 @@ import com.explodingbacon.bcnlib.framework.AbstractOI;
 import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.sensors.MotorEncoder;
 import com.explodingbacon.bcnlib.utils.NetTuner;
+import com.explodingbacon.bcnlib.utils.Utils;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 /**
  * A class for controlling Motors on the Robot.
  *
  * @author Ryan Shavell
- * @version 2016.2.12
+ * @version 2016.2.17
  */
 
 public class Motor {
@@ -24,9 +26,14 @@ public class Motor {
     protected int channel = -1;
     protected boolean reverse = false;
     protected boolean isTuning = false;
+    protected boolean isFiltered = false;
+    protected double smoothing;
+    protected double filteredSetpoint;
+    protected double filterTarget;
     protected String tuningKey = "";
     protected String name = "";
     protected MotorEncoder encoder = null;
+    protected Thread t;
     private static List<Motor> allMotors = new ArrayList<>();
 
     /**
@@ -107,6 +114,10 @@ public class Motor {
      */
     public void setPower(double d) {
         if (isTuning) return;
+        if(isFiltered) {
+            filterTarget = d;
+            return;
+        }
         sc.set(reverse ? -d : d);
         SmartDashboard.putNumber(getSBKey(), getPower());
     }
@@ -196,6 +207,29 @@ public class Motor {
         return encoder;
     }
 
+    protected Runnable lowPassFilter = () -> {
+        while(isFiltered) {
+            filteredSetpoint += (filterTarget - sc.get()) / smoothing;
+            filteredSetpoint = Utils.minMax(filteredSetpoint, 0.01, 1);
+            sc.set(filteredSetpoint);
+        }
+    };
+
+    public void setFiltered(double smoothing) {
+        this.smoothing = smoothing < 1 ? 1 : smoothing;
+        this.isFiltered = true;
+
+        t = new Thread(lowPassFilter);
+    }
+
+    public void stopFiltering() {
+        this.isFiltered = false;
+    }
+
+    public Boolean isFiltered() {
+        return isFiltered;
+    }
+
     /**
      * Gets this Motor's class.
      * @return This Motor's class.
@@ -208,8 +242,11 @@ public class Motor {
         }
     }
 
-
-    public SpeedController getInternalSpeedController() {
+    /**
+     * Gets the WPILib SpeedController object that this class is wrappering.
+     * @return The WPILib SpeedController object that this class is wrappering.
+     */
+    public SpeedController getWPISpeedController() {
         return sc;
     }
 

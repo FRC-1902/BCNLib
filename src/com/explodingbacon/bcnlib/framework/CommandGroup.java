@@ -13,8 +13,15 @@ public class CommandGroup extends Command {
 
     private List<Command> commands = new ArrayList<>();
 
+    /**
+     * Creates an empty CommandGroup
+     */
     public CommandGroup(){}
 
+    /**
+     * Creates a CommandGroup consisting of the Commands passed as arguments.
+     * @param c The Commands to be in the CommandGroup.
+     */
     public CommandGroup(Command... c) {
         Collections.addAll(commands, c);
     }

@@ -4,10 +4,18 @@ import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.event.AutonomousStartEvent;
 import com.explodingbacon.bcnlib.event.EventHandler;
 import com.explodingbacon.bcnlib.event.TeleopStartEvent;
+import com.explodingbacon.bcnlib.pi4j.Pi;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * The main class for Raspberry Pi or roboRIO Robots.
+ *
+ * @author Ryan Shavell
+ * @version 2016.2.17
+ */
 
 public abstract class RobotCore {
 
@@ -15,17 +23,21 @@ public abstract class RobotCore {
     private static IterativeRobot rio = null;
     public static DriverStation ds = null;
 
-    //Pi variables
-    private static Mode mode = Mode.NONE;
-    private static boolean enabled = false;
-
     public static List<Subsystem> subsystems = new ArrayList<>();
     private static RobotCore self;
 
+    /**
+     * Creates a RobotCore for a Raspberry Pi-based robot.
+     */
     public RobotCore() {
         self = this;
+        Pi.init(this);
     }
 
+    /**
+     * Creates a RobotCore for a roboRIO-based robot.
+     * @param r The IterativeRobot class of the robot.
+     */
     public RobotCore(IterativeRobot r) {
         rio = r;
         ds = DriverStation.getInstance();
@@ -64,9 +76,14 @@ public abstract class RobotCore {
     }
 
     /**
+     * Runs when the robot is disabled.
+     */
+    public void disabled() {}
+
+    /**
      * Loops while in teleop mode.
      */
-    public void teleopPeriodic() {};
+    public void teleopPeriodic() {}
 
     /**
      * Loops while in autonomous mode.
@@ -76,7 +93,7 @@ public abstract class RobotCore {
     /**
      * Loops while in test mode.
      */
-    public void testPeriodic() {};
+    public void testPeriodic() {}
 
     /**
      * Checks if this robot is controlled a roboRIO.
@@ -102,7 +119,7 @@ public abstract class RobotCore {
         if (isRIO()) {
             return rio.isEnabled();
         } else {
-            return enabled;
+            return Pi.isEnabled();
         }
     }
 
@@ -122,7 +139,7 @@ public abstract class RobotCore {
                 return Mode.NONE;
             }
         } else {
-            return mode;
+            return Pi.getMode();
         }
     }
 
@@ -211,17 +228,6 @@ public abstract class RobotCore {
      * @return The RobotCore object.
      */
     public static RobotCore self() { return self; }
-
-    /**
-     * An enum that represents the different modes this Robot can be in.
-     */
-    public enum Mode {
-        AUTONOMOUS,
-        TELEOP,
-        TEST,
-
-        NONE
-    }
 
     /**
      * An enum that represents the different alliances this Robot can be on.

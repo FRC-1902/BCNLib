@@ -3,6 +3,8 @@ package com.explodingbacon.bcnlib.controllers;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
+ * An implementation of Button for Buttons on a Joystick.
+ *
  * @author Ryan Shavell
  * @version 2016.1.18
  */
@@ -15,7 +17,7 @@ public class JoystickButton implements Button {
     /**
      * Creates a JoystickButton that corresponds to a physical button on j.
      *
-     * @param j        The Joystick this Button is on.
+     * @param j The Joystick this Button is on.
      * @param buttonID The ID of this Button.
      */
     public JoystickButton(Joystick j, int buttonID) {

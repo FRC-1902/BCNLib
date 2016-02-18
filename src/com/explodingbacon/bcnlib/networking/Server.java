@@ -26,6 +26,9 @@ public class Server extends CodeThread {
 
     public static int PORT = 5800;
 
+    /**
+     * Creates a Server.
+     */
     public Server() {
         super();
         try {

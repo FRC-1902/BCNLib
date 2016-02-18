@@ -3,6 +3,8 @@ package com.explodingbacon.bcnlib.networking;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
+ * A class for reading from NetTables.
+ *
  * @author Dominic Canora
  * @version 2016.1.0
  */
@@ -31,6 +33,7 @@ public class NetTable implements TableInterface {
         table = NetworkTable.getTable(key);
     }
 
+    @Override
     public String getString(String val, String defaultVal) {
         try {
             return table.getString(val, defaultVal);
@@ -39,6 +42,7 @@ public class NetTable implements TableInterface {
         }
     }
 
+    @Override
     public Double getNumber(String val, Double defaultVal) {
         try {
             return table.getNumber(val, defaultVal);
@@ -47,6 +51,7 @@ public class NetTable implements TableInterface {
         }
     }
 
+    @Override
     public Boolean getBoolean(String val, Boolean defaultVal) {
         try {
             return table.getBoolean(val, defaultVal);
@@ -55,14 +60,17 @@ public class NetTable implements TableInterface {
         }
     }
 
+    @Override
     public void putString(String key, String val) {
         table.putString(key, val);
     }
 
+    @Override
     public void putNumber(String key, Double val) {
         table.putNumber(key, val);
     }
 
+    @Override
     public void putBoolean(String key, Boolean val) {
         table.putBoolean(key, val);
     }

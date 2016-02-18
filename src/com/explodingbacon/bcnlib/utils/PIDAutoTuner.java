@@ -50,6 +50,9 @@ public class PIDAutoTuner implements Runnable {
         t = new Thread(this);
     }
 
+    /**
+     * Start this PIDAutoTuner
+     */
     public void start() {
         t.start();
     }

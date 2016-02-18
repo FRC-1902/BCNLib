@@ -29,11 +29,19 @@ public class Client extends CodeThread {
     private List<String> outQueue = new ArrayList<>();
     private Object MESSAGE_QUEUE_EDIT = new Object();
 
+    /**
+     * Creates a new Client.
+     */
     public Client() {
         super();
         start();
     }
 
+    /**
+     * Creates a new Client that will connect to a specific IP on a specific port.
+     * @param ip The IP.
+     * @param port The port.
+     */
     public Client(String ip, int port) {
         super();
         this.ip = ip;
@@ -73,6 +81,10 @@ public class Client extends CodeThread {
         }
     }
 
+    /**
+     * Sends a message to the server.
+     * @param The message to send.
+     */
     public void sendMessage(String s) {
         synchronized (MESSAGE_QUEUE_EDIT) {
             outQueue.add(s);

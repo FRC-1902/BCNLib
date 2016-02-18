@@ -169,7 +169,9 @@ public abstract class AbstractOI extends CodeThread {
             }
             prevButtonValues.clear();
             for (Trigger t : triggers) {
-                prevButtonValues.add(t.b.get());
+                if (t.t != TriggerType.NONE) {
+                    prevButtonValues.add(t.b.get());
+                }
             }
         }
 

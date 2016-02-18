@@ -19,6 +19,10 @@ public class InternalSource implements PIDSource {
     @Override
     public void reset() {}
 
+    /**
+     * Updates the value of this InternalSource.
+     * @param d The new vlaue of the InternalSource.
+     */
     public void update(double d) {
         distance = d;
     }

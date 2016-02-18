@@ -24,7 +24,7 @@ public class Utils {
     public static double minMax(double val, double min, double max) {
         if (val == 0) return 0; //Needed to avoid DivideByZeroException
         val = Math.abs(val) < min ? 0 : val;
-        val = Math.abs(val) > max ? max * (Math.abs(val) / val) : val;
+        val = Math.abs(val) > max ? max * sign(val) : val;
         return val;
     }
 

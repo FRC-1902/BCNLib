@@ -6,13 +6,17 @@ import com.explodingbacon.bcnlib.utils.Timer;
  * An extension class of Joystick that makes it much easier to do game controller specific things, such as reading from the DPad or rumbling.
  *
  * @author Ryan Shavell
- * @version 2016.2.13
+ * @version 2016.2.17
  */
 
 public abstract class GameController extends Joystick {
 
     public Timer rumbleTimer;
 
+    /**
+     * Creates a GameController on a port.
+     * @param port The port.
+     */
     public GameController(int port) {
         super(port);
     }

@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.controllers;
  * An extension of GameController made specific for Xbox controllers.
  *
  * @author Ryan Shavell
- * @version 2016.2.4
+ * @version 2016.2.17
  */
 
 public class XboxController extends GameController {
@@ -19,6 +19,10 @@ public class XboxController extends GameController {
 
     private static final double TRIGGER_PRESSED = 0.1;
 
+    /**
+     * Creates an XboxController on a port.
+     * @param port The port.
+     */
     public XboxController(int port) {
         super(port);
 

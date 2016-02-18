@@ -1,5 +1,8 @@
 package com.explodingbacon.bcnlib.pi4j;
 
+import com.explodingbacon.bcnlib.framework.Mode;
+import com.explodingbacon.bcnlib.framework.RobotCore;
+import com.explodingbacon.bcnlib.utils.CodeThread;
 import com.pi4j.io.gpio.*;
 import se.hirt.pi.adafruit.pwm.PWMDevice;
 
@@ -7,7 +10,7 @@ import se.hirt.pi.adafruit.pwm.PWMDevice;
  * A class for managing a RaspberryPi as a robot controller.
  *
  * @author Ryan Shavell
- * @version 2016.2.10
+ * @version 2016.2.16
  */
 
 public class Pi {
@@ -15,11 +18,18 @@ public class Pi {
     private static PWMDevice device;
     private static GpioController gpio;
     private static boolean init = false;
+    private static CodeThread thread = null;
+    private static RobotCore core;
+
+    private static boolean didRobotInit = false;
+    private static boolean wasEnabled = false;
+    private static Mode previousMode = Mode.NONE;
 
     /**
      * Initializes the Pi.
      */
-    public static void init() {
+    public static void init(RobotCore c) {
+        core = c;
         try {
             device = new PWMDevice();
 
@@ -27,8 +37,38 @@ public class Pi {
 
             gpio = GpioFactory.getInstance();
 
+            thread = new CodeThread(Pi::threadPeriodic);
+
+            thread.start();
+
             init = true;
         } catch (Exception e) {}
+    }
+
+    /**
+     * The code that is periodically called in the update thread.
+     */
+    private static void threadPeriodic() {
+        if (!didRobotInit) {
+            core.robotInit();
+            didRobotInit = true;
+        }
+        Mode m = Pi.getMode();
+        if (m == Mode.AUTONOMOUS) {
+            if (previousMode != Mode.AUTONOMOUS) core.autonomousInit();
+            core.autonomousPeriodic();
+        } else if (m == Mode.TELEOP) {
+            if (previousMode != Mode.TELEOP) core.teleopInit();
+            core.teleopPeriodic();
+        } else if (m == Mode.TEST) {
+            if (previousMode != Mode.TEST) core.testInit();
+            core.testPeriodic();
+        }
+        boolean enabled = Pi.isEnabled();
+        if (!enabled && wasEnabled) {
+            core.disabled();
+        }
+        wasEnabled = enabled;
     }
 
     /**
@@ -37,6 +77,22 @@ public class Pi {
      */
     public static boolean isInit() {
         return init;
+    }
+
+    /**
+     * Checks if the Pi is enabled on the Driver Station.
+     * @return If the Pi is enabled on the Driver Station.
+     */
+    public static boolean isEnabled() {
+        return false; //TODO: Pull the enabled state from the online driver station
+    }
+
+    /**
+     * Gets the current mode of the Pi.
+     * @retur The current mode of the Pi.
+     */
+    public static Mode getMode() { //TODO: Pull the current mode from the online driver station
+        return Mode.TELEOP;
     }
 
     /**

@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.SpeedController;
  * An implementation of SpeedController for controlling a Relay.
  *
  * @author Ryan Shavell
- * @version 2016.2.13
+ * @version 2016.2.17
  */
 
 public class Relay implements SpeedController {
@@ -14,6 +14,10 @@ public class Relay implements SpeedController {
     private edu.wpi.first.wpilibj.Relay r;
     private double currentPower = 0;
 
+    /**
+     * Create a new Relay on the given channel
+     * @param channel The channel that this Relay is plugged in
+     */
     public Relay(int channel) {
         super();
         r = new edu.wpi.first.wpilibj.Relay(channel);

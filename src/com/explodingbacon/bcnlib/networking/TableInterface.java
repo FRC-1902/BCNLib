@@ -1,5 +1,9 @@
 package com.explodingbacon.bcnlib.networking;
 
+/**
+ * TODO: Dominic's interface, Dominic's problem
+ */
+
 public interface TableInterface {
     String getString(String key, String fallback);
 

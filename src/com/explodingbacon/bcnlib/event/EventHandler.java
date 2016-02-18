@@ -82,6 +82,10 @@ public abstract class EventHandler {
         return init;
     }
 
+    /**
+     * A class for pairing an Event with extra arguments that are coming with it. Pretty sure the extra arguments are useless
+     * and should be deleted along with this class.
+     */
     static class EventWithArgs {
         protected Event e;
         protected Object[] args; //TODO: Either make this useful or delete it

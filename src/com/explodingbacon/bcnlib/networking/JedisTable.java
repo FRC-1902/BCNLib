@@ -3,6 +3,13 @@ package com.explodingbacon.bcnlib.networking;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+/**
+ * A class for using a JedisTable.
+ *
+ * @author Dominic Canora
+ * @version 2016.2.17
+ */
+
 public class JedisTable implements TableInterface {
     private JedisPool pool;
 

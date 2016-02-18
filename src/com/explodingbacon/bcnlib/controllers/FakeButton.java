@@ -8,7 +8,7 @@ import java.util.function.BooleanSupplier;
  * A class for a programmedly controllable Button.
  *
  * @author Ryan Shavell
- * @version 2016.2.15
+ * @version 2016.2.17
  */
 
 public class FakeButton implements Button {
@@ -16,12 +16,23 @@ public class FakeButton implements Button {
     private boolean status = false;
     private BooleanSupplier supplier = null;
 
+    /**
+     * Creates a FakeButton.
+     */
     public FakeButton() {}
 
+    /**
+     * Creates a FakeButton whose state is controlled by the result of the BooleanSupplier function.
+     * @param s The BooleanSupplier.
+     */
     public FakeButton(BooleanSupplier s) {
         supplier = s;
     }
 
+    /**
+     * Gets the status of this button
+     * @return The status of this button
+     */
     @Override
     public boolean get() {
         if (supplier != null) {

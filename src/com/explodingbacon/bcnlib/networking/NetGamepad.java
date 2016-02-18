@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A class for NetGamepads, which contain NetJoysticks and NetButtons. TODO: Delete?
+ *
  * @author Ryan Shavell
  * @version 2016.1.26
  */
