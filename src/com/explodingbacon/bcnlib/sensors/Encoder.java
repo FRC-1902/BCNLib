@@ -7,7 +7,7 @@ package com.explodingbacon.bcnlib.sensors;
  * @version 2016.2.17
  */
 
-public class Encoder extends AbstractEncoder {
+public class Encoder extends AbstractEncoder { //TODO: Reverse
 
     private edu.wpi.first.wpilibj.Encoder enc;
 

@@ -132,19 +132,23 @@ public class MotorGroup extends Motor {
 
     /**
      * Tests each Motor in this MotorGroup one at a time.
-     * @param p The speed the Motors will run at while being tested.
+     * @param power The speed the Motors will run at while being tested.
      */
-    public void testOneAtATime(double p) { //TODO: give better name :)
+    public void testOneAtATime(double power, double timeOn) { //TODO: give better name :)
         Utils.runInOwnThread(() -> {
-            for (Motor m : motors) {
-                try {
-                    m.setPower(p);
-                    Thread.sleep(2000);
-                    m.setPower(0);
-                    Thread.sleep(1000);
-                } catch (Exception e) {}
-            }
+            testOneAtATimeBlocking(power, timeOn);
         });
+    }
+
+    public void testOneAtATimeBlocking(double power, double timeOn) {
+        for (Motor m : motors) {
+            try {
+                m.setPower(power);
+                Thread.sleep(Math.round(timeOn * 1000));
+                m.setPower(0);
+                Thread.sleep(1000);
+            } catch (Exception e) {}
+        }
     }
 
     @Override

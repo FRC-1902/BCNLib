@@ -212,6 +212,12 @@ public class Motor {
             filteredSetpoint += (filterTarget - sc.get()) / smoothing;
             filteredSetpoint = Utils.minMax(filteredSetpoint, 0.01, 1);
             sc.set(filteredSetpoint);
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                break;
+            }
         }
     };
 

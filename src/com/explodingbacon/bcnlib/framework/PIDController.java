@@ -206,33 +206,38 @@ public class PIDController implements Runnable { //TODO: Check this
 
     @Override
     public void run() {
-        if (enabled) {
-            p = t - s.getForPID();
+        while (true) {
+            if (enabled) {
+                p = t - s.getForPID();
 
-            if (inverted) p *= -1;
+                if (inverted) p *= -1;
 
-            i += p;
-            d = lastP - p;
-            lastP = p;
+                i += p;
+                d = lastP - p;
+                lastP = p;
 
-            double setpoint = p * kP + i * kI + d * kD;
-            setpoint = Utils.minMax(setpoint, 0.1, 1);
+                i = Math.abs(i * kI) > 1 ? (1 / kI) : i; //Prevent i windup
 
-            double power = Utils.minMax(setpoint, min, max);
+                double setpoint = p * kP + i * kI + d * kD;
+                setpoint = Utils.minMax(setpoint, 0.1, 1);
 
-            m.setPower(power);
-            done = power == 0;
+                double power = Utils.minMax(setpoint, min, max);
 
-            if (done && whenFinished != null) {
+                m.setPower(power);
+                done = power == 0;
+
+                if (done && whenFinished != null) {
+                    try {
+                        whenFinished.run();
+                        Log.d("PID is done!");
+                    } catch (Exception e) {
+                    }
+                }
+
                 try {
-                    whenFinished.run();
-                } catch (Exception e) {}
-            }
-
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e1) {
-                assert false; //Not exactly sure what is proper to do here, I found this on StackExchange
+                    Thread.sleep(10);
+                } catch (InterruptedException e1) {
+                }
             }
         }
     }
