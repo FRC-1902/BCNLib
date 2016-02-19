@@ -11,6 +11,7 @@ import com.explodingbacon.bcnlib.framework.PIDSource;
 
 public abstract class AbstractEncoder implements PIDSource {
     private PIDMode mode = PIDMode.POSITION;
+    private boolean reversed = false;
 
     /**
      * Sets the PID Mode of this Encoder.
@@ -39,6 +40,22 @@ public abstract class AbstractEncoder implements PIDSource {
      * @return The value of this Encoder.
      */
     public abstract int get();
+
+    /**
+     * Checks if this Encoder is reversed.
+     * @return If this Encoder is reversed.
+     */
+    public boolean isReversed() {
+        return reversed;
+    }
+
+    /**
+     * Sets if this Encoder should be reversed.
+     * @param r If this Encoder should be reversed.
+     */
+    public void setReversed(boolean r) {
+        reversed = r;
+    }
 
     @Override
     public double getForPID() {

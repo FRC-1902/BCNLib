@@ -86,6 +86,18 @@ public abstract class AbstractOI extends CodeThread {
     }
 
     /**
+     * Deletes all the Command triggers and stops any Commands they may have started.
+     */
+    public static void deleteAllTriggers() {
+        synchronized (TRIGGERS_RW) {
+            for (Trigger t : triggers) {
+                t.c.forceStop();
+            }
+            triggers.clear();
+        }
+    }
+
+    /**
      * Disables a Subsystem, stopping all its running Commands and preventing new ones from being started.
      * @param s The Subsystem to be disabled.
      */

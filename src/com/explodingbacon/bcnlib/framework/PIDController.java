@@ -2,6 +2,7 @@ package com.explodingbacon.bcnlib.framework;
 
 import com.explodingbacon.bcnlib.actuators.FakeMotor;
 import com.explodingbacon.bcnlib.actuators.Motor;
+import com.explodingbacon.bcnlib.sensors.AbstractEncoder;
 import com.explodingbacon.bcnlib.utils.Utils;
 
 /**
@@ -17,6 +18,7 @@ public class PIDController implements Runnable { //TODO: Check this
     private double kP, kI, kD;
     private double p, i, d, lastP = 0, min, max;
     private double t = 0;
+    private double tolerance = 1000;
     private Thread thread;
     private Runnable whenFinished = null;
     private boolean enabled = false, inverted = false, done = false;
@@ -168,6 +170,14 @@ public class PIDController implements Runnable { //TODO: Check this
     }
 
     /**
+     * Set the tolerance for determining if the loop is finished. Default is 1000
+     * @param tolerance The tolerance, in whatever units the PIDSource provides
+     */
+    public void setFinishedTolerance(double tolerance) {
+        this.tolerance = tolerance;
+    }
+
+    /**
      * Checks if this PIDController is done.
      * @return If this PIDController is done.
      */
@@ -218,19 +228,31 @@ public class PIDController implements Runnable { //TODO: Check this
 
                 i = Math.abs(i * kI) > 1 ? (1 / kI) : i; //Prevent i windup
 
-                double setpoint = p * kP + i * kI + d * kD;
+                double setpoint = p * kP + i * kI - d * kD;
                 setpoint = Utils.minMax(setpoint, 0.1, 1);
 
                 double power = Utils.minMax(setpoint, min, max);
 
+                //If our target is 0 and our target is a rate, set the motor to 0, since that'll get us a rate of 0 easily
+                if (s instanceof AbstractEncoder) {
+                    if (((AbstractEncoder) s).getPIDMode() == AbstractEncoder.PIDMode.RATE) {
+                        if (getTarget() == 0) {
+                            power = 0;
+                        }
+                    }
+                }
+
                 m.setPower(power);
-                done = power == 0;
+
+                //TODO: better logic for considering the PID as "done". This doesn't take into account over shooting
+                done = Math.abs(p) <= tolerance;
 
                 if (done && whenFinished != null) {
                     try {
                         whenFinished.run();
-                        Log.d("PID is done!");
                     } catch (Exception e) {
+                        Log.e("PIDController.whenFinished Runnable error!");
+                        e.printStackTrace();
                     }
                 }
 

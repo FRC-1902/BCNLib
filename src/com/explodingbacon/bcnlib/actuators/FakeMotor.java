@@ -32,19 +32,19 @@ public class FakeMotor extends Motor {
 
     @Override
     public double getPower() {
-        if (log) Log.i(getSBKey() + " power is \"" + power + "\".");
+        if (log) Log.i(getName() + " power is \"" + power + "\".");
         return power;
     }
 
     @Override
     public void setPower(double d) {
         power = d;
-        if (log) Log.i(getSBKey() + "'s power has been set to \"" + power + "\".");
-        SmartDashboard.putNumber(getSBKey(), getPower());
+        if (log) Log.i(getName() + "'s power has been set to \"" + power + "\".");
+        SmartDashboard.putNumber(getName(), getPower());
     }
 
     @Override
     public void stopMotor() {
-        if (log) Log.i(getSBKey() + " has been stopped!");
+        if (log) Log.i(getName() + " has been stopped!");
     }
 }

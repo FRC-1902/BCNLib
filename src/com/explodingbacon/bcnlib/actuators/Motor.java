@@ -7,17 +7,16 @@ import com.explodingbacon.bcnlib.utils.NetTuner;
 import com.explodingbacon.bcnlib.utils.Utils;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BooleanSupplier;
 
 /**
  * A class for controlling Motors on the Robot.
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.2.18
  */
 
 public class Motor {
@@ -119,7 +118,7 @@ public class Motor {
             return;
         }
         sc.set(reverse ? -d : d);
-        SmartDashboard.putNumber(getSBKey(), getPower());
+        //SmartDashboard.putNumber(getName(), getPower());
     }
 
     /**
@@ -162,7 +161,7 @@ public class Motor {
      * Puts this Motor into tuning mode.
      */
     public void tune() {
-        tune(getSBKey());
+        tune(getName());
     }
 
     /**
@@ -200,7 +199,7 @@ public class Motor {
             if (sc instanceof CANTalon) {
                 encoder = new MotorEncoder((CANTalon) sc);
             } else {
-                Log.e("Attempted to get a MotorEncoder from a Motor that does not have an encoder!");
+                Log.e("Attempted to get a MotorEncoder from a Motor that is not a CANTalon! (Motor is a" + getClass().getSimpleName() + ")");
                 return null;
             }
         }
@@ -249,6 +248,14 @@ public class Motor {
     }
 
     /**
+     * Gets the channel this Motor is on.
+     * @return The channel this Motor is on.
+     */
+    public int getChannel() {
+        return channel;
+    }
+
+    /**
      * Gets the WPILib SpeedController object that this class is wrappering.
      * @return The WPILib SpeedController object that this class is wrappering.
      */
@@ -257,10 +264,10 @@ public class Motor {
     }
 
     /**
-     * Gets the SmartDashboard key for this Motor.
-     * @return The SmartDashboard key for this Motor.
+     * Gets the name of this Motor.
+     * @return The name of this Motor.
      */
-    public String getSBKey() {
+    public String getName() {
         if (!name.equals("")) {
             return name;
         } else {

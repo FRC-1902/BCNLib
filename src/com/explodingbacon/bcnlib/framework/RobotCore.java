@@ -69,16 +69,12 @@ public abstract class RobotCore {
     /**
      * Runs when test mode starts.
      */
-    public void testInit() {
-        for (Motor m : Motor.getAllMotors()) {
-            if (!m.isTuning()) m.tune();
-        }
-    }
+    public void testInit() {}
 
     /**
      * Runs when the robot is disabled.
      */
-    public void disabled() {}
+    public void disabledInit() {}
 
     /**
      * Loops while in teleop mode.
@@ -94,6 +90,11 @@ public abstract class RobotCore {
      * Loops while in test mode.
      */
     public void testPeriodic() {}
+
+    /**
+     * Loops while disabled.
+     */
+    public void disabledPeriodic() {}
 
     /**
      * Checks if this robot is controlled a roboRIO.

@@ -50,6 +50,7 @@ public class DoubleSolenoid implements SolenoidInterface{
      * @param state The new position of the solenoid, as a boolean
      */
     public void set(boolean state) {
+        if(reversed) state = !state;
         sol.set(state ? edu.wpi.first.wpilibj.DoubleSolenoid.Value.kForward :
                 edu.wpi.first.wpilibj.DoubleSolenoid.Value.kReverse);
     }

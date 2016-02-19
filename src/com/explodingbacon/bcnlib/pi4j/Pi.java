@@ -65,8 +65,9 @@ public class Pi {
             core.testPeriodic();
         }
         boolean enabled = Pi.isEnabled();
-        if (!enabled && wasEnabled) {
-            core.disabled();
+        if (!enabled) {
+            if (wasEnabled) core.disabledInit();
+            core.disabledPeriodic();
         }
         wasEnabled = enabled;
     }

@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.framework;
  * An interface for PIDSources.
  *
  * @author Dominic Canora
- * @version 2016.2.17
+ * @version 2016.1.0
  */
 
 public interface PIDSource {
@@ -16,7 +16,7 @@ public interface PIDSource {
     double getForPID();
 
     /**
-     * Resets this PIDSource. TODO: Either use this or delete this.
+     * Resets this PIDSource.
      */
     void reset();
 }

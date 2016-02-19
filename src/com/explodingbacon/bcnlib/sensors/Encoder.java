@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.sensors;
  * A class for standard Encoders.
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.2.18
  */
 
 public class Encoder extends AbstractEncoder { //TODO: Reverse
@@ -36,12 +36,14 @@ public class Encoder extends AbstractEncoder { //TODO: Reverse
     }
 
     @Override
-    public double getRate() {
-        return enc.getRate();
+    public int get() {
+        int sign = isReversed() ? -1 : 1;
+        return sign * enc.getRaw();
     }
 
     @Override
-    public int get() {
-        return enc.getRaw();
+    public double getRate() {
+        double sign = isReversed() ? -1 : 1;
+        return sign * enc.getRate();
     }
 }

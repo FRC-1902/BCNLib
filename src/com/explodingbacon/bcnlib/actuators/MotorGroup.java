@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * A class that lets you group together motors and mass-set their speeds. Specific motors can also be inverted.
@@ -35,10 +36,7 @@ public class MotorGroup extends Motor {
      */
     public MotorGroup(Motor... motorArray) {
         super();
-        for (Motor m : motorArray) {
-            motors.add(m);
-            inverts.add(false);
-        }
+        addMotors(motorArray);
     }
 
     /**
@@ -131,23 +129,40 @@ public class MotorGroup extends Motor {
     }
 
     /**
-     * Tests each Motor in this MotorGroup one at a time.
-     * @param power The speed the Motors will run at while being tested.
+     * Calls code on each Motor in this MotorGroup.
+     * @param c The code to call.
      */
-    public void testOneAtATime(double power, double timeOn) { //TODO: give better name :)
+    public void forEach(Consumer<Motor> c) {
+        motors.forEach(c);
+    }
+
+    /**
+     * Tests each Motor in this MotorGroup.
+     * @param power The speed the Motor will run at while being tested.
+     * @param timeOn How long the Motor will be on while being tested.
+     */
+    public void testEach(double power, double timeOn) { //TODO: give better name :)
         Utils.runInOwnThread(() -> {
-            testOneAtATimeBlocking(power, timeOn);
+            testEachWait(power, timeOn);
         });
     }
 
-    public void testOneAtATimeBlocking(double power, double timeOn) {
+    /**
+     * Tests each Motor in this MotorGroup, and freezes the Thread until the test is complete.
+     * @param power The speed the Motor will run at while being tested.
+     * @param timeOn How long the Motor will be on while being tested.
+     */
+    public void testEachWait(double power, double timeOn) {
         for (Motor m : motors) {
             try {
                 m.setPower(power);
                 Thread.sleep(Math.round(timeOn * 1000));
                 m.setPower(0);
                 Thread.sleep(1000);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                Log.e("MotorGroup.testEachWait() exception!");
+                e.printStackTrace();
+            }
         }
     }
 
@@ -174,7 +189,7 @@ public class MotorGroup extends Motor {
 
     @Override
     public void stopMotor() {
-        motors.forEach(Motor::stopMotor);
+        forEach(Motor::stopMotor);
     }
 
     /**

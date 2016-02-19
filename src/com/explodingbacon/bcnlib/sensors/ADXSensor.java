@@ -52,13 +52,6 @@ public class ADXSensor implements PIDSource {
     }
 
     /**
-     * Calibrates the Gyroscope.
-     */
-    public void calibrate() {
-        gyro.calibrate();
-    }
-
-    /**
      * Gets the current angle of the Gyroscope.
      *
      * @return The current angle of the Gyroscope.
@@ -139,6 +132,6 @@ public class ADXSensor implements PIDSource {
 
     @Override
     public void reset() {
-        //TODO: Decide if we're going to implement this
+        gyro.reset();
     }
 }

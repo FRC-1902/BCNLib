@@ -1,5 +1,7 @@
 package com.explodingbacon.bcnlib.utils;
 
+import com.explodingbacon.bcnlib.framework.Log;
+
 /**
  * A class that lets you set a timer that will be called once (or every) X seconds.
  *
@@ -56,7 +58,12 @@ public class Timer implements Runnable {
             try {
                 if (stop) break;
                 Thread.sleep((long) seconds * 1000);
-                r.run();
+                try {
+                    r.run();
+                } catch (Exception e) {
+                    Log.e("Timer runnable error!");
+                    e.printStackTrace();
+                }
                 if (!loop) break;
             } catch (InterruptedException e) {
                 e.printStackTrace();

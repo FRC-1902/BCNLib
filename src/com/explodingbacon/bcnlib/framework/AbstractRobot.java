@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 
 public class AbstractRobot extends IterativeRobot {
 
-    private static RobotCore core;
+    private static RobotCore core = null;
 
     @Override
     public void robotInit() {core.robotInit();}
@@ -26,7 +26,7 @@ public class AbstractRobot extends IterativeRobot {
 
     @Override
     public void disabledInit() {
-        core.disabled();
+        core.disabledInit();
     }
 
     @Override
@@ -42,6 +42,11 @@ public class AbstractRobot extends IterativeRobot {
     @Override
     public void testPeriodic() {
         core.testPeriodic();
+    }
+
+    @Override
+    public void disabledPeriodic() {
+        core.disabledPeriodic();
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.explodingbacon.bcnlib.utils;
 
+import com.explodingbacon.bcnlib.framework.Log;
+
 /**
  * A class that allows us to easily write code that will run in its own separate thread.
  *
@@ -64,10 +66,15 @@ public class CodeThread implements Runnable {
         running = true;
         while (true) {
             if (stop) break;
-            if (passedCode != null) {
-                passedCode.run();
-            } else {
-                code();
+            try {
+                if (passedCode != null) {
+                    passedCode.run();
+                } else {
+                    code();
+                }
+            } catch (Exception e) {
+                Log.e("CodeThread error!");
+                e.printStackTrace();
             }
             if (!loop) break;
         }
