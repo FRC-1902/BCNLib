@@ -5,7 +5,10 @@ import java.util.LinkedHashMap;
 import java.util.function.Supplier;
 
 /**
- * Created by Piggy Programmer on 2/19/2016.
+ * A class for logging data and savinf to do a .csv file.
+ *
+ * @author Dominic Canora
+ * @version 2016.1.0
  */
 public class DataLogger {
     private PrintWriter writer;
@@ -17,7 +20,7 @@ public class DataLogger {
         try {
             writer = new PrintWriter("/var/log/BCNLib/" + System.currentTimeMillis() + ".csv");
         } catch (Exception e) {
-            Log.e("IOExcpetion in DataLogger");
+            Log.e("Exception in DataLogger!");
             e.printStackTrace();
         }
 

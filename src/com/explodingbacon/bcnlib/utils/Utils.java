@@ -1,6 +1,10 @@
 package com.explodingbacon.bcnlib.utils;
 
+import com.explodingbacon.bcnlib.framework.Log;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.lang.management.ManagementFactory;
+import java.util.function.BooleanSupplier;
 
 /**
  * A Utility class that contains functions that are often used in various parts of robot programming.
@@ -98,5 +102,32 @@ public class Utils {
     public static void runInOwnThread(Runnable r) {
         CodeThread c = new CodeThread(false, r);
         c.start();
+    }
+
+    /**
+     * Freezes the thread until the BooleanSupplier returns true.
+     * @param b The BooleanSupplier.
+     */
+    public static void waitFor(BooleanSupplier b) {
+        waitFor(b, -1);
+    }
+
+    /**
+     * Freezes the thread until the BooleanSupplier returns true, or the timeout is reached.
+     * @param b The BooleanSupplier.
+     * @param timeout How many seconds the Thread is allowed to be frozen before it unfreezes regardless of the BooleanSupplier's value. Set to -1 if you don't want a timeout.
+     */
+    public static void waitFor(BooleanSupplier b, double timeout) {
+        double startTime = System.currentTimeMillis();
+        double goalTime = startTime + (timeout * 1000);
+        while (!b.getAsBoolean() && (System.currentTimeMillis() < goalTime || timeout == -1)) {
+            try {
+                Thread.sleep(25);
+            } catch (Exception e) {
+                Log.e("Utils.waitFor() error!");
+                e.printStackTrace();
+            }
+        }
+
     }
 }

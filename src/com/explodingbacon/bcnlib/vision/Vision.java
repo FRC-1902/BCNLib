@@ -23,8 +23,10 @@ public class Vision {
     public static void init() {
         try {
             System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        } catch (UnsatisfiedLinkError e) {
+            Log.i("Vision library initialized!");
+        } catch (Exception e) {
             Log.e("Vision library not detected! Vision processing will not be available.");
+            e.printStackTrace();
         }
         init = true;
     }

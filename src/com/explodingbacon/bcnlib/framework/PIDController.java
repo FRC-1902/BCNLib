@@ -21,6 +21,7 @@ public class PIDController implements Runnable { //TODO: Check this
     private double tolerance = 1000;
     private Thread thread;
     private Runnable whenFinished = null;
+    private Runnable extraCode = null;
     private boolean enabled = false, inverted = false, done = false;
 
 
@@ -144,6 +145,10 @@ public class PIDController implements Runnable { //TODO: Check this
         return m.getPower();
     }
 
+    public double getCurrentSourceValue() {
+        return s.getForPID();
+    }
+
     /**
      * Reset the encoder to zero.
      * <p>
@@ -205,6 +210,14 @@ public class PIDController implements Runnable { //TODO: Check this
     }
 
     /**
+     * Sets the code that is run every loop of the PID.
+     * @param r The code to run.
+     */
+    public void setExtraCode(Runnable r) {
+        extraCode = r;
+    }
+
+    /**
      * Defines code that runs when this PID loop is done.
      * @param r The code to be run.
      * @return This PIDController.
@@ -216,6 +229,12 @@ public class PIDController implements Runnable { //TODO: Check this
 
     @Override
     public void run() {
+        boolean isRate = false;
+        if (s instanceof AbstractEncoder) {
+            if (((AbstractEncoder) s).getPIDMode() == AbstractEncoder.PIDMode.RATE) {
+                isRate = true;
+            }
+        }
         while (true) {
             if (enabled) {
                 p = t - s.getForPID();
@@ -234,12 +253,12 @@ public class PIDController implements Runnable { //TODO: Check this
                 double power = Utils.minMax(setpoint, min, max);
 
                 //If our target is 0 and our target is a rate, set the motor to 0, since that'll get us a rate of 0 easily
-                if (s instanceof AbstractEncoder) {
-                    if (((AbstractEncoder) s).getPIDMode() == AbstractEncoder.PIDMode.RATE) {
-                        if (getTarget() == 0) {
-                            power = 0;
-                        }
-                    }
+                if (isRate && getTarget()== 0) {
+                    power = 0;
+                    p = 0;
+                    i = 0;
+                    d = 0;
+                    lastP = 0;
                 }
 
                 if(Utils.sign(power) != Utils.sign(p)) {
@@ -248,7 +267,15 @@ public class PIDController implements Runnable { //TODO: Check this
 
                 m.setPower(power);
 
-                //TODO: better logic for considering the PID as "done". This doesn't take into account over shooting
+                try {
+                    if (extraCode != null) {
+                        Utils.runInOwnThread(extraCode);
+                    }
+                } catch (Exception e) {
+                    Log.e("PIDController.extraCode Runnable error!");
+                    e.printStackTrace();
+                }
+
                 done = Math.abs(p) <= tolerance;
 
                 if (done && whenFinished != null) {
