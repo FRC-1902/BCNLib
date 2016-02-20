@@ -1,7 +1,6 @@
 package com.explodingbacon.bcnlib.javascript;
 
 import com.explodingbacon.bcnlib.framework.Log;
-import com.explodingbacon.bcnlib.framework.RobotCore;
 import com.explodingbacon.bcnlib.utils.Utils;
 
 import javax.script.*;

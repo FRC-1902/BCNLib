@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
  * A class that merges the ADXL362 accelerometer with the ADXRS450 gyro, since they are both contained on one board.
  *
  * @author Ryan Shavell
- * @version 2016.1.26
+ * @version 2016.2.19
  */
 
 public class ADXSensor implements PIDSource {

@@ -11,12 +11,13 @@ import edu.wpi.first.wpilibj.SpeedController;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * A class for controlling Motors on the Robot.
  *
  * @author Ryan Shavell
- * @version 2016.2.18
+ * @version 2016.2.19
  */
 
 public class Motor {
@@ -191,7 +192,8 @@ public class Motor {
     }
 
     /**
-     * Gets the MotorEncoder for this Motor. Only for CANTalons currently.
+     * Gets the MotorEncoder for this Motor. CANTalons only.
+     *
      * @return The MotorEncoder for this Motor.
      */
     public MotorEncoder getEncoder() {
@@ -199,11 +201,108 @@ public class Motor {
             if (sc instanceof CANTalon) {
                 encoder = new MotorEncoder((CANTalon) sc);
             } else {
-                Log.e("Attempted to get a MotorEncoder from a Motor that is not a CANTalon! (Motor is a" + getClass().getSimpleName() + ")");
+                Log.e("Called Motor.getEncoder() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
                 return null;
             }
         }
         return encoder;
+    }
+
+    /**
+     * Gets the output current of this Motor. CANTalons only.
+     *
+     * @return The output current of this Motor.
+     */
+    public double getOutputCurrent() {
+        if (sc instanceof CANTalon) {
+            return ((CANTalon) sc).getOutputCurrent();
+        } else {
+            Log.e("Called Motor.getOutputCurrent() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
+            return -1;
+        }
+    }
+
+    public double getOutputVoltage() {
+        if (sc instanceof CANTalon) {
+            return ((CANTalon) sc).getOutputVoltage();
+        } else {
+            Log.e("Called Motor.getOutputVoltage() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
+            return -1;
+        }
+    }
+
+    /**
+     * Gets the watts of this Motor. CANTalons only.
+     *
+     * @return The watts of this Motor.
+     */
+    public double getWatts() {
+        if (sc instanceof CANTalon) {
+            return getOutputCurrent() * getOutputVoltage();
+        } else {
+            Log.e("Called Motor.getWatts() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
+            return -1;
+        }
+    }
+
+    /**
+     * Ramps up this Motor, from 0 to 1, over a certain amount of seconds.
+     *
+     * @param seconds How may seconds the ramping up will take.
+     */
+    public void rampUpWait(int seconds) {
+        rampUpWait(seconds, false, null);
+    }
+
+    /**
+     * Ramps up this Motor over a certain amount of seconds.
+     *
+     * @param seconds How may seconds the ramping up will take.
+     * @param reversed If the Motor should run backwards instead of forwards.
+     */
+    public void rampUpWait(int seconds, boolean reversed) {
+        rampUpWait(seconds, reversed, null);
+    }
+
+    /**
+     * Ramps up this Motor over a certain amount of seconds.
+     *
+     * @param seconds How may seconds the ramping up will take.
+     * @param reversed If the Motor should run backwards instead of forwards.
+     * @param function Code that analyzes the current state of the ramp up, and can possibly cancel the ramping.
+     */
+    public void rampUpWait(int seconds, boolean reversed, Function<RampUpData, RampUpData> function) {
+        //double currentSpeed = 0;
+        double startMillis = System.currentTimeMillis();
+        double goalMillis = startMillis + seconds * 1000;
+        setPower(0);
+        while (System.currentTimeMillis() <= goalMillis) {
+            try {
+                Thread.sleep(25);
+                //currentSpeed += (currentMillis / goalMillis) * (reversed ? -1 : 1);
+                double speed = (System.currentTimeMillis() - startMillis) / goalMillis;
+                setPower(speed);
+                RampUpData md = function.apply(new RampUpData(this));
+                if (md.isCancelled()) break;
+            } catch (Exception e) {
+                Log.e("Motor.rampUpWait() error!");
+                e.printStackTrace();
+            }
+        }
+        setPower(0);
+    }
+
+    public class RampUpData {
+        private Motor motor;
+        private boolean cancel = false;
+
+        private RampUpData(Motor m) {
+            motor = m;
+        }
+
+        public Motor getMotor() { return motor; }
+        public boolean isCancelled() { return cancel; }
+        public void setCancelled(boolean b) { cancel = b; }
     }
 
     protected Runnable lowPassFilter = () -> {

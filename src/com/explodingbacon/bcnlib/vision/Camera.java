@@ -1,6 +1,5 @@
 package com.explodingbacon.bcnlib.vision;
 
-import com.explodingbacon.bcnlib.framework.Log;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 

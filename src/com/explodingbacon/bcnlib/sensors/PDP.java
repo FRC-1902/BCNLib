@@ -2,6 +2,9 @@ package com.explodingbacon.bcnlib.sensors;
 
 import com.explodingbacon.bcnlib.framework.Log;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 /**
@@ -14,6 +17,7 @@ import java.util.HashMap;
 public class PDP {
     private PowerDistributionPanel pdp;
     private HashMap<Integer, Runnable> portRunnables = new HashMap<>();
+    private PrintWriter logger;
     Thread t;
 
     /**
@@ -21,8 +25,26 @@ public class PDP {
      */
     public PDP() {
         this.pdp = new PowerDistributionPanel();
+
+        try {
+            logger = new PrintWriter("/home/lvuser/test.log");
+            if (logger == null) {
+                Log.e("Logger is null!");
+            }
+            String s = "";
+
+            for (int i = 0; i <= 15; i++) {
+                s = s.concat("Port " + i + " current" + (i == 15 ? "\n" : ","));
+            }
+
+            logger.write(s);
+        } catch (Exception e) {
+            Log.e("PDP Initializer Exception");
+            e.printStackTrace();
+        }
+
         t = new Thread(breakerRunnable);
-        t.run();
+        t.start(); //TODO: TEEEEEEEEEEEST
     }
 
     /**
@@ -35,27 +57,45 @@ public class PDP {
     }
 
     private Runnable breakerRunnable = () -> {
-        for(int i = 0; i < 5; i++) {
-            if(pdp.getCurrent(i) >= 40) {
-                Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
-                Runnable r = portRunnables.get(i);
-                if (r != null) r.run();
+        boolean warnedAboutWriter = false;
+        while(true) {
+            for (int i = 0; i < 5; i++) {
+                if (pdp.getCurrent(i) >= 40) {
+                    Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
+                    Runnable r = portRunnables.get(i);
+                    if (r != null) r.run();
+                }
             }
-        }
 
-        for (int i = 5; i < 12; i++) {
-            if(pdp.getCurrent(i) >= 30) {
-                Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
-                Runnable r = portRunnables.get(i);
-                if (r != null) r.run();
+            for (int i = 5; i < 12; i++) {
+                if (pdp.getCurrent(i) >= 30) {
+                    Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
+                    Runnable r = portRunnables.get(i);
+                    if (r != null) r.run();
+                }
             }
-        }
 
-        for (int i = 12; i < 15; i++) {
-            if(pdp.getCurrent(i) >= 30) {
-                Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
-                Runnable r = portRunnables.get(i);
-                if (r != null) r.run();
+            for (int i = 12; i <= 15; i++) {
+                if (pdp.getCurrent(i) >= 30) {
+                    Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
+                    Runnable r = portRunnables.get(i);
+                    if (r != null) r.run();
+                }
+            }
+
+            String s = "";
+            for (int i = 0; i <= 15; i++) {
+                s = s.concat(getCurrent(i) + (i == 15 ? "\n" : ","));
+            }
+
+            try {
+                logger.write(s);
+            } catch (Exception e) {
+                if(!warnedAboutWriter) {
+                    Log.e("Error writing to PDP log");
+                    e.printStackTrace();
+                    warnedAboutWriter = true;
+                }
             }
         }
     };
@@ -68,6 +108,7 @@ public class PDP {
     public double getCurrent(int port) {
         return pdp.getCurrent(port);
     }
+
 
     /**
      * Gets the WPILib object for the PDP.

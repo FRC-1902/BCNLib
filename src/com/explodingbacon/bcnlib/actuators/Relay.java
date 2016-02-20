@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.SpeedController;
  * An implementation of SpeedController for controlling a Relay.
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.2.19
  */
 
 public class Relay implements SpeedController {
@@ -40,14 +40,14 @@ public class Relay implements SpeedController {
             currentPower = 0;
         } else {
             if (power > 0) {
-                r.set(edu.wpi.first.wpilibj.Relay.Value.kForward);
+                r.setDirection(edu.wpi.first.wpilibj.Relay.Direction.kForward);
+                r.set(edu.wpi.first.wpilibj.Relay.Value.kOn);
                 currentPower = 1;
             } else {
-                r.set(edu.wpi.first.wpilibj.Relay.Value.kReverse);
+                r.setDirection(edu.wpi.first.wpilibj.Relay.Direction.kForward);
+                r.set(edu.wpi.first.wpilibj.Relay.Value.kOn);
                 currentPower = -1;
             }
-
-            r.set(edu.wpi.first.wpilibj.Relay.Value.kOn);
         }
     }
 

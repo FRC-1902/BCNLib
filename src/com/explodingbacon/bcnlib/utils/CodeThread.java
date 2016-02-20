@@ -73,7 +73,7 @@ public class CodeThread implements Runnable {
                     code();
                 }
             } catch (Exception e) {
-                Log.e("CodeThread error!");
+                Log.e("CodeThread code error!");
                 e.printStackTrace();
             }
             if (!loop) break;

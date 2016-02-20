@@ -242,6 +242,10 @@ public class PIDController implements Runnable { //TODO: Check this
                     }
                 }
 
+                if(Utils.sign(power) != Utils.sign(p)) {
+                    power = 0;
+                }
+
                 m.setPower(power);
 
                 //TODO: better logic for considering the PID as "done". This doesn't take into account over shooting
@@ -257,7 +261,7 @@ public class PIDController implements Runnable { //TODO: Check this
                 }
 
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(50);
                 } catch (InterruptedException e1) {
                 }
             }
