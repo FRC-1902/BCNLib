@@ -4,9 +4,9 @@ import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.event.AutonomousStartEvent;
 import com.explodingbacon.bcnlib.event.EventHandler;
 import com.explodingbacon.bcnlib.event.TeleopStartEvent;
-import com.explodingbacon.bcnlib.pi4j.Pi;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +31,6 @@ public abstract class RobotCore {
      */
     public RobotCore() {
         self = this;
-        Pi.init(this);
     }
 
     /**
@@ -117,11 +116,7 @@ public abstract class RobotCore {
      * @return Whether the robot is enabled or not.
      */
     public static boolean getEnabled() {
-        if (isRIO()) {
-            return rio.isEnabled();
-        } else {
-            return Pi.isEnabled();
-        }
+        return rio.isEnabled();
     }
 
     /**
@@ -129,7 +124,6 @@ public abstract class RobotCore {
      * @return The mode the robot is currently in.
      */
     public static Mode getMode() {
-        if (isRIO()) {
             if (rio.isAutonomous()) {
                 return Mode.AUTONOMOUS;
             } else if (rio.isOperatorControl()) {
@@ -139,9 +133,6 @@ public abstract class RobotCore {
             } else {
                 return Mode.NONE;
             }
-        } else {
-            return Pi.getMode();
-        }
     }
 
     /**
