@@ -34,6 +34,14 @@ public class Log {
     }
 
     /**
+     * Logs a tuning message. Will be encased in curly brackets {} instead of normal brackets [].
+     * @param s
+     */
+    public static void t(String s) {
+        log("{", "TUNING", "}", s);
+    }
+
+    /**
      * Logs a debug message.
      * @param s The message to be logged.
      */
@@ -72,6 +80,10 @@ public class Log {
      * @param message The message to be logged.
      */
     private static void log(String tag, String message) {
-        System.out.println(String.format("[%s] %s", tag, message));
+        log("[", tag, "]", message);
+    }
+
+    private static void log(String start, String tag, String end, String message) {
+        System.out.println(start + tag + end + " " + message);
     }
 }

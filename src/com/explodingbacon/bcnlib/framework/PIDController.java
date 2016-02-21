@@ -99,6 +99,14 @@ public class PIDController implements Runnable { //TODO: Check this
     }
 
     /**
+     * Checks if this PIDController is enabled.
+     * @return If this PIDController is enabled.
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
      * Set a new position target.
      *
      * @param target Position target in encoder clicks from encoder zero
@@ -145,6 +153,10 @@ public class PIDController implements Runnable { //TODO: Check this
         return m.getPower();
     }
 
+    /**
+     * Gets the current value of the PID source.
+     * @return The current value of the PID source.
+     */
     public double getCurrentSourceValue() {
         return s.getForPID();
     }
@@ -190,31 +202,20 @@ public class PIDController implements Runnable { //TODO: Check this
         return done;
     }
 
-    /**
-     * Checks if this PIDController is enabled.
-     * @return If this PIDController is enabled.
-     */
-    public boolean isEnabled() {
-        return enabled;
-    }
 
     /**
      * Makes the Thread wait until this PIDController has reached its destination.
      */
     public void waitUntilDone() { //TODO: Make sure that you can reliably call this then disable the PIDController and not be cutting the PID loop short
-        while (!isDone()) {
-            try {
-                Thread.sleep(25);
-            } catch (Exception e) {}
-        }
+        Utils.waitFor(this::isDone);
     }
 
     /**
-     * Sets the code that is run every loop of the PID.
-     * @param r The code to run.
+     * Makes the Thread wait until this PIDController has reached its destination, or the timeout seconds are reached.
+     * @param timeout How many seconds to wait before breaking out of the loop regardless of the PID loop's status.
      */
-    public void setExtraCode(Runnable r) {
-        extraCode = r;
+    public void waitUntilDone(double timeout) {
+        Utils.waitFor(this::isDone, timeout);
     }
 
     /**
@@ -225,6 +226,14 @@ public class PIDController implements Runnable { //TODO: Check this
     public PIDController whenFinished(Runnable r) {
         whenFinished = r;
         return this;
+    }
+
+    /**
+     * Sets the code that is run every loop of the PID.
+     * @param r The code to run.
+     */
+    public void setExtraCode(Runnable r) {
+        extraCode = r;
     }
 
     @Override

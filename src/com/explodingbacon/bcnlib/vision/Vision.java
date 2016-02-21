@@ -10,7 +10,7 @@ import java.awt.*;
  * objects and OpenCV's weird stuff (i.e. Color -> Scalar, RGB -> BGR)
  *
  * @author Ryan Shavell
- * @version 2016.2.6
+ * @version 2016.2.20
  */
 
 public class Vision {

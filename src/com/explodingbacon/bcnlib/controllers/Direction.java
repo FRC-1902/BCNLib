@@ -19,7 +19,6 @@ public enum Direction {
 
     NONE(-1);
 
-    public static Direction[] allDirections = new Direction[]{Direction.UP, Direction.UP_RIGHT, Direction.RIGHT, Direction.DOWN_RIGHT, Direction.DOWN, Direction.DOWN_LEFT, Direction.LEFT, Direction.UP_LEFT, Direction.NONE};
     public int angle;
 
     Direction(int angle) {
@@ -64,7 +63,7 @@ public enum Direction {
      * @return The Direction.
      */
     public static Direction toDirection(int angle) {
-        for (Direction d : allDirections) {
+        for (Direction d : Direction.values()) {
             if (d.angle == angle) {
                 return d;
             }
