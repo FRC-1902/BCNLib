@@ -88,6 +88,7 @@ public class PIDController implements Runnable { //TODO: Check this
     public void enable() {
         reset();
         enabled = true;
+        done = false;
     }
 
     /**
@@ -113,6 +114,7 @@ public class PIDController implements Runnable { //TODO: Check this
      */
     public void setTarget(double target) {
         t = target;
+        done = false;
     }
 
     /**
@@ -130,7 +132,7 @@ public class PIDController implements Runnable { //TODO: Check this
      * @param inverted Whether the PIDController should invert its input
      * @return This PIDController (for method chaining)
      */
-    public PIDController setInverted(Boolean inverted) {
+    public PIDController setInputInverted(Boolean inverted) {
         this.inverted = inverted;
         return this;
     }
@@ -236,6 +238,11 @@ public class PIDController implements Runnable { //TODO: Check this
         extraCode = r;
     }
 
+    public void log() {
+        if(enabled)
+            Log.t("Target: " + getTarget() + "; Current Value: " + getCurrentSourceValue() + "; Motor Setpoint: " + getMotorPower());
+    }
+
     @Override
     public void run() {
         boolean isRate = false;
@@ -299,6 +306,7 @@ public class PIDController implements Runnable { //TODO: Check this
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e1) {
+                    break;
                 }
             }
         }

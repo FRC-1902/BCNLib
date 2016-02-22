@@ -5,8 +5,6 @@ import org.opencv.core.Point;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
-
-import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +13,7 @@ import java.util.List;
  * A wrapper class for OpenCV's Mat object.
  *
  * @author Ryan Shavell
- * @version 2016.2.4
+ * @version 2016.2.21
  */
 
 public class Image {
@@ -87,7 +85,7 @@ public class Image {
      */
     public Image colorRange(Color low, Color high) {
         Mat newM = new Mat();
-        Core.inRange(m, Vision.toScalar(low), Vision.toScalar(high), newM);
+        Core.inRange(m, low.toScalar(), high.toScalar(), newM);
         return new Image(newM);
     }
 
@@ -121,7 +119,7 @@ public class Image {
      * @param c  The Color of the Rectangle.
      */
     public void drawRectangle(int x, int y, int x2, int y2, Color c) {
-        Imgproc.rectangle(m, new Point(x, y), new Point(x2, y2), Vision.toScalar(c));
+        Imgproc.rectangle(m, new Point(x, y), new Point(x2, y2), c.toScalar());
     }
 
     /**
@@ -131,7 +129,7 @@ public class Image {
      * @param c   The Color of the Contours.
      */
     public void drawContours(List<Contour> con, Color c) {
-        Imgproc.drawContours(m, Contour.toMatOfPoint(con), -1, Vision.toScalar(c));
+        Imgproc.drawContours(m, Contour.toMatOfPoint(con), -1, c.toScalar());
     }
 
     /**
@@ -144,7 +142,7 @@ public class Image {
      * @param c  The Color of the arrow.
      */
     public void drawArrow(double x, double y, double x2, double y2, Color c) {
-        Imgproc.arrowedLine(m, new Point(x, y), new Point(x2, y2), Vision.toScalar(c));
+        Imgproc.arrowedLine(m, new Point(x, y), new Point(x2, y2), c.toScalar());
     }
 
     /**
@@ -154,6 +152,7 @@ public class Image {
      */
     public void saveAs(String fileName) {
         File f = new File(fileName);
+        //f.mkdirs();
         if (f.exists()) f.delete();
         Imgcodecs.imwrite(fileName, m);
     }

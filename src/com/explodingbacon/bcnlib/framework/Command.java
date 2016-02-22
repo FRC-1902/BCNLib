@@ -64,8 +64,14 @@ public abstract class Command implements Runnable {
     /**
      * Forces this command to onStop running.
      */
+    public void stop() {
+        cancel = true;
+    }
+
     public void forceStop() {
         cancel = true;
+        t.interrupt();
+        finish();
     }
 
     /**
@@ -96,8 +102,6 @@ public abstract class Command implements Runnable {
     @Override
     public void run() {
         isRunning = true;
-        if (requiredSub != null)
-            requiredSub.takeControl(this);
 
         onInit();
         while (!isFinished() && !cancel) {
@@ -106,8 +110,11 @@ public abstract class Command implements Runnable {
         cancel = false;
         onStop();
 
+        finish();
+    }
+
+    private void finish() {
         if (requiredSub != null)
-            requiredSub.releaseControl(this);
 
         finishedExecution = true;
         isRunning = false;

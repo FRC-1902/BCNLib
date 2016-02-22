@@ -31,7 +31,9 @@ public class StopCommand extends Command {
     }
 
     @Override
-    public void onStop() { requiredSub.releaseControl(this); }
+    public void onStop() {
+
+    }
 
     @Override
     public boolean isFinished() {

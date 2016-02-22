@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.framework;
 
+import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.controllers.Button;
 import com.explodingbacon.bcnlib.event.ButtonPressEvent;
 import com.explodingbacon.bcnlib.event.ButtonReleaseEvent;
@@ -10,6 +11,8 @@ import com.explodingbacon.bcnlib.networking.NetTable;
 import com.explodingbacon.bcnlib.networking.TableInterface;
 import com.explodingbacon.bcnlib.utils.CodeThread;
 import com.explodingbacon.bcnlib.utils.NetTuner;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,8 +95,15 @@ public abstract class AbstractOI extends CodeThread {
         synchronized (TRIGGERS_RW) {
             for (Trigger t : triggers) {
                 t.c.forceStop();
+                Log.d("Force stopped " + t.c.getClass().getSimpleName());
             }
             triggers.clear();
+        }
+
+        for(Subsystem s : RobotCore.subsystems) {
+            for (Motor m : s.getAllMotors()) {
+                m.setUser(null);
+            }
         }
     }
 

@@ -5,10 +5,12 @@ import com.explodingbacon.bcnlib.event.AutonomousStartEvent;
 import com.explodingbacon.bcnlib.event.EventHandler;
 import com.explodingbacon.bcnlib.event.TeleopStartEvent;
 import com.explodingbacon.bcnlib.pi4j.Pi;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 /**
  * The main class for Raspberry Pi or roboRIO Robots.

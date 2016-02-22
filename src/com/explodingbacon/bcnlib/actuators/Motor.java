@@ -1,6 +1,7 @@
 package com.explodingbacon.bcnlib.actuators;
 
 import com.explodingbacon.bcnlib.framework.AbstractOI;
+import com.explodingbacon.bcnlib.framework.Command;
 import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.sensors.MotorEncoder;
 import com.explodingbacon.bcnlib.utils.NetTuner;
@@ -27,6 +28,7 @@ public class Motor {
     protected boolean reverse = false;
     protected boolean isTuning = false;
     protected boolean isFiltered = false;
+    protected Runnable onStopIfNoUser = null;
     protected double smoothing;
     protected double filteredSetpoint;
     protected double filterTarget;
@@ -34,6 +36,7 @@ public class Motor {
     protected String name = "";
     protected MotorEncoder encoder = null;
     protected Thread t;
+    protected Command user = null;
     private static List<Motor> allMotors = new ArrayList<>();
 
     /**
@@ -118,6 +121,7 @@ public class Motor {
             filterTarget = d;
             return;
         }
+
         sc.set(reverse ? -d : d);
         //SmartDashboard.putNumber(getName(), getPower());
     }
@@ -332,6 +336,47 @@ public class Motor {
 
     public Boolean isFiltered() {
         return isFiltered;
+    }
+
+    public void setUser(Command c) {
+        user = c;
+        if (user == null && onStopIfNoUser != null) {
+            try {
+                onStopIfNoUser.run();
+            } catch (Exception e) {
+                Log.e("Motor.onNoUser Runnable error!");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void clearUser() {
+        setUser(null);
+    }
+
+    public void setStopOnNoUser() {
+       onNoUser(() -> setPower(0));
+    }
+
+    public void onNoUser(Runnable r) {
+        onStopIfNoUser = r;
+    }
+
+    public boolean isBeingUsed()  {
+        return user != null;
+    }
+
+    public Boolean isUseableBy(Command c) {
+        return (user == c || !isBeingUsed());
+    }
+
+    public boolean claim(Command c) {
+        if (isUseableBy(c)) {
+            setUser(c);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

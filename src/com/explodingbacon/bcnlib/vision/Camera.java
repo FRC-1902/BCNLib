@@ -1,7 +1,10 @@
 package com.explodingbacon.bcnlib.vision;
 
+import com.explodingbacon.bcnlib.framework.Log;
 import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
+import org.opencv.videoio.Videoio;
 
 /**
  * A wrapper class for OpenCV's VideoCapture object.
@@ -17,12 +20,14 @@ public class Camera {
     public Camera(int index) {
         try {
             cam = new VideoCapture(index);
+            cam.set(Videoio.CV_CAP_PROP_BUFFERSIZE, 1);
             Thread.sleep(1000);
             if (!isOpen()) {
-                System.out.println("Camera error!");
+                Log.e("Camera error!");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Log.e("Camera exception!");
+            e.printStackTrace();
         }
     }
 
@@ -40,8 +45,13 @@ public class Camera {
      */
     public Image getImage() {
         Mat m = new Mat();
-        cam.read(m);
+        grab();
+        cam.retrieve(m); //Was read
         return new Image(m);
+    }
+
+    public void grab() {
+        cam.grab();
     }
 
     /**

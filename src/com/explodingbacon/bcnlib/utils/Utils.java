@@ -58,6 +58,7 @@ public class Utils {
         return sign;
     }
 
+
     /**
      * Gets a distance from a certain object. TODO: Make a version of this that works for other cameras with different FOVs and stuff
      * @param sizeInPx The size of the object in pixels.
@@ -66,6 +67,36 @@ public class Utils {
     public static double getDistanceFromPx(double sizeInPx) {
         return 10.25/Math.tan(Math.toRadians((62.5/1280)*sizeInPx));
     }
+
+    private static double IMAGE_WIDTH = 640;
+    private static double FOV = 31.25;
+
+    /**
+     * Gets how many degrees the Robot needs to turn to get x in the center of the camera's vision.
+     * @param x The coordinate.
+     * @return How many degrees the Robot needs to turn to get x in the center of the camera's vision.
+     */
+    public static double getDegreesToTurn(double x) {
+        return getDegreesToTurn(x, IMAGE_WIDTH / 2);
+    }
+
+    /**
+     * Gets how many degrees the Robot needs to turn to get x to target.
+     * @param x The coordinate.
+     * @param target Where you want x to wind up.
+     * @return How many degrees the Robot needs to turn to get x to target.
+     */
+    public static double getDegreesToTurn(double x, double target) {
+        double distance = x - target; //TODO: check if sign is correct
+        if (distance != 0) {
+            double percent = distance / IMAGE_WIDTH;
+            Log.d("Distance: " + distance + ", Target: " + target + ", Percent: " + (percent * 100));
+            return FOV * percent;
+        } else {
+            return 0;
+        }
+    }
+
 
     /**
      * Rounds a Double to an Integer.
@@ -126,6 +157,7 @@ public class Utils {
             } catch (Exception e) {
                 Log.e("Utils.waitFor() error!");
                 e.printStackTrace();
+                break;
             }
         }
 

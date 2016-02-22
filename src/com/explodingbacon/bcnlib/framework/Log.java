@@ -35,10 +35,18 @@ public class Log {
 
     /**
      * Logs a tuning message. Will be encased in curly brackets {} instead of normal brackets [].
-     * @param s
+     * @param s The message to be logged.
      */
     public static void t(String s) {
         log("{", "TUNING", "}", s);
+    }
+
+    /**
+     * Logs a vision message.
+     * @param s The message to be logged.
+     */
+    public static void v(String s) {
+        log("VISION", s);
     }
 
     /**

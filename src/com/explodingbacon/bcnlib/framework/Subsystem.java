@@ -1,6 +1,9 @@
 package com.explodingbacon.bcnlib.framework;
 
+import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.javascript.Javascript;
+
+import java.util.List;
 
 /**
  * @author Dominic Canora
@@ -18,51 +21,6 @@ public abstract class Subsystem {
         }
     }
 
-    private Command inUseBy;
-
-    /**
-     * Allows a <code>Command</code> to take exclusive controllers of a <code>Subsystem</code>.
-     *
-     * @param c Subclass of <code>Command</code> that is taking exclusive controllers of this <code>Subsystem</code>
-     */
-    public void takeControl(Command c) {
-        if (this.inUseBy == null)
-            this.inUseBy = c;
-        else
-            throw new RuntimeException("Command attempted to take control of a subsystem that was already being controlled");
-    }
-
-    /**
-     * Allows a <code>Command</code> to release controllers of a <code>Subsystem</code>.
-     *
-     * @param c Subclass of <code>Command</code> that is releasing controllers of this <code>Subsystem</code>
-     */
-    public void releaseControl(Command c) {
-        if (c == inUseBy) {
-            inUseBy = null;
-        } else {
-            throw new RuntimeException("Command attempted to release a Subsystem it was not in control of");
-        }
-    }
-
-    /**
-     * Makes whatever command that is controlling this subsystem onStop and release it.
-     */
-    public void releaseControl() {
-        if (inUseBy != null) {
-            inUseBy.onStop();
-        }
-    }
-
-    /**
-     * Gets whether this <code>Subsystem</code> is in use.
-     *
-     * @return True if this <code>Subsystem</code> is in use
-     */
-    public boolean isInUse() {
-        return inUseBy != null;
-    }
-
     /**
      * Gets the name of this Subsystem.
      * @return The name of this Subsystem.
@@ -78,4 +36,6 @@ public abstract class Subsystem {
      * by any <code>Command</code> using any <code>Subsystem</code> for ease of controllers.
      */
     public abstract void stop();
+
+    public abstract List<Motor> getAllMotors();
 }
