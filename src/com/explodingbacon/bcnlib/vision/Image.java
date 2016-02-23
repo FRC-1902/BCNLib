@@ -100,6 +100,18 @@ public class Image {
         return new Image(copy);
     }
 
+    public void drawLine(int x, int y, int height, Color c) {
+        drawRectangle(x, y, x, y + height, c);
+    }
+
+    public void drawLine(int x, int height, Color c) {
+        drawLine(x, 0, height, c);
+    }
+
+    public void drawLine(int x, Color c) {
+        drawLine(x, 479, c);
+    }
+
     /**
      * Draws a Rectangle on this Image.
      * @param r The Rectangle to draw.
@@ -143,6 +155,22 @@ public class Image {
      */
     public void drawArrow(double x, double y, double x2, double y2, Color c) {
         Imgproc.arrowedLine(m, new Point(x, y), new Point(x2, y2), c.toScalar());
+    }
+
+    /**
+     * Draws text on this Image.
+     *
+     * @param text The text to be drawn.
+     * @param x The X coordinate of the text's starting point.
+     * @param y The Y coordinate of the text's starting point.
+     * @param scale The scale of the text.
+     * @param color The Color of the text.
+     */
+    public void drawText(String text, int x, int y, double scale, Color color) {
+        //TODO: Find the right value for fontFace
+        int fontFace = 0;
+
+        Imgproc.putText(m, text, new Point(x, y), fontFace, scale, color.toScalar());
     }
 
     /**

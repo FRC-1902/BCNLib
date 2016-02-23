@@ -65,11 +65,12 @@ public class Utils {
      * @return The distance from the object.
      */
     public static double getDistanceFromPx(double sizeInPx) {
-        return 10.25/Math.tan(Math.toRadians((62.5/1280)*sizeInPx));
+        return (0.5*OBJECT_WIDTH)/Math.tan(Math.toRadians(FOV * (sizeInPx/IMAGE_WIDTH)));
     }
 
     private static double IMAGE_WIDTH = 640;
-    private static double FOV = 31.25;
+    private static double OBJECT_WIDTH = 20.5; //Width in inches of object being referenced
+    private static double FOV = 50; //Was 31.25
 
     /**
      * Gets how many degrees the Robot needs to turn to get x in the center of the camera's vision.
@@ -95,6 +96,11 @@ public class Utils {
         } else {
             return 0;
         }
+    }
+
+    public static double roundToDecimals(double number, int decimalPlaces) {
+        int pow = (int) Math.pow(10, decimalPlaces);
+        return Math.round(number * pow)/pow;
     }
 
 

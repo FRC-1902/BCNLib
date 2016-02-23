@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class PDP {
     private PowerDistributionPanel pdp;
     private HashMap<Integer, Runnable> portRunnables = new HashMap<>();
-    private PrintWriter logger;
+    //private PrintWriter logger;
     Thread t;
 
     /**
@@ -25,23 +25,6 @@ public class PDP {
      */
     public PDP() {
         this.pdp = new PowerDistributionPanel();
-
-        try {
-            logger = new PrintWriter("/home/lvuser/test.log");
-            if (logger == null) {
-                Log.e("Logger is null!");
-            }
-            String s = "";
-
-            for (int i = 0; i <= 15; i++) {
-                s = s.concat("Port " + i + " current" + (i == 15 ? "\n" : ","));
-            }
-
-            logger.write(s);
-        } catch (Exception e) {
-            Log.e("PDP Initializer Exception");
-            e.printStackTrace();
-        }
 
         t = new Thread(breakerRunnable);
         t.start(); //TODO: TEEEEEEEEEEEST
@@ -89,13 +72,10 @@ public class PDP {
             }
 
             try {
-                logger.write(s);
-            } catch (Exception e) {
-                if(!warnedAboutWriter) {
-                    Log.e("Error writing to PDP log");
-                    e.printStackTrace();
-                    warnedAboutWriter = true;
-                }
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                break;
             }
         }
     };

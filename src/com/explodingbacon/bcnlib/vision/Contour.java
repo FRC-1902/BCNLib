@@ -22,29 +22,22 @@ public class Contour extends Image {
     public Contour(MatOfPoint mop) {
         super(mop);
         this.mop = mop;
-        initRect();
+        init();
     }
 
     public Contour(MatOfPoint2f mop2f) {
         super(Vision.toMOP(mop2f));
         this.mop = (MatOfPoint) getMat();
         this.mop2f = mop2f;
-        initRect();
+        init();
     }
 
-    private void initRect() {
+    private void init() {
         Rect r = Imgproc.boundingRect(mop);
         Point tl = r.tl();
         Point br = r.br();
+        coords = tl;
         rect = new Rectangle(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
-    }
-
-    @Override
-    public double getWidth() { return rect.width; }
-
-    @Override
-    public double getHeight() {
-        return rect.height;
     }
 
     /**
@@ -68,7 +61,6 @@ public class Contour extends Image {
      * @return
      */
     public double getX() {
-        if (coords  == null) setCoordsVar();
         return coords.x;
     }
 
@@ -77,8 +69,15 @@ public class Contour extends Image {
      * @return
      */
     public double getY() {
-        if (coords == null) setCoordsVar();
         return coords.y;
+    }
+
+    @Override
+    public double getWidth() { return rect.width; }
+
+    @Override
+    public double getHeight() {
+        return rect.height;
     }
 
     /**
@@ -128,13 +127,6 @@ public class Contour extends Image {
         Imgproc.approxPolyDP(getMatOfPoint2f(), r, epsilon, true);
 
         return new Contour(r);
-    }
-
-    /**
-     * Sets the Point object that represents this Contour's X and Y values.
-     */
-    private void setCoordsVar() {
-        coords = ((MatOfPoint)m).toArray()[0];
     }
 
     /**

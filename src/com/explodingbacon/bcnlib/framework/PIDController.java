@@ -252,7 +252,7 @@ public class PIDController implements Runnable { //TODO: Check this
             }
         }
         while (true) {
-            if (enabled) {
+            if (enabled && RobotCore.getEnabled()) {
                 p = t - s.getForPID();
 
                 if (inverted) p *= -1;
@@ -302,12 +302,14 @@ public class PIDController implements Runnable { //TODO: Check this
                         e.printStackTrace();
                     }
                 }
+            } else {
+                done = true;
+            }
 
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e1) {
-                    break;
-                }
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e1) {
+                break;
             }
         }
     }
