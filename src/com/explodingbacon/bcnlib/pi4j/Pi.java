@@ -10,7 +10,7 @@ import se.hirt.pi.adafruit.pwm.PWMDevice;
  * A class for managing a RaspberryPi as a robot controller.
  *
  * @author Ryan Shavell
- * @version 2016.2.16
+ * @version 2016.2.24
  */
 
 public class Pi {
