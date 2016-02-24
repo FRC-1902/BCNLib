@@ -207,17 +207,20 @@ public class PIDController implements Runnable { //TODO: Check this
 
     /**
      * Makes the Thread wait until this PIDController has reached its destination.
+     *
+     * @return True.
      */
-    public void waitUntilDone() { //TODO: Make sure that you can reliably call this then disable the PIDController and not be cutting the PID loop short
-        Utils.waitFor(this::isDone);
+    public boolean waitUntilDone() { //TODO: Make sure that you can reliably call this then disable the PIDController and not be cutting the PID loop short
+        return Utils.waitFor(this::isDone);
     }
 
     /**
      * Makes the Thread wait until this PIDController has reached its destination, or the timeout seconds are reached.
      * @param timeout How many seconds to wait before breaking out of the loop regardless of the PID loop's status.
+     * @return True if the wait completed normally, false is it was completed due to reaching the timeout.
      */
-    public void waitUntilDone(double timeout) {
-        Utils.waitFor(this::isDone, timeout);
+    public boolean waitUntilDone(double timeout) {
+        return Utils.waitFor(this::isDone, timeout);
     }
 
     /**

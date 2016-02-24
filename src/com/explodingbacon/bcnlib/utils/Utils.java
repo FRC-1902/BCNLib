@@ -151,20 +151,23 @@ public class Utils {
     /**
      * Freezes the thread until the BooleanSupplier returns true.
      * @param b The BooleanSupplier.
+     * @return True.
      */
-    public static void waitFor(BooleanSupplier b) {
-        waitFor(b, -1);
+    public static boolean waitFor(BooleanSupplier b) {
+        return waitFor(b, -1);
     }
 
     /**
      * Freezes the thread until the BooleanSupplier returns true, or the timeout is reached.
      * @param b The BooleanSupplier.
      * @param timeout How many seconds the Thread is allowed to be frozen before it unfreezes regardless of the BooleanSupplier's value. Set to -1 if you don't want a timeout.
+     * @return True if the wait ended normally, false if it was ended due to reaching the timeout.
      */
-    public static void waitFor(BooleanSupplier b, double timeout) {
+    public static boolean waitFor(BooleanSupplier b, double timeout) {
         double startTime = System.currentTimeMillis();
         double goalTime = startTime + (timeout * 1000);
-        while (!b.getAsBoolean() && (System.currentTimeMillis() < goalTime || timeout == -1)) {
+        boolean noTimeOut = false;
+        while (!b.getAsBoolean() && (noTimeOut = (System.currentTimeMillis() < goalTime || timeout == -1))) {
             try {
                 Thread.sleep(25);
             } catch (Exception e) {
@@ -173,6 +176,6 @@ public class Utils {
                 break;
             }
         }
-
+        return noTimeOut;
     }
 }
