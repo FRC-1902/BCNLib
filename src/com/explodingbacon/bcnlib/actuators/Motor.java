@@ -46,7 +46,6 @@ public class Motor {
      * @param <T> A class that extends SpeedController.
      */
     public <T extends SpeedController> Motor(Class<T> clazz, int channel) {
-
         this.channel = channel;
         try {
             Constructor[] constructors = clazz.getConstructors();
@@ -58,10 +57,13 @@ public class Motor {
                         break;
                     }
                 }
-                if (sc == null) Log.e("The SpeedController class given to Motor.java does not have a " +
-                        "constructor that accepts an Integer as its only argument!");
+                if (sc == null) {
+                    Log.e("The class given to Motor, \"" + clazz.getSimpleName() + "\", does not have a constructor that accepts an Integer as its only argument!");
+                }
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Log.e("Motor constructor error!");
+            e.printStackTrace();
         }
         init();
     }

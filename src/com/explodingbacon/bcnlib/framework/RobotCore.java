@@ -5,12 +5,10 @@ import com.explodingbacon.bcnlib.event.AutonomousStartEvent;
 import com.explodingbacon.bcnlib.event.EventHandler;
 import com.explodingbacon.bcnlib.event.TeleopStartEvent;
 import com.explodingbacon.bcnlib.pi4j.Pi;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BooleanSupplier;
 
 /**
  * The main class for Raspberry Pi or roboRIO Robots.
@@ -74,9 +72,22 @@ public abstract class RobotCore {
     public void testInit() {}
 
     /**
-     * Runs when the robot is disabled.
+     * Runs when the Robot is enabled, regardless of what mode it is in.
      */
-    public void disabledInit() {}
+    public void enabledInit() {
+        for (Subsystem s : subsystems) {
+            s.enabledInit();
+        }
+    }
+
+    /**
+     * Runs when the Robot is disabled.
+     */
+    public void disabledInit() {
+        for (Subsystem s : subsystems) {
+            s.disabledInit();
+        }
+    }
 
     /**
      * Loops while in teleop mode.
@@ -94,7 +105,12 @@ public abstract class RobotCore {
     public void testPeriodic() {}
 
     /**
-     * Loops while disabled.
+     * Loops while the Robot is enabled.
+     */
+    public void enabledPeriodic() {}
+
+    /**
+     * Loops while the Robot is disabled.
      */
     public void disabledPeriodic() {}
 

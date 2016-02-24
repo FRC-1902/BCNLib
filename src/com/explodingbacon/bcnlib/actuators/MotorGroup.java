@@ -51,31 +51,6 @@ public class MotorGroup extends Motor {
         super();
         addMotors(type, ids);
     }
-
-    /**
-     * Adds a Motor to this MotorGroup.
-     *
-     * @param m The Motor to add.
-     * @return This MotorGroup.
-     */
-    public MotorGroup addMotor(Motor m) {
-        addMotor(m, false);
-        return this;
-    }
-
-    /**
-     * Adds a Motor to this MotorGroup.
-     *
-     * @param m The Motor to add.
-     * @param invert Whether the Motor's direction should be reversed.
-     * @return This MotorGroup.
-     */
-    public MotorGroup addMotor(Motor m, boolean invert) {
-        motors.add(m);
-        inverts.add(invert);
-        return this;
-    }
-
     /**
      * Adds Motors to this MotorGroup.
      *
@@ -142,7 +117,7 @@ public class MotorGroup extends Motor {
      * @param power The speed the Motor will run at while being tested.
      * @param timeOn How long the Motor will be on while being tested.
      */
-    public void testEach(double power, double timeOn) { //TODO: give better name :)
+    public void testEach(double power, double timeOn) {
         Utils.runInOwnThread(() -> {
             testEachWait(power, timeOn);
         });
@@ -165,6 +140,24 @@ public class MotorGroup extends Motor {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Gets all the motors in this MotorGroup.
+     *
+     * @return All the motors in this MotorGroup.
+     */
+    public List<Motor> getMotors() {
+        return new ArrayList<>(motors);
+    }
+
+    /**
+     * Gets how many motors are in this MotorGroup.
+     *
+     * @return How many motors are in this MotorGroup.
+     */
+    public int getMotorCount() {
+        return motors.size();
     }
 
     @Override
@@ -193,21 +186,4 @@ public class MotorGroup extends Motor {
         forEach(Motor::stopMotor);
     }
 
-    /**
-     * Gets all the motors in this MotorGroup.
-     *
-     * @return All the motors in this MotorGroup.
-     */
-    public List<Motor> getMotors() {
-        return new ArrayList<>(motors);
-    }
-
-    /**
-     * Gets how many motors are in this MotorGroup.
-     *
-     * @return How many motors are in this MotorGroup.
-     */
-    public int getMotorCount() {
-        return motors.size();
-    }
 }

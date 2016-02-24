@@ -131,6 +131,15 @@ public class Utils {
     }
 
     /**
+     * Checks if a Class is an Integer or int class.
+     * @param c The Class to be checked.
+     * @return If a Class is an Integer or int class.
+     */
+    public static boolean isIntClass(Class c) {
+        return c == Integer.class || c == int.class;
+    }
+
+    /**
      * Runs code in it's own separate Thread. TODO: Check if this works properly
      * @param r The code to be run.
      */

@@ -11,16 +11,19 @@ public class AbstractRobot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
+        core.enabledInit();
         core.teleopInit();
     }
 
     @Override
     public void autonomousInit() {
+        core.enabledInit();
         core.autonomousInit();
     }
 
     @Override
     public void testInit() {
+        core.enabledInit();
         core.testInit();
     }
 
@@ -31,16 +34,19 @@ public class AbstractRobot extends IterativeRobot {
 
     @Override
     public void teleopPeriodic() {
+        core.enabledPeriodic();
         core.teleopPeriodic();
     }
 
     @Override
     public void autonomousPeriodic() {
+        core.enabledPeriodic();
         core.autonomousPeriodic();
     }
 
     @Override
     public void testPeriodic() {
+        core.enabledPeriodic();
         core.testPeriodic();
     }
 
