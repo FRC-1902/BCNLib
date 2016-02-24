@@ -5,10 +5,10 @@ import java.lang.management.ManagementFactory;
 import java.util.function.BooleanSupplier;
 
 /**
- * A Utility class that contains functions that are often used in various parts of robot programming.
+ * A Utility class that contains helpful functions that don't really fit in any other classes.
  *
  * @author Ryan Shavell
- * @version 2016.2.9
+ * @version 2016.2.24
  */
 
 public class Utils {

@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  * A class that lets you group together motors and mass-set their speeds. Specific motors can also be inverted.
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.2.24
  */
 
 public class MotorGroup extends Motor {

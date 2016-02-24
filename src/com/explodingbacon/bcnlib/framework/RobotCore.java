@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The main class for Raspberry Pi or roboRIO Robots.
+ * The main class for any BCNLIb Robot. Currently supported robot controllers: roboRIOs and Raspberry Pis
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.2.24
  */
 
 public abstract class RobotCore {
@@ -50,6 +50,15 @@ public abstract class RobotCore {
     public void robotInit() {}
 
     /**
+     * Runs when the Robot is enabled, regardless of what mode it is in.
+     */
+    public void enabledInit() {
+        for (Subsystem s : subsystems) {
+            s.enabledInit();
+        }
+    }
+
+    /**
      * Runs when teleoperated mode starts.
      */
     public void teleopInit() {
@@ -72,15 +81,6 @@ public abstract class RobotCore {
     public void testInit() {}
 
     /**
-     * Runs when the Robot is enabled, regardless of what mode it is in.
-     */
-    public void enabledInit() {
-        for (Subsystem s : subsystems) {
-            s.enabledInit();
-        }
-    }
-
-    /**
      * Runs when the Robot is disabled.
      */
     public void disabledInit() {
@@ -88,6 +88,11 @@ public abstract class RobotCore {
             s.disabledInit();
         }
     }
+
+    /**
+     * Loops while the Robot is enabled.
+     */
+    public void enabledPeriodic() {}
 
     /**
      * Loops while in teleop mode.
@@ -103,11 +108,6 @@ public abstract class RobotCore {
      * Loops while in test mode.
      */
     public void testPeriodic() {}
-
-    /**
-     * Loops while the Robot is enabled.
-     */
-    public void enabledPeriodic() {}
 
     /**
      * Loops while the Robot is disabled.

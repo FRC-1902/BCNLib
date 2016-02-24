@@ -2,6 +2,13 @@ package com.explodingbacon.bcnlib.framework;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
+/**
+ * A class that sets up WPILib's IterativeRobot to use BCNLib's RobotCore object.
+ *
+ * @author Ryan Shavell
+ * @version 2016.2.14
+ */
+
 public class AbstractRobot extends IterativeRobot {
 
     private static RobotCore core = null;

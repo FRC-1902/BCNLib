@@ -18,7 +18,7 @@ import java.util.function.Function;
  * A class for controlling Motors on the Robot.
  *
  * @author Ryan Shavell
- * @version 2016.2.19
+ * @version 2016.2.24
  */
 
 public class Motor {
