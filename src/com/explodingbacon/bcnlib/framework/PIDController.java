@@ -304,6 +304,7 @@ public class PIDController implements Runnable { //TODO: Check this
                 }
             } else {
                 done = true;
+                disable();
             }
 
             try {

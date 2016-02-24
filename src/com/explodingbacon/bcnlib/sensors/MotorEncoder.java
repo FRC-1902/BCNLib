@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.CANTalon;
  * A class for Encoders that are wired into a TalonSRX (programmedly called a CANTalon)
  *
  * @author Ryan Shavell
- * @version 2016.2.18
+ * @version 2016.2.23
  */
 
 public class MotorEncoder extends AbstractEncoder {
@@ -23,7 +23,7 @@ public class MotorEncoder extends AbstractEncoder {
 
     @Override
     public void reset() {
-        tal.reset();
+        tal.setEncPosition(0);
     }
 
     @Override

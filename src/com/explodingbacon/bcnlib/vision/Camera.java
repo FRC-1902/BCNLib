@@ -11,21 +11,39 @@ import org.opencv.videoio.Videoio;
  * A wrapper class for OpenCV's VideoCapture object.
  *
  * @author Ryan Shavell
- * @version 2016.2.22
+ * @version 2016.2.23
  */
 
 public class Camera {
 
     private VideoCapture cam;
     private int index = 0;
-    private static Object CAMERA_USE = new Object();
+    private Object CAMERA_USE = new Object();
 
-    public Camera(int i) {
+    private boolean autoUpdate;
+    private Thread updateThread = null;
+
+    public Camera(int i, boolean b) {
         index = i;
         try {
             cam = new VideoCapture(index);
+            autoUpdate = b;
             Thread.sleep(500);
-            cam.release();
+            if (autoUpdate) {
+                updateThread = new Thread(() -> {
+                    Log.d("Camera autoupdate thread init");
+                    while (true) {
+                        synchronized (CAMERA_USE) {
+                            if (!cam.grab()) {
+                                Log.d("Camera.grab() returned false!");
+                            }
+                        }
+                    }
+                });
+                updateThread.start();
+            } else {
+                cam.release();
+            }
         } catch (Exception e) {
             Log.e("Camera init exception!");
             e.printStackTrace();
@@ -41,20 +59,31 @@ public class Camera {
     }
 
     /**
+     * Checks if this Camera is auto updating its frames.
+     * @return If this Camera is auto updating its frames.
+     */
+    public boolean isAutoUpdating() {
+        return autoUpdate;
+    }
+
+    /**
      * Gets the current image of the Camera.
      * @return The current image of the Camera.
      */
     public Image getImage() {
         synchronized (CAMERA_USE) {
-            Mat m = new Mat();
-            cam.open(index);
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {}
-            cam.grab();
-            cam.retrieve(m);
-            cam.release();
-            return new Image(m);
+            if (autoUpdate) {
+                Mat m = new Mat();
+                cam.retrieve(m);
+                return new Image(m);
+            } else {
+                Mat m = new Mat();
+                cam.open(index);
+                cam.grab();
+                cam.retrieve(m);
+                cam.release();
+                return new Image(m);
+            }
         }
     }
 

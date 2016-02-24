@@ -46,6 +46,7 @@ public class Motor {
      * @param <T> A class that extends SpeedController.
      */
     public <T extends SpeedController> Motor(Class<T> clazz, int channel) {
+
         this.channel = channel;
         try {
             Constructor[] constructors = clazz.getConstructors();
@@ -222,7 +223,7 @@ public class Motor {
             return ((CANTalon) sc).getOutputCurrent();
         } else {
             Log.e("Called Motor.getOutputCurrent() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
-            return -1;
+            return 0;
         }
     }
 
@@ -231,7 +232,7 @@ public class Motor {
             return ((CANTalon) sc).getOutputVoltage();
         } else {
             Log.e("Called Motor.getOutputVoltage() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
-            return -1;
+            return 0;
         }
     }
 
@@ -245,7 +246,7 @@ public class Motor {
             return getOutputCurrent() * getOutputVoltage();
         } else {
             Log.e("Called Motor.getWatts() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
-            return -1;
+            return 0;
         }
     }
 

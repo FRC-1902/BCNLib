@@ -1,8 +1,6 @@
 package com.explodingbacon.bcnlib.utils;
 
 import com.explodingbacon.bcnlib.framework.Log;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.lang.management.ManagementFactory;
 import java.util.function.BooleanSupplier;
 
@@ -64,13 +62,13 @@ public class Utils {
      * @param sizeInPx The size of the object in pixels.
      * @return The distance from the object.
      */
-    public static double getDistanceFromPx(double sizeInPx) {
-        return (0.5*OBJECT_WIDTH)/Math.tan(Math.toRadians(FOV * (sizeInPx/IMAGE_WIDTH)));
+    public static double getDistanceFromPx(double sizeInInches, double sizeInPx) {
+        return (0.5*sizeInInches)/Math.tan(Math.toRadians(FOV * (sizeInPx/IMAGE_WIDTH)));
     }
 
     private static double IMAGE_WIDTH = 640;
-    private static double OBJECT_WIDTH = 20.5; //Width in inches of object being referenced
-    private static double FOV = 50; //Was 31.25
+    private static double GOAL_TARGET_WIDTH = 20.5; //Width in inches of object being referenced
+    private static double FOV = 59.7; //Was 31.25 and 50
 
     /**
      * Gets how many degrees the Robot needs to turn to get x in the center of the camera's vision.

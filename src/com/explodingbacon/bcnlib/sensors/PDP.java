@@ -17,6 +17,7 @@ import java.util.HashMap;
 public class PDP {
     private PowerDistributionPanel pdp;
     private HashMap<Integer, Runnable> portRunnables = new HashMap<>();
+    private boolean loggingTripping = true;
     //private PrintWriter logger;
     Thread t;
 
@@ -27,7 +28,23 @@ public class PDP {
         this.pdp = new PowerDistributionPanel();
 
         t = new Thread(breakerRunnable);
-        t.start(); //TODO: TEEEEEEEEEEEST
+        t.start();
+    }
+
+    /**
+     * Checks if the PDP will create log messages if a breaker might be tripping.
+     * @return If the PDP will create log messages if a breaker might be tripping.
+     */
+    public boolean isLoggingTripping() {
+        return loggingTripping;
+    }
+
+    /**
+     * Sets if the PDP should create log messages if a breaker might be tripping.
+     * @param b If the PDP should create log messages if a breaker might be tripping.
+     */
+    public void setLoggingTripping(boolean b) {
+        loggingTripping = b;
     }
 
     /**
@@ -42,27 +59,29 @@ public class PDP {
     private Runnable breakerRunnable = () -> {
         boolean warnedAboutWriter = false;
         while(true) {
-            for (int i = 0; i < 5; i++) {
-                if (pdp.getCurrent(i) >= 40) {
-                    Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
-                    Runnable r = portRunnables.get(i);
-                    if (r != null) r.run();
+            if (loggingTripping) {
+                for (int i = 0; i < 5; i++) {
+                    if (pdp.getCurrent(i) >= 40) {
+                        Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
+                        Runnable r = portRunnables.get(i);
+                        if (r != null) r.run();
+                    }
                 }
-            }
 
-            for (int i = 5; i < 12; i++) {
-                if (pdp.getCurrent(i) >= 30) {
-                    Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
-                    Runnable r = portRunnables.get(i);
-                    if (r != null) r.run();
+                for (int i = 5; i < 12; i++) {
+                    if (pdp.getCurrent(i) >= 30) {
+                        Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
+                        Runnable r = portRunnables.get(i);
+                        if (r != null) r.run();
+                    }
                 }
-            }
 
-            for (int i = 12; i <= 15; i++) {
-                if (pdp.getCurrent(i) >= 30) {
-                    Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
-                    Runnable r = portRunnables.get(i);
-                    if (r != null) r.run();
+                for (int i = 12; i <= 15; i++) {
+                    if (pdp.getCurrent(i) >= 30) {
+                        Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
+                        Runnable r = portRunnables.get(i);
+                        if (r != null) r.run();
+                    }
                 }
             }
 
