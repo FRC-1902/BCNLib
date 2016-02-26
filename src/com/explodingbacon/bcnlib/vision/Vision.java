@@ -22,11 +22,11 @@ public class Vision {
         try {
             System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
             Log.i("Vision library initialized!");
+            init = true;
         } catch (Exception e) {
             Log.e("Vision library not detected! Vision processing will not be available.");
             e.printStackTrace();
         }
-        init = true;
     }
 
     /**
