@@ -4,11 +4,10 @@ import com.explodingbacon.bcnlib.framework.Log;
 import org.opencv.core.*;
 
 /**
- * A Vision utility class. Used for initializing the library and contains functions for converting between normal Java
- * objects and OpenCV's weird stuff (i.e. Color -> Scalar, RGB -> BGR)
+ * A Vision utility class. Used for initializing the library and contains some utility functions.
  *
  * @author Ryan Shavell
- * @version 2016.2.20
+ * @version 2016.2.29
  */
 
 public class Vision {

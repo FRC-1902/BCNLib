@@ -8,7 +8,6 @@ import com.explodingbacon.bcnlib.utils.NetTuner;
 import com.explodingbacon.bcnlib.utils.Utils;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SpeedController;
-
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.function.Function;
  * A class for controlling Motors on the Robot.
  *
  * @author Ryan Shavell
- * @version 2016.2.24
+ * @version 2016.2.29
  */
 
 public class Motor {
@@ -326,6 +325,11 @@ public class Motor {
         }
     };
 
+    /**
+     * Enables low-pass filtering on this Motor.
+     *
+     * @param smoothing The higher this number is, the longer it takes this Motor to reach it's intended speed.
+     */
     public void setFiltered(double smoothing) {
         this.smoothing = smoothing < 1 ? 1 : smoothing;
         this.isFiltered = true;
@@ -333,14 +337,26 @@ public class Motor {
         t = new Thread(lowPassFilter);
     }
 
+    /**
+     * Stops low-pass filtering on this Motor.
+     */
     public void stopFiltering() {
         this.isFiltered = false;
     }
 
+    /**
+     * Checks if low-pass filtering is enabled on this Motor.
+     *
+     * @return If low-pass filtering is enabled on this Motor.
+     */
     public Boolean isFiltered() {
         return isFiltered;
     }
 
+    /**
+     * Sets the current Command that is using this Motor.
+     * @param c The Command that is using this Motor, or null if no command is using this Motor.
+     */
     public void setUser(Command c) {
         user = c;
         if (user == null && onStopIfNoUser != null) {
@@ -353,22 +369,43 @@ public class Motor {
         }
     }
 
+    /**
+     * Sets the current user to null.
+     */
     public void clearUser() {
         setUser(null);
     }
 
+    /**
+     * Makes it so this Motor will stop moving if it has no user.
+     */
     public void setStopOnNoUser() {
        onNoUser(() -> setPower(0));
     }
 
+    /**
+     * Sets the code that will run if this Motor has no user.
+     */
     public void onNoUser(Runnable r) {
         onStopIfNoUser = r;
     }
 
+    /**
+     * Checks if this Motor is currently being used by a Command.
+     *
+     * @return If this Motor is currently being used by a Command.
+     */
     public boolean isBeingUsed()  {
         return user != null;
     }
 
+    /**
+     * Checks if this Motor is usable by a Command. This Motor is usable by the Command if the Command is already using
+     * this Motor or if there is no user.
+     *
+     * @param c The Command
+     * @return If this Motor is usable by the Command.
+     */
     public Boolean isUseableBy(Command c) {
         return (user == c || !isBeingUsed());
     }

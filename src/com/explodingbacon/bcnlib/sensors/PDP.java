@@ -60,25 +60,11 @@ public class PDP {
         boolean warnedAboutWriter = false;
         while(true) {
             if (loggingTripping) {
-                for (int i = 0; i < 5; i++) {
-                    if (pdp.getCurrent(i) >= 40) {
-                        Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
-                        Runnable r = portRunnables.get(i);
-                        if (r != null) r.run();
-                    }
-                }
-
-                for (int i = 5; i < 12; i++) {
-                    if (pdp.getCurrent(i) >= 30) {
-                        Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
-                        Runnable r = portRunnables.get(i);
-                        if (r != null) r.run();
-                    }
-                }
-
-                for (int i = 12; i <= 15; i++) {
-                    if (pdp.getCurrent(i) >= 30) {
-                        Log.d("Oh no! We might have tripped a breaker on port " + i + " with a current of " + pdp.getCurrent(i));
+                for (int i = 0; i < 16; i++) {
+                    int maxCurrent = getMaxCurrent(i);
+                    double current = pdp.getCurrent(i);
+                    if (current >= maxCurrent) {
+                        Log.d("We might have tripped a " + maxCurrent + " amp breaker on port " + i + " with a current of " + current + "!");
                         Runnable r = portRunnables.get(i);
                         if (r != null) r.run();
                     }
@@ -100,7 +86,26 @@ public class PDP {
     };
 
     /**
+     * Gets the max current for a specific port on this PDP.
+     *
+     * @param port The port.
+     * @return The max current for a specific port on this PDP.
+     */
+    public int getMaxCurrent(int port) {
+        if (port > -1 && port < 4) {
+            return 40;
+        } else if (port > 11 && port < 16) {
+            return 40;
+        } else if (port > 3 && port < 12) {
+            return 30;
+        } else {
+            return -1;
+        }
+    }
+
+    /**
      * Gets the current on the current port.
+     *
      * @param port The port to check.
      * @return The current on the current port.
      */
@@ -111,6 +116,7 @@ public class PDP {
 
     /**
      * Gets the WPILib object for the PDP.
+     *
      * @return The WPILib object for the PDP.
      */
     public PowerDistributionPanel getPDP() {
