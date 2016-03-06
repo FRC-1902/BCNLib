@@ -4,10 +4,10 @@ package com.explodingbacon.bcnlib.actuators;
  * An implementation of SolenoidInterface that controls a Solenoid.
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.3.5
  */
 
-public class Solenoid implements SolenoidInterface {
+public class Solenoid extends Usable implements SolenoidInterface {
 
     private edu.wpi.first.wpilibj.Solenoid sol;
 

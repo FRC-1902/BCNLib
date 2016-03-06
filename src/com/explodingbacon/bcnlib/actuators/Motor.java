@@ -17,10 +17,10 @@ import java.util.function.Function;
  * A class for controlling Motors on the Robot.
  *
  * @author Ryan Shavell
- * @version 2016.3.2
+ * @version 2016.3.5
  */
 
-public class Motor {
+public class Motor extends Usable {
 
     protected SpeedController sc = null;
     protected int channel = -1;
@@ -354,70 +354,10 @@ public class Motor {
     }
 
     /**
-     * Sets the current Command that is using this Motor.
-     *
-     * @param c The Command that is using this Motor, or null if no command is using this Motor.
-     */
-    public void setUser(Command c) {
-        user = c;
-        if (user == null && onStopIfNoUser != null) {
-            try {
-                onStopIfNoUser.run();
-            } catch (Exception e) {
-                Log.e("Motor.onNoUser Runnable error!");
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Sets the current user to null.
-     */
-    public void clearUser() {
-        setUser(null);
-    }
-
-    /**
      * Makes it so this Motor will stop moving if it has no user.
      */
     public void setStopOnNoUser() {
        onNoUser(() -> setPower(0));
-    }
-
-    /**
-     * Sets the code that will run if this Motor has no user.
-     */
-    public void onNoUser(Runnable r) {
-        onStopIfNoUser = r;
-    }
-
-    /**
-     * Checks if this Motor is currently being used by a Command.
-     *
-     * @return If this Motor is currently being used by a Command.
-     */
-    public boolean isBeingUsed()  {
-        return user != null;
-    }
-
-    /**
-     * Checks if this Motor is usable by a Command. This Motor is usable by the Command if the Command is already using
-     * this Motor or if there is no user.
-     *
-     * @param c The Command
-     * @return If this Motor is usable by the Command.
-     */
-    public Boolean isUseableBy(Command c) {
-        return (user == c || !isBeingUsed());
-    }
-
-    public boolean claim(Command c) {
-        if (isUseableBy(c)) {
-            setUser(c);
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**

@@ -4,10 +4,10 @@ package com.explodingbacon.bcnlib.actuators;
  * An implementation of SolenoidInterface that controls a DoubleSolenoid.
  *
  * @author Ryan Shavell
- * @version 2016.3.2
+ * @version 2016.3.5
  */
 
-public class DoubleSolenoid implements SolenoidInterface{
+public class DoubleSolenoid extends Usable implements SolenoidInterface {
 
     private edu.wpi.first.wpilibj.DoubleSolenoid sol;
     private int channelA, channelB;
