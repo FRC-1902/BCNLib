@@ -9,7 +9,7 @@ import java.util.List;
  * A wrapper class for OpenCV's MatOfPoint and MatOfPoint2f objects.
  *
  * @author Ryan Shavell
- * @version 2016.2.21
+ * @version 2016.3.2
  */
 
 public class Contour extends Image {
@@ -42,6 +42,7 @@ public class Contour extends Image {
 
     /**
      * Gets the area of this Image.
+     *
      * @return The area of this Image.
      */
     public double getArea() {
@@ -50,6 +51,7 @@ public class Contour extends Image {
 
     /**
      * Gets a Rectangle that surrounds this Image.
+     *
      * @return A Rectangle that surrounds this Image.
      */
     public Rectangle getBoundingBox() {
@@ -58,7 +60,8 @@ public class Contour extends Image {
 
     /**
      * Gets the X coordinate of this Contour.
-     * @return
+     *
+     * @return The X coordinate of this Contour.
      */
     public double getX() {
         return coords.x;
@@ -66,7 +69,7 @@ public class Contour extends Image {
 
     /**
      * Gets the Y coordinate of this Contour.
-     * @return
+     * @return The Y coordinate of this Contour.
      */
     public double getY() {
         return coords.y;
@@ -82,6 +85,7 @@ public class Contour extends Image {
 
     /**
      * Gets the X coordinate of the middle of this Contour.
+     *
      * @return The X coordinate of the middle of this Contour.
      */
     public double getMiddleX() {
@@ -90,6 +94,7 @@ public class Contour extends Image {
 
     /**
      * Gets the Y coordinate of the middle of this Contour.
+     *
      * @return The Y coordinate of the middle of this Contour.
      */
     public double getMiddleY() {
@@ -98,6 +103,7 @@ public class Contour extends Image {
 
     /**
      * Gets the MatOfPoint.
+     *
      * @return The MatOfPoint.
      */
     public MatOfPoint getMatOfPoint() {
@@ -107,6 +113,7 @@ public class Contour extends Image {
 
     /**
      * Gets the MatOfPoint2f.
+     *
      * @return The MatOfPoint2f.
      */
     public MatOfPoint2f getMatOfPoint2f() {
@@ -116,6 +123,7 @@ public class Contour extends Image {
 
     /**
      * Approximates the edges of this Contour.
+     *
      * @param precision How precise the approximated edges should be. 0.01 is a good number to start with.
      * @return An approximated version of this Contour.
      */
@@ -131,7 +139,8 @@ public class Contour extends Image {
 
     /**
      * Converts a List of Contours to a List of MatOfPoint.
-     * @param cons
+     *
+     * @param cons The Contours to convert.
      * @return A List of MatOfPoint.
      */
     public static List<MatOfPoint> toMatOfPoint(List<Contour> cons) {

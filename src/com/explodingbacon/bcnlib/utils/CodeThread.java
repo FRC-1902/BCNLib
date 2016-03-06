@@ -6,7 +6,7 @@ import com.explodingbacon.bcnlib.framework.Log;
  * A class that allows us to easily write code that will run in its own separate thread.
  *
  * @author Ryan Shavell
- * @version 2016.2.13
+ * @version 2016.3.5
  */
 
 public class CodeThread implements Runnable {
@@ -25,6 +25,7 @@ public class CodeThread implements Runnable {
 
     /**
      * Creates a CodeThread that will repeatedly run r.
+     *
      * @param r The code to be repeatedly.
      */
     public CodeThread(Runnable r) {
@@ -33,6 +34,7 @@ public class CodeThread implements Runnable {
 
     /**
      * Creates a CodeThread.
+     *
      * @param l If the CodeThread will loop.
      */
     public CodeThread(boolean l) {
@@ -42,6 +44,7 @@ public class CodeThread implements Runnable {
 
     /**
      * Creates a CodeThread that will run r (possibly repeatedly).
+     *
      * @param r The code to be run.
      */
     public CodeThread(boolean l, Runnable r) {
@@ -73,7 +76,7 @@ public class CodeThread implements Runnable {
                     code();
                 }
             } catch (Exception e) {
-                Log.e("CodeThread code error!");
+                Log.e("CodeThread code exception");
                 e.printStackTrace();
             }
             if (!loop) break;
@@ -97,10 +100,21 @@ public class CodeThread implements Runnable {
 
     /**
      * Returns whether or not this CodeThread is currently running.
+     *
      * @return Whether or not this CodeThread is currently running.
      */
     public boolean isRunning() {
         return running;
     }
 
+    /**
+     * Sets the name of this CodeThread.
+     *
+     * @param name The name.
+     * @return This CodeThread.
+     */
+    public CodeThread setName(String name) {
+        t.setName(name);
+        return this;
+    }
 }

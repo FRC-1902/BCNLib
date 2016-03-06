@@ -8,7 +8,7 @@ import com.pi4j.io.gpio.*;
  * An implementation of SolenoidInterface that controls a Solenoid via a Raspberry Pi.
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.3.2
  */
 
 public class PiSolenoid implements SolenoidInterface { //High is off, low is on
@@ -18,6 +18,7 @@ public class PiSolenoid implements SolenoidInterface { //High is off, low is on
 
     /**
      * Creates a PiSolenoid.
+     *
      * @param channel The channel the PiSolenoid is on.
      */
     public PiSolenoid(int channel) {

@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.controllers;
  * An extension of GameController made specific for Xbox controllers.
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.3.2
  */
 
 public class XboxController extends GameController {
@@ -40,13 +40,8 @@ public class XboxController extends GameController {
         leftJoyButton = new JoystickButton(this, 9);
         rightJoyButton = new JoystickButton(this, 10);
 
-        leftTrigger = new FakeButton(() -> {
-            return isLeftTriggerPressed();
-        });
-
-        rightTrigger = new FakeButton(() -> {
-            return isRightTriggerPressed();
-        });
+        leftTrigger = new FakeButton(() -> isLeftTriggerPressed());
+        rightTrigger = new FakeButton(() -> isRightTriggerPressed());
 
         bumpers = new ButtonGroup(leftBumper, rightBumper);
 

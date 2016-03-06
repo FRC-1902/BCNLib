@@ -34,7 +34,10 @@ public class Server extends CodeThread {
         try {
             server = new ServerSocket(PORT);
             start();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Log.e("Server initializer exception!");
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -59,7 +62,7 @@ public class Server extends CodeThread {
                 }
             }
         } catch (Exception e) {
-            Log.e("Server error!");
+            Log.e("Server exception");
             e.printStackTrace();
         }
     }

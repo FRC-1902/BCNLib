@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.controllers;
  * An enum for DPad directions on GameControllers.
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.3.2
  */
 
 public enum Direction {
@@ -27,6 +27,7 @@ public enum Direction {
 
     /**
      * Checks if the up button on the DPad is pressed.
+     *
      * @return If the up button on the DPad is pressed.
      */
     public boolean isUp() {
@@ -35,6 +36,7 @@ public enum Direction {
 
     /**
      * Checks if the right button on the DPad is pressed.
+     *
      * @return If the right button on the DPad is pressed.
      */
     public boolean isRight() {
@@ -43,6 +45,7 @@ public enum Direction {
 
     /**
      * Checks if the down button on the DPad is pressed.
+     *
      * @return If the down button on the DPad is pressed.
      */
     public boolean isDown() {
@@ -51,6 +54,7 @@ public enum Direction {
 
     /**
      * Checks if the left button on the DPad is pressed.
+     *
      * @return If the left button on the DPad is pressed.
      */
     public boolean isLeft() {
@@ -58,7 +62,8 @@ public enum Direction {
     }
 
     /**
-     * Converts an angle to a Direction
+     * Converts an angle to a Direction.
+     *
      * @param angle The angle.
      * @return The Direction.
      */

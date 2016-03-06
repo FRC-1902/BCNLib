@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.function.Supplier;
 
 /**
- * A class for logging data and savinf to do a .csv file.
+ * A class for logging data and saving to do a .csv file.
  *
  * @author Dominic Canora
  * @version 2016.1.0

@@ -13,7 +13,7 @@ import java.util.List;
  * Client code (non-robot side) for communication between the robot and a client.
  *
  * @author Ryan Shavell
- * @version 2016.2.15
+ * @version 2016.3.2
  */
 
 public class Client extends CodeThread {
@@ -27,7 +27,7 @@ public class Client extends CodeThread {
     private boolean init = false;
 
     private List<String> outQueue = new ArrayList<>();
-    private Object MESSAGE_QUEUE_EDIT = new Object();
+    private final Object MESSAGE_QUEUE_EDIT = new Object();
 
     /**
      * Creates a new Client.

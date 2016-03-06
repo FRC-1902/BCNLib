@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.sensors;
  * A class for a DigitalInput.
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.3.2
  */
 
 public class DigitalInput {
@@ -13,6 +13,7 @@ public class DigitalInput {
 
     /**
      * Creates a DigitalInput.
+     *
      * @param channel The channel this DigitalInput is on.
      */
     public DigitalInput(int channel) {
@@ -21,6 +22,7 @@ public class DigitalInput {
 
     /**
      * Gets the value of this DigitalInput.
+     *
      * @return The value of this DigitalInput.
      */
     public boolean get() {

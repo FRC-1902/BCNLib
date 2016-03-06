@@ -14,7 +14,7 @@ import java.util.List;
  * The main class for any BCNLIb Robot. Currently supported robot controllers: roboRIOs and Raspberry Pis
  *
  * @author Ryan Shavell
- * @version 2016.2.24
+ * @version 2016.3.2
  */
 
 public abstract class RobotCore {
@@ -53,9 +53,7 @@ public abstract class RobotCore {
      * Runs when the Robot is enabled, regardless of what mode it is in.
      */
     public void enabledInit() {
-        for (Subsystem s : subsystems) {
-            s.enabledInit();
-        }
+        subsystems.forEach(Subsystem::enabledInit);
     }
 
     /**
@@ -84,9 +82,7 @@ public abstract class RobotCore {
      * Runs when the Robot is disabled.
      */
     public void disabledInit() {
-        for (Subsystem s : subsystems) {
-            s.disabledInit();
-        }
+        subsystems.forEach(Subsystem::disabledInit);
     }
 
     /**
@@ -131,10 +127,10 @@ public abstract class RobotCore {
     }
 
     /**
-     * Gets whether the robot is enabled.
+     * Checks whether the robot is enabled.
      * @return Whether the robot is enabled or not.
      */
-    public static boolean getEnabled() {
+    public static boolean isEnabled() {
         if (isRIO()) {
             return rio.isEnabled();
         } else {

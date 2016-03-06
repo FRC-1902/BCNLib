@@ -1,14 +1,13 @@
 package com.explodingbacon.bcnlib.controllers;
 
 import com.explodingbacon.bcnlib.framework.Log;
-
 import java.util.function.BooleanSupplier;
 
 /**
  * A class for a programmedly controllable Button.
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.3.2
  */
 
 public class FakeButton implements Button {
@@ -22,7 +21,8 @@ public class FakeButton implements Button {
     public FakeButton() {}
 
     /**
-     * Creates a FakeButton whose state is controlled by the result of the BooleanSupplier function.
+     * Creates a FakeButton whose state is controlled by the result of the BooleanSupplier.
+     *
      * @param s The BooleanSupplier.
      */
     public FakeButton(BooleanSupplier s) {
@@ -30,8 +30,9 @@ public class FakeButton implements Button {
     }
 
     /**
-     * Gets the status of this button
-     * @return The status of this button
+     * Gets the status of this Button.
+     *
+     * @return The status of this Button.
      */
     @Override
     public boolean get() {
@@ -44,6 +45,7 @@ public class FakeButton implements Button {
 
     /**
      * Sets the status of this Button.
+     *
      * @param b The status of this Button.
      */
     public void set(boolean b) {

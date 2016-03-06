@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.pi4j;
 
+import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.framework.Mode;
 import com.explodingbacon.bcnlib.framework.RobotCore;
 import com.explodingbacon.bcnlib.utils.CodeThread;
@@ -10,7 +11,7 @@ import se.hirt.pi.adafruit.pwm.PWMDevice;
  * A class for managing a RaspberryPi as a robot controller.
  *
  * @author Ryan Shavell
- * @version 2016.2.24
+ * @version 2016.3.2
  */
 
 public class Pi {
@@ -42,7 +43,10 @@ public class Pi {
             thread.start();
 
             init = true;
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Log.e("Pi.init() error!");
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -77,6 +81,7 @@ public class Pi {
 
     /**
      * Checks if the Pi is initialized.
+     *
      * @return If the Pi is initialized.
      */
     public static boolean isInit() {
@@ -85,6 +90,7 @@ public class Pi {
 
     /**
      * Checks if the Pi is enabled on the Driver Station.
+     *
      * @return If the Pi is enabled on the Driver Station.
      */
     public static boolean isEnabled() {
@@ -93,7 +99,8 @@ public class Pi {
 
     /**
      * Gets the current mode of the Pi.
-     * @retur The current mode of the Pi.
+     *
+     * @return The current mode of the Pi.
      */
     public static Mode getMode() { //TODO: Pull the current mode from the online driver station
         return Mode.TELEOP;
@@ -101,6 +108,7 @@ public class Pi {
 
     /**
      * Gets a PWM channel on the Pi's PWMDevice.
+     *
      * @param port The port of the channel.
      * @return A PWM channel on the Pi's PWMDevice.
      */
@@ -110,6 +118,7 @@ public class Pi {
 
     /**
      * Gets a GPIO Pin on the Pi.
+     *
      * @param channel The channel of the GPIO Pin.
      * @return The GPIO Pin.
      */
@@ -119,6 +128,7 @@ public class Pi {
 
     /**
      * Converts an int to a Pin. TODO: Search until the end of time to find a better way to do this
+     *
      * @param channel The int to be converted. Valid values are 0-29.
      * @return The Pin.
      */

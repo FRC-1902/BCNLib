@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.event;
 
+import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.utils.CodeThread;
 import com.explodingbacon.bcnlib.utils.Utils;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * appropriate EventListener method for said Events.
  *
  * @author Ryan Shavell
- * @version 2016.2.1
+ * @version 2016.3.2
  */
 
 public abstract class EventHandler {
@@ -46,7 +47,10 @@ public abstract class EventHandler {
                                         Utils.runInOwnThread(() -> {
                                             try {
                                                 m.invoke(listener, ewa.args);
-                                            } catch (Exception e) {}
+                                            } catch (Exception e) {
+                                                Log.e("EventHandler function invoke error!");
+                                                e.printStackTrace();
+                                            }
                                         });
 
                                         break;

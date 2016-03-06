@@ -255,7 +255,7 @@ public class PIDController implements Runnable { //TODO: Check this
             }
         }
         while (true) {
-            if (enabled && RobotCore.getEnabled()) {
+            if (enabled && RobotCore.isEnabled()) {
                 p = t - s.getForPID();
 
                 if (inverted) p *= -1;

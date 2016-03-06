@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.sensors;
  * A class for standard Encoders.
  *
  * @author Ryan Shavell
- * @version 2016.2.18
+ * @version 2016.3.2
  */
 
 public class Encoder extends AbstractEncoder { //TODO: Reverse
@@ -13,6 +13,7 @@ public class Encoder extends AbstractEncoder { //TODO: Reverse
 
     /**
      * Creates an Encoder.
+     *
      * @param aChannel This Encoder's first port.
      * @param bChannel This Encoder's second port.
      */
@@ -22,6 +23,7 @@ public class Encoder extends AbstractEncoder { //TODO: Reverse
 
     /**
      * Creates an Encoder that is optionally reversed.
+     *
      * @param aChannel This Encoder's first port.
      * @param bChannel This Encoder's second port.
      * @param reverse If this Encoder should be reversed.

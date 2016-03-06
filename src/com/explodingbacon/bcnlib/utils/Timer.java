@@ -6,7 +6,7 @@ import com.explodingbacon.bcnlib.framework.Log;
  * A class that lets you set a timer that will be called once (or every) X seconds.
  *
  * @author Ryan Shavell
- * @version 2016.2.13
+ * @version 2016.3.2
  */
 
 public class Timer implements Runnable {
@@ -19,6 +19,7 @@ public class Timer implements Runnable {
 
     /**
      * Creates a Timer that calls method "c" after X amount of seconds have gone by.
+     *
      * @param seconds How many seconds the timer will wait before calling "c".
      * @param r A Runnable that represents the function to be called.
      */
@@ -29,6 +30,7 @@ public class Timer implements Runnable {
 
     /**
      * Creates a Timer that calls method "c" after X amount of seconds have gone by (possibly multiple times if looping)
+     *
      * @param seconds How many seconds the timer will wait before calling "c".
      * @param loop If the timer should keep looping.
      * @param r A Runnable that represents the function to be called.
@@ -41,6 +43,7 @@ public class Timer implements Runnable {
 
     /**
      * Starts the Timer.
+     *
      * @return This timer. To be used for method chaining.
      */
     public Timer start() {
@@ -50,7 +53,7 @@ public class Timer implements Runnable {
     }
 
     /**
-     * The onLoop that makes this timer work. Don't call this.
+     * The onLoop that makes this timer work. Don't call/override this.
      */
     @Override
     public void run() {

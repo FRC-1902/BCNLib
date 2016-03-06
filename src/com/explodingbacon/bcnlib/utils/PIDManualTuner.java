@@ -15,6 +15,7 @@ public class PIDManualTuner implements Runnable { //TODO: NetworkTables
 
     /**
      * Creates a PIDManualTuner with the given values
+     *
      * @param initialP The initial proportional tuning variable
      * @param initialI The initial integral tuning variable
      * @param initialD The initial derivative tuning variable

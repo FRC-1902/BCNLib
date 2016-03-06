@@ -34,9 +34,9 @@ public class NetTuner {
     }
 
     /**
-     * Get a value from a key in this NetTuner
+     * Get a value from a key in this NetTuner.
      * @param key The key of the value to get.
-     * @return
+     * @return A value from a key in this NetTuner.
      */
     public double get(String key) {
         return table.getNumber(key, 0d);

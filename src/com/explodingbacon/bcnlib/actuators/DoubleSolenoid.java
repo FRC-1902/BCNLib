@@ -4,7 +4,7 @@ package com.explodingbacon.bcnlib.actuators;
  * An implementation of SolenoidInterface that controls a DoubleSolenoid.
  *
  * @author Ryan Shavell
- * @version 2016.2.24
+ * @version 2016.3.2
  */
 
 public class DoubleSolenoid implements SolenoidInterface{
@@ -15,6 +15,7 @@ public class DoubleSolenoid implements SolenoidInterface{
 
     /**
      * Creates a DoubleSolenoid.
+     *
      * @param channel1 The "forward" channel
      * @param channel2 The "reversed" channel
      */
@@ -26,6 +27,7 @@ public class DoubleSolenoid implements SolenoidInterface{
 
     /**
      * Gets channel A of this DoubleSolenoid.
+     *
      * @return Channel A of this DoubleSolenoid.
      */
     public int getChannelA() {
@@ -34,6 +36,7 @@ public class DoubleSolenoid implements SolenoidInterface{
 
     /**
      * Gets channel B of this DoubleSolenoid.
+     *
      * @return Channel B of this DoubleSolenoid.
      */
     public int getChannelB() {

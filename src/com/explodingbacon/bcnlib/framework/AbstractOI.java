@@ -20,7 +20,7 @@ import java.util.List;
  * A class that handles spawning commands based off of button inputs.
  *
  * @author Ryan Shavell
- * @version 2016.2.4
+ * @version 2016.3.2
  */
 
 public abstract class AbstractOI extends CodeThread {
@@ -41,6 +41,7 @@ public abstract class AbstractOI extends CodeThread {
 
     /**
      * Makes a command run when a button is pressed.
+     *
      * @param b The button to trigger the command.
      * @param c The command to be run.
      */
@@ -50,6 +51,7 @@ public abstract class AbstractOI extends CodeThread {
 
     /**
      * Makes a command run when a button is released.
+     *
      * @param b The button to trigger the command.
      * @param c The command to be run.
      */
@@ -59,6 +61,7 @@ public abstract class AbstractOI extends CodeThread {
 
     /**
      * Makes a command run while a button is held. If the command terminates and the button is still held, the command will start again.
+     *
      * @param b The button to trigger the command.
      * @param c The command to be run.
      */
@@ -69,6 +72,7 @@ public abstract class AbstractOI extends CodeThread {
     /**
      * Adds a command to the trigger list and runs it. This is used for when you just want to run a command somewhere in the code
      * without worrying about keeping the command object around.
+     *
      * @param c The command to be run.
      */
     public static void runCommand(Command c) {
@@ -79,6 +83,7 @@ public abstract class AbstractOI extends CodeThread {
     /**
      * Adds multiple commands to the trigger list and runs them. This is used for when you just want to run commands somewhere in the code
      * without worrying about keeping their objects around.
+     *
      * @param cs The commands to be run.
      */
     public static void runCommands(Command... cs) {
@@ -109,6 +114,7 @@ public abstract class AbstractOI extends CodeThread {
 
     /**
      * Disables a Subsystem, stopping all its running Commands and preventing new ones from being started.
+     *
      * @param s The Subsystem to be disabled.
      */
     public static void disableSubsystem(Subsystem s) {
@@ -117,6 +123,7 @@ public abstract class AbstractOI extends CodeThread {
 
     /**
      * Adds a NetButton to the update list.
+     *
      * @param b The NetButton to be added.
      */
     public static synchronized void addNetButton(NetButton b) {
@@ -127,6 +134,7 @@ public abstract class AbstractOI extends CodeThread {
 
     /**
      * Adds a NetJoystick to the update list.
+     *
      * @param j The NetButton to be added.
      */
     public static synchronized void addNetJoystick(NetJoystick j) {
@@ -135,6 +143,11 @@ public abstract class AbstractOI extends CodeThread {
         }
     }
 
+    /**
+     * Adds a Trigger to the update list.
+     *
+     * @param t The Trigger to be added.
+     */
     private static synchronized void addTrigger(Trigger t) {
         synchronized (TRIGGERS_RW) {
             triggers.add(t);
@@ -144,14 +157,10 @@ public abstract class AbstractOI extends CodeThread {
     @Override
     public void code() {
         synchronized (JOYSTICKS_RW) {
-            for (NetJoystick j : netJoysticks) {
-                j.refresh();
-            }
+            netJoysticks.forEach(NetJoystick::refresh);
         }
         synchronized (BUTTONS_RW) {
-            for (NetButton b : netButtons) {
-                b.refresh();
-            }
+            netButtons.forEach(NetButton::refresh);
         }
         synchronized (TRIGGERS_RW) {
             int index = 0;

@@ -6,7 +6,7 @@ import com.explodingbacon.bcnlib.framework.PIDSource;
  * A abstract class for Encoders.
  *
  * @author Ryan Shavell
- * @version 2016.2.17
+ * @version 2016.3.2
  */
 
 public abstract class AbstractEncoder implements PIDSource {
@@ -15,6 +15,7 @@ public abstract class AbstractEncoder implements PIDSource {
 
     /**
      * Sets the PID Mode of this Encoder.
+     *
      * @param p The PID mode.
      */
     public void setPIDMode(PIDMode p) {
@@ -23,6 +24,7 @@ public abstract class AbstractEncoder implements PIDSource {
 
     /**
      * Gets the PID Mode of this Encoder.
+     *
      * @return The PID Mode of this Encoder.
      */
     public PIDMode getPIDMode() {
@@ -31,18 +33,21 @@ public abstract class AbstractEncoder implements PIDSource {
 
     /**
      * Gets the rate of this Encoder.
+     *
      * @return The rate of this Encoder.
      */
     public abstract double getRate();
 
     /**
      * Gets the value of this Encoder.
+     *
      * @return The value of this Encoder.
      */
     public abstract int get();
 
     /**
      * Checks if this Encoder is reversed.
+     *
      * @return If this Encoder is reversed.
      */
     public boolean isReversed() {
@@ -51,6 +56,7 @@ public abstract class AbstractEncoder implements PIDSource {
 
     /**
      * Sets if this Encoder should be reversed.
+     *
      * @param r If this Encoder should be reversed.
      */
     public void setReversed(boolean r) {

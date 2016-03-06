@@ -37,6 +37,6 @@ public class StopCommand extends Command {
 
     @Override
     public boolean isFinished() {
-        return !RobotCore.getEnabled() || RobotCore.getMode() != Mode.TEST;
+        return !RobotCore.isEnabled() || RobotCore.getMode() != Mode.TEST;
     }
 }

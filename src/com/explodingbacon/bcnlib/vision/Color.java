@@ -2,6 +2,13 @@ package com.explodingbacon.bcnlib.vision;
 
 import org.opencv.core.Scalar;
 
+/**
+ * BCNLib implementation of Color, since the roboRIO does not have the java.awt package.
+ *
+ * @author Ryan Shavell
+ * @version 2016.3.2
+ */
+
 public class Color {
 
     public static final Color BLACK = new Color(0, 0, 0);

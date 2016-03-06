@@ -33,6 +33,7 @@ public class PDP {
 
     /**
      * Checks if the PDP will create log messages if a breaker might be tripping.
+     *
      * @return If the PDP will create log messages if a breaker might be tripping.
      */
     public boolean isLoggingTripping() {
@@ -41,6 +42,7 @@ public class PDP {
 
     /**
      * Sets if the PDP should create log messages if a breaker might be tripping.
+     *
      * @param b If the PDP should create log messages if a breaker might be tripping.
      */
     public void setLoggingTripping(boolean b) {
@@ -49,6 +51,7 @@ public class PDP {
 
     /**
      * Sets code to be run in the event that a certain breaker is tripped.
+     *
      * @param port The breaker.
      * @param r The code to be run.
      */

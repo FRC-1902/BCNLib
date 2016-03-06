@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  * A class that lets you group together motors and mass-set their speeds. Specific motors can also be inverted.
  *
  * @author Ryan Shavell
- * @version 2016.2.24
+ * @version 2016.3.2
  */
 
 public class MotorGroup extends Motor {
@@ -114,17 +114,17 @@ public class MotorGroup extends Motor {
 
     /**
      * Tests each Motor in this MotorGroup.
+     *
      * @param power The speed the Motor will run at while being tested.
      * @param timeOn How long the Motor will be on while being tested.
      */
     public void testEach(double power, double timeOn) {
-        Utils.runInOwnThread(() -> {
-            testEachWait(power, timeOn);
-        });
+        Utils.runInOwnThread(() -> testEachWait(power, timeOn));
     }
 
     /**
      * Tests each Motor in this MotorGroup, and freezes the Thread until the test is complete.
+     *
      * @param power The speed the Motor will run at while being tested.
      * @param timeOn How long the Motor will be on while being tested.
      */
@@ -179,6 +179,18 @@ public class MotorGroup extends Motor {
     @Override
     public void setReversed(boolean reversed) {
         this.reversed = reversed;
+    }
+
+    @Override
+    public void setFiltered(double smoothing) {
+        isFiltered = true;
+        forEach((m) -> m.setFiltered(smoothing));
+    }
+
+    @Override
+    public void stopFiltering() {
+        isFiltered = false;
+        forEach(Motor::stopFiltering);
     }
 
     @Override

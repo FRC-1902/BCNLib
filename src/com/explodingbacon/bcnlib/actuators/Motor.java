@@ -17,7 +17,7 @@ import java.util.function.Function;
  * A class for controlling Motors on the Robot.
  *
  * @author Ryan Shavell
- * @version 2016.2.29
+ * @version 2016.3.2
  */
 
 public class Motor {
@@ -355,6 +355,7 @@ public class Motor {
 
     /**
      * Sets the current Command that is using this Motor.
+     *
      * @param c The Command that is using this Motor, or null if no command is using this Motor.
      */
     public void setUser(Command c) {
@@ -421,6 +422,7 @@ public class Motor {
 
     /**
      * Gets this Motor's class.
+     *
      * @return This Motor's class.
      */
     public Class getMotorClass() {
@@ -433,6 +435,7 @@ public class Motor {
 
     /**
      * Gets the channel this Motor is on.
+     *
      * @return The channel this Motor is on.
      */
     public int getChannel() {
@@ -441,6 +444,7 @@ public class Motor {
 
     /**
      * Gets the WPILib SpeedController object that this class is wrappering.
+     *
      * @return The WPILib SpeedController object that this class is wrappering.
      */
     public SpeedController getWPISpeedController() {
@@ -449,6 +453,7 @@ public class Motor {
 
     /**
      * Gets the name of this Motor.
+     *
      * @return The name of this Motor.
      */
     public String getName() {
@@ -461,6 +466,7 @@ public class Motor {
 
     /**
      * Gets all the Motors that have been created.
+     *
      * @return All the Motors that have been created.
      */
     public static List<Motor> getAllMotors() {

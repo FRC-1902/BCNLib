@@ -12,14 +12,14 @@ public abstract class Command implements Runnable {
     private Boolean cancel = false;
 
     /**
-     * Creates a new <code>Command</code>
+     * Creates a new <code>Command</code>.
      */
     public Command() {
         this.t = new Thread(this);
     }
 
     /**
-     * Specify that this <code>Command</code> needs exclusive controllers of a <code>Subsystem</code> to run correctly
+     * Specify that this <code>Command</code> needs exclusive control of a <code>Subsystem</code> to run correctly
      *
      * @param subsystem <code>Subsystem</code> that this <code>Command</code> requires
      */
@@ -54,15 +54,16 @@ public abstract class Command implements Runnable {
     }
 
     /**
-     * Checks if the command is currently running.
-     * @return If the command is currently running.
+     * Checks if this Command is currently running.
+     *
+     * @return If this Command is currently running.
      */
     public boolean isRunning(){
         return isRunning;
     }
 
     /**
-     * Forces this command to onStop running.
+     * Forces this Command to stop running.
      */
     public void stop() {
         cancel = true;
@@ -75,7 +76,7 @@ public abstract class Command implements Runnable {
     }
 
     /**
-     * Runs once every time the <code>Command</code> is started.
+     * Runs once every time this <code>Command</code> is started.
      */
     public abstract void onInit();
 
@@ -90,14 +91,14 @@ public abstract class Command implements Runnable {
     public abstract void onStop();
 
     /**
-     * User-implemented method to check if <code>onLoop</code> should onStop executing.
+     * User-implemented method to check if <code>onLoop</code> should stop executing.
      *
      * @return True when <code>onLoop</code> should onStop executing
      */
     public abstract boolean isFinished();
 
     /**
-     * Manages the lifecycle of the <code>Command</code>
+     * Manages the lifecycle of this <code>Command</code>
      */
     @Override
     public void run() {

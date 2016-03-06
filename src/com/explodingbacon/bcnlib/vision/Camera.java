@@ -11,14 +11,14 @@ import org.opencv.videoio.Videoio;
  * A wrapper class for OpenCV's VideoCapture object.
  *
  * @author Ryan Shavell
- * @version 2016.2.23
+ * @version 2016.3.2
  */
 
 public class Camera {
 
     private VideoCapture cam;
     private int index = 0;
-    private Object CAMERA_USE = new Object();
+    private final Object CAMERA_USE = new Object();
 
     private boolean autoUpdate;
     private Thread updateThread = null;
@@ -31,11 +31,13 @@ public class Camera {
             Thread.sleep(500);
             if (autoUpdate) {
                 updateThread = new Thread(() -> {
-                    Log.d("Camera autoupdate thread init");
+                    //Log.d("Camera autoupdate thread init");
                     while (true) {
                         synchronized (CAMERA_USE) {
-                            if (!cam.grab()) {
-                                Log.d("Camera.grab() returned false!");
+                            if (cam.isOpened()) {
+                                if (!cam.grab()) {
+                                    Log.d("Camera.grab() returned false!");
+                                }
                             }
                         }
                     }
@@ -52,6 +54,7 @@ public class Camera {
 
     /**
      * Checks if this Camera is open.
+     *
      * @return If this Camera is open.
      */
     public boolean isOpen() {
@@ -60,6 +63,7 @@ public class Camera {
 
     /**
      * Checks if this Camera is auto updating its frames.
+     *
      * @return If this Camera is auto updating its frames.
      */
     public boolean isAutoUpdating() {
@@ -68,6 +72,7 @@ public class Camera {
 
     /**
      * Gets the current image of the Camera.
+     *
      * @return The current image of the Camera.
      */
     public Image getImage() {
@@ -88,6 +93,13 @@ public class Camera {
     }
 
     /**
+     * Opens this Camera.
+     */
+    public void open() {
+        cam.open(index);
+    }
+
+    /**
      * Releases this Camera.
      */
     public void release() {
@@ -96,6 +108,7 @@ public class Camera {
 
     /**
      * Gets the value of an OpenCV property.
+     *
      * @param propid The property ID. Should be a variable defined in Videoio.java.
      * @return The value of an OpenCV property.
      */
@@ -105,6 +118,7 @@ public class Camera {
 
     /**
      * Sets the value of an OpenCV property.
+     *
      * @param propid The property ID. Should be a variable defined in Videoio.java.
      * @param val The value to set the property to.
      * @return If changing the property was successful.

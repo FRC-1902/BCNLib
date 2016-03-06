@@ -8,7 +8,7 @@ import se.hirt.pi.adafruit.pwm.PWMDevice.PWMChannel;
  * An implementation of SpeedController that controls a Motor via a Raspberry Pi.
  *
  * @author Ryan Shavell
- * @version 2016.2.10
+ * @version 2016.3.2
  */
 
 public class PiMotor implements SpeedController {
@@ -49,7 +49,10 @@ public class PiMotor implements SpeedController {
            * update period less than 5.05 ms.
            */
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Log.e("PiMotor.set() error!");
+            e.printStackTrace();
+        }
     }
 
     /**
