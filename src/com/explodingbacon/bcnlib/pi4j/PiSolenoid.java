@@ -1,6 +1,7 @@
 package com.explodingbacon.bcnlib.pi4j;
 
 import com.explodingbacon.bcnlib.actuators.SolenoidInterface;
+import com.explodingbacon.bcnlib.actuators.Usable;
 import com.explodingbacon.bcnlib.framework.Log;
 import com.pi4j.io.gpio.*;
 
@@ -8,10 +9,10 @@ import com.pi4j.io.gpio.*;
  * An implementation of SolenoidInterface that controls a Solenoid via a Raspberry Pi.
  *
  * @author Ryan Shavell
- * @version 2016.3.2
+ * @version 2016.3.5
  */
 
-public class PiSolenoid implements SolenoidInterface { //High is off, low is on
+public class PiSolenoid extends Usable implements SolenoidInterface { //High is off, low is on
 
     private GpioPinDigitalOutput gdo;
     private boolean on = false;
