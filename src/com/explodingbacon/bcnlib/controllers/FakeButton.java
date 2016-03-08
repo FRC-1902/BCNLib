@@ -7,7 +7,7 @@ import java.util.function.BooleanSupplier;
  * A class for a programmedly controllable Button.
  *
  * @author Ryan Shavell
- * @version 2016.3.2
+ * @version 2016.3.5
  */
 
 public class FakeButton implements Button {
@@ -29,11 +29,6 @@ public class FakeButton implements Button {
         supplier = s;
     }
 
-    /**
-     * Gets the status of this Button.
-     *
-     * @return The status of this Button.
-     */
     @Override
     public boolean get() {
         if (supplier != null) {

@@ -11,7 +11,7 @@ import java.util.function.BooleanSupplier;
  * A Utility class that contains helpful functions that don't really fit in any other classes.
  *
  * @author Ryan Shavell
- * @version 2016.3.5
+ * @version 2016.3.7
  */
 
 public class Utils {

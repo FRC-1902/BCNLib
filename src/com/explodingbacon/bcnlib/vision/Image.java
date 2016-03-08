@@ -13,7 +13,7 @@ import java.util.List;
  * A wrapper class for OpenCV's Mat object.
  *
  * @author Ryan Shavell
- * @version 2016.3.2
+ * @version 2016.3.7
  */
 
 public class Image {
@@ -97,6 +97,17 @@ public class Image {
     }
 
     /**
+     * Returns an Image that represents all the edges in this Image.
+     *
+     * @return An Image that represents all the edges in this Image.
+     */
+    public Image findEdges() {
+        Image copy = copy();
+        Imgproc.Canny(m, copy.getMat(), 50, 150);
+        return copy;
+    }
+
+    /**
      * Creates an identical copy of this Image.
      *
      * @return An identical copy of this Image.
@@ -107,14 +118,35 @@ public class Image {
         return new Image(copy);
     }
 
+    /**
+     * Draws a line on this Image.
+     *
+     * @param x The X coordinate of the line.
+     * @param y The Y coordinate of the line.
+     * @param height The height of the line.
+     * @param c The Color of the line.
+     */
     public void drawLine(int x, int y, int height, Color c) {
         drawRectangle(x, y, x, y + height, c);
     }
 
+    /**
+     * Draws a centered line on this Image.
+     *
+     * @param x The X coordinate of the line.
+     * @param height The height of the line.
+     * @param c The Color of the line.
+     */
     public void drawLine(int x, int height, Color c) {
         drawLine(x, 0, height, c);
     }
 
+    /**
+     * Draws a centered line the length of this Image onto this Image.
+     *
+     * @param x The X coordinate of the line.
+     * @param c The Color of the line.
+     */
     public void drawLine(int x, Color c) {
         drawLine(x, 479, c);
     }
@@ -139,6 +171,18 @@ public class Image {
      */
     public void drawRectangle(int x, int y, int x2, int y2, Color c) {
         Imgproc.rectangle(m, new Point(x, y), new Point(x2, y2), c.toScalar());
+    }
+
+    /**
+     * Draws a circle on this Image.
+     *
+     * @param x The X coordinate of the center of the circle.
+     * @param y The Y coordinate of the center of the circle.
+     * @param radius The radius of the circle.
+     * @param c The Color of the circle.
+     */
+    public void drawCircle(int x, int y, int radius, Color c) {
+        Imgproc.circle(m, new Point(x, y), radius, c.toScalar());
     }
 
     /**
@@ -178,6 +222,15 @@ public class Image {
         int fontFace = 0;
 
         Imgproc.putText(m, text, new Point(x, y), fontFace, scale, color.toScalar());
+    }
+
+    /**
+     * Compares this Image to another Image.
+     * @param i The Image this Image is being compared to.
+     * @return How similar this Image is to the other Image.
+     */
+    public double compareTo(Image i) {
+        return Imgproc.matchShapes(m, i.getMat(), Imgproc.CV_CONTOURS_MATCH_I1, 0);
     }
 
     /**

@@ -9,7 +9,7 @@ import java.util.List;
  * A wrapper class for OpenCV's MatOfPoint and MatOfPoint2f objects.
  *
  * @author Ryan Shavell
- * @version 2016.3.2
+ * @version 2016.3.7
  */
 
 public class Contour extends Image {
@@ -99,6 +99,15 @@ public class Contour extends Image {
      */
     public double getMiddleY() {
         return getY() + (getHeight() / 2);
+    }
+
+    /**
+     * Checks if this Contour is convex.
+     *
+     * @return If this Contour is convex.
+     */
+    public boolean isConvex() {
+        return Imgproc.isContourConvex(getMatOfPoint());
     }
 
     /**

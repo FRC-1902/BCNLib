@@ -1,12 +1,13 @@
 package com.explodingbacon.bcnlib.vision;
 
 import com.explodingbacon.bcnlib.utils.Utils;
+import org.opencv.core.Rect;
 
 /**
  * BCNLib implementation of Rectangle, since the roboRIO does not have the java.awt package.
  *
  * @author Ryan Shavell
- * @version 2016.3.2
+ * @version 2016.3.7
  */
 
 public class Rectangle {
@@ -25,5 +26,13 @@ public class Rectangle {
         this.y = Utils.round(y);
         this.width = Utils.round(width);
         this.height = Utils.round(height);
+    }
+
+    /**
+     * Creates an OpenCV Rect the same dimensions as this Rectangle.
+     * @return An OpenCV Rect the same dimensions as this Rectangle.
+     */
+    public Rect toRect() {
+        return new Rect(x, y, width, height);
     }
 }
