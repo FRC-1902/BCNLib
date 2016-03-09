@@ -3,8 +3,6 @@ package com.explodingbacon.bcnlib.sensors;
 import com.explodingbacon.bcnlib.framework.Log;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 
 /**

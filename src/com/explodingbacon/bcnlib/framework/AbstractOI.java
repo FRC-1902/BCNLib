@@ -12,7 +12,6 @@ import com.explodingbacon.bcnlib.networking.TableInterface;
 import com.explodingbacon.bcnlib.utils.CodeThread;
 import com.explodingbacon.bcnlib.utils.NetTuner;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

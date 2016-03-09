@@ -61,9 +61,7 @@ public abstract class RobotCore {
      */
     public void teleopInit() {
         EventHandler.fireEvent(new TeleopStartEvent());
-        for (Motor m : Motor.getAllMotors()) {
-            if (m.isTuning()) m.stopTuning();
-        }
+        Motor.getAllMotors().stream().filter(m -> m.isTuning()).forEach(Motor::stopTuning);
     }
 
     /**

@@ -40,8 +40,8 @@ public class XboxController extends GameController {
         leftJoyButton = new JoystickButton(this, 9);
         rightJoyButton = new JoystickButton(this, 10);
 
-        leftTrigger = new FakeButton(() -> isLeftTriggerPressed());
-        rightTrigger = new FakeButton(() -> isRightTriggerPressed());
+        leftTrigger = new FakeButton(this::isLeftTriggerPressed);
+        rightTrigger = new FakeButton(this::isRightTriggerPressed);
 
         bumpers = new ButtonGroup(leftBumper, rightBumper);
 

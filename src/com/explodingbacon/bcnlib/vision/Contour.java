@@ -9,7 +9,7 @@ import java.util.List;
  * A wrapper class for OpenCV's MatOfPoint and MatOfPoint2f objects.
  *
  * @author Ryan Shavell
- * @version 2016.3.7
+ * @version 2016.3.9
  */
 
 public class Contour extends Image {
@@ -19,12 +19,22 @@ public class Contour extends Image {
     public MatOfPoint2f mop2f = null;
     protected Rectangle rect;
 
+    /**
+     * Creates a Contour from a MatOfPoint.
+     *
+     * @param mop The MatOfPoint.
+     */
     public Contour(MatOfPoint mop) {
         super(mop);
         this.mop = mop;
         init();
     }
 
+    /**
+     * Creates a Contour from a MatOfPoint2f.
+     *
+     * @param mop2f The MatOfPoint2f.
+     */
     public Contour(MatOfPoint2f mop2f) {
         super(Vision.toMOP(mop2f));
         this.mop = (MatOfPoint) getMat();
@@ -32,6 +42,9 @@ public class Contour extends Image {
         init();
     }
 
+    /**
+     * Initializes this Contour's internal variables.
+     */
     private void init() {
         Rect r = Imgproc.boundingRect(mop);
         Point tl = r.tl();
@@ -69,6 +82,7 @@ public class Contour extends Image {
 
     /**
      * Gets the Y coordinate of this Contour.
+     *
      * @return The Y coordinate of this Contour.
      */
     public double getY() {

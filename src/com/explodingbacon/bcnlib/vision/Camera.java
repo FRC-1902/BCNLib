@@ -1,17 +1,14 @@
 package com.explodingbacon.bcnlib.vision;
 
 import com.explodingbacon.bcnlib.framework.Log;
-import com.explodingbacon.bcnlib.utils.CodeThread;
 import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
-import org.opencv.videoio.Videoio;
 
 /**
  * A wrapper class for OpenCV's VideoCapture object.
  *
  * @author Ryan Shavell
- * @version 2016.3.2
+ * @version 2016.3.8
  */
 
 public class Camera {
@@ -71,23 +68,20 @@ public class Camera {
     }
 
     /**
-     * Gets the current image of the Camera.
+     * Gets the current Image on this Camera.
      *
-     * @return The current image of the Camera.
+     * @param i An existing Image object. Recycle this from previous Camera.getImage() calls when you can.
      */
-    public Image getImage() {
+    public void getImage(Image i) {
         synchronized (CAMERA_USE) {
+            Mat m = i.getMat();
             if (autoUpdate) {
-                Mat m = new Mat();
                 cam.retrieve(m);
-                return new Image(m);
             } else {
-                Mat m = new Mat();
                 cam.open(index);
                 cam.grab();
                 cam.retrieve(m);
                 cam.release();
-                return new Image(m);
             }
         }
     }
@@ -109,7 +103,7 @@ public class Camera {
     /**
      * Gets the value of an OpenCV property.
      *
-     * @param propid The property ID. Should be a variable defined in Videoio.java.
+     * @param propid The property ID. Should be a variable defined in Videoio.
      * @return The value of an OpenCV property.
      */
     public double getRaw(int propid) {
@@ -119,7 +113,7 @@ public class Camera {
     /**
      * Sets the value of an OpenCV property.
      *
-     * @param propid The property ID. Should be a variable defined in Videoio.java.
+     * @param propid The property ID. Should be a variable defined in Videoio.
      * @param val The value to set the property to.
      * @return If changing the property was successful.
      */

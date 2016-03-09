@@ -83,7 +83,7 @@ public class Client extends CodeThread {
 
     /**
      * Sends a message to the server.
-     * @param The message to send.
+     * @param s The message to send.
      */
     public void sendMessage(String s) {
         synchronized (MESSAGE_QUEUE_EDIT) {

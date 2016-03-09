@@ -7,7 +7,7 @@ import org.opencv.core.*;
  * A Vision utility class. Used for initializing the library and contains some utility functions.
  *
  * @author Ryan Shavell
- * @version 2016.2.29
+ * @version 2016.3.8
  */
 
 public class Vision {
@@ -30,6 +30,7 @@ public class Vision {
 
     /**
      * Checks if the Vision Tracking library is initialized.
+     *
      * @return If the Vision Tracking library is initialized.
      */
     public static boolean isInit() {

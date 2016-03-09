@@ -2,7 +2,6 @@ package com.explodingbacon.bcnlib.actuators;
 
 import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.utils.Utils;
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SpeedController;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,8 +73,8 @@ public class MotorGroup extends Motor {
      * @return This MotorGroup.
      */
     public <T extends SpeedController> MotorGroup addMotors(Class<T> type, Integer... ids) {
-        for (int i = 0; i < ids.length; i++) {
-            motors.add(new Motor(type, ids[i]));
+        for (Integer id : ids) {
+            motors.add(new Motor(type, id));
             inverts.add(false);
         }
         return this;
