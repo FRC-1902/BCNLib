@@ -81,6 +81,8 @@ public abstract class RobotCore {
      */
     public void disabledInit() {
         subsystems.forEach(Subsystem::disabledInit);
+        subsystems.forEach((s) -> s.getAllMotors().forEach(Motor::clearUser));
+        Log.d("Disabled init!");
     }
 
     /**
