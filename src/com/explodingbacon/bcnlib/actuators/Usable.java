@@ -9,12 +9,12 @@ import com.explodingbacon.bcnlib.framework.Log;
  * the first Command releases the Usable.
  *
  * @author Ryan Shavell
- * @version 2016.3.5
+ * @version 2016.3.9
  */
 
 public abstract class Usable {
 
-    private Command user = null;
+    private Class user = null;
     private Runnable onNoUser = null;
 
     /**
@@ -26,7 +26,7 @@ public abstract class Usable {
         if (c != null && !isUsableBy(c)) {
             Log.w("A Command become the user of a Usable that was being used by a different Command!");
         }
-        user = c;
+        user = c.getClass();
         if (user == null && onNoUser != null) {
             try {
                 onNoUser.run();
@@ -68,7 +68,7 @@ public abstract class Usable {
      * @return If this Usable is usable by the Command.
      */
     public Boolean isUsableBy(Command c) {
-        return (user == c || !isBeingUsed());
+        return (user == c.getClass() || !isBeingUsed());
     }
 
     /**
