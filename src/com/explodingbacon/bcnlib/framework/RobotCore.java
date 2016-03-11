@@ -4,7 +4,6 @@ import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.event.AutonomousStartEvent;
 import com.explodingbacon.bcnlib.event.EventHandler;
 import com.explodingbacon.bcnlib.event.TeleopStartEvent;
-import com.explodingbacon.bcnlib.pi4j.Pi;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import java.util.ArrayList;
@@ -31,7 +30,6 @@ public abstract class RobotCore {
      */
     public RobotCore() {
         self = this;
-        Pi.init(this);
     }
 
     /**
@@ -53,7 +51,10 @@ public abstract class RobotCore {
      * Runs when the Robot is enabled, regardless of what mode it is in.
      */
     public void enabledInit() {
-        subsystems.forEach(Subsystem::enabledInit);
+        for (Subsystem s : subsystems) {
+            s.enabledInit();
+        }
+        Log.d("Enabled Init!");
     }
 
     /**
@@ -62,6 +63,11 @@ public abstract class RobotCore {
     public void teleopInit() {
         EventHandler.fireEvent(new TeleopStartEvent());
         Motor.getAllMotors().stream().filter(m -> m.isTuning()).forEach(Motor::stopTuning);
+        for(Motor m : Motor.getAllMotors()) {
+            if(m.isTuning()) {
+                m.stopTuning();
+            }
+        }
     }
 
     /**
@@ -80,8 +86,16 @@ public abstract class RobotCore {
      * Runs when the Robot is disabled.
      */
     public void disabledInit() {
-        subsystems.forEach(Subsystem::disabledInit);
-        subsystems.forEach((s) -> s.getAllMotors().forEach(Motor::clearUser));
+        for(Subsystem s : subsystems) {
+            s.disabledInit();
+        }
+
+        for (Subsystem s : subsystems) {
+            for(Motor m : s.getAllMotors()) {
+                m.clearUser();
+            }
+        }
+
         Log.d("Disabled init!");
     }
 
@@ -134,7 +148,7 @@ public abstract class RobotCore {
         if (isRIO()) {
             return rio.isEnabled();
         } else {
-            return Pi.isEnabled();
+            return false;
         }
     }
 
@@ -154,7 +168,7 @@ public abstract class RobotCore {
                 return Mode.NONE;
             }
         } else {
-            return Pi.getMode();
+            return Mode.NONE;
         }
     }
 

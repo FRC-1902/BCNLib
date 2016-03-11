@@ -27,7 +27,6 @@ public class Motor extends Usable {
     protected boolean reverse = false;
     protected boolean isTuning = false;
     protected boolean isFiltered = false;
-    protected Runnable onStopIfNoUser = null;
     protected double smoothing;
     protected double filteredSetpoint;
     protected double filterTarget;
@@ -35,7 +34,6 @@ public class Motor extends Usable {
     protected String name = "";
     protected MotorEncoder encoder = null;
     protected Thread t;
-    protected Command user = null;
     private static List<Motor> allMotors = new ArrayList<>();
 
     /**
@@ -138,6 +136,7 @@ public class Motor extends Usable {
     public void setPower(NetTuner t, double d) {
         if (t == null) return;
         sc.set(reverse ? -d : d);
+        if(d == 0) Log.i("Set motor power to zero");
     }
 
     /**
@@ -334,7 +333,7 @@ public class Motor extends Usable {
         this.smoothing = smoothing < 1 ? 1 : smoothing;
         this.isFiltered = true;
 
-        t = new Thread(lowPassFilter);
+        //t = new Thread(lowPassFilter);
     }
 
     /**

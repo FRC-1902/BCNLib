@@ -26,9 +26,11 @@ public abstract class Usable {
         if (c != null && !isUsableBy(c)) {
             Log.w("A Command become the user of a Usable that was being used by a different Command!");
         }
-        user = c.getClass();
-        if (user == null && onNoUser != null) {
+        boolean userWasNull = user == null;
+        user = (c == null) ? null : c.getClass();
+        if (user == null && onNoUser != null && !userWasNull) {
             try {
+                Log.i("Trying to run onNoUser");
                 onNoUser.run();
             } catch (Exception e) {
                 Log.e("Usable.onNoUser Runnable exception!");
@@ -85,5 +87,9 @@ public abstract class Usable {
         } else {
             return false;
         }
+    }
+
+    public Class getUser() {
+        return user;
     }
 }
