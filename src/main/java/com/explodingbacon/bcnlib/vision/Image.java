@@ -12,7 +12,7 @@ import java.util.List;
  * A wrapper class for OpenCV's Mat object.
  *
  * @author Ryan Shavell
- * @version 2016.6.13
+ * @version 2017.1.8
  */
 
 public class Image {
@@ -51,11 +51,10 @@ public class Image {
      * @return The Contours in this Image.
      */
     public List<Contour> getContours() {
+        //TODO: check if this edits the image
         List<Contour> result = new ArrayList<>();
         List<MatOfPoint> contours = new ArrayList<>();
-        Mat copy = new Mat();
-        m.copyTo(copy);
-        Imgproc.findContours(copy, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        Imgproc.findContours(m, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
         for (MatOfPoint mop : contours) {
             result.add(new Contour(mop));
         }
@@ -84,7 +83,8 @@ public class Image {
     }
 
     /**
-     * Creates a copy of this Image, but only showing objects within a certain range. Anything outside this range becomes black, anything in the range becomes white.
+     * Creates a copy of this Image, but only showing objects within a certain range.
+     * Anything outside this range becomes black, anything in the range becomes white.
      *
      * @param low  The lowest value.
      * @param high The highest value.
