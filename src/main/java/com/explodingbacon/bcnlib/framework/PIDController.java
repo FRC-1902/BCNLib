@@ -12,7 +12,7 @@ import com.explodingbacon.bcnlib.utils.Utils;
  * @author Dominic Canora
  * @version 2016.1.0
  */
-public class PIDController implements Runnable { //TODO: Check this
+public class PIDController implements Runnable {
     private Motor m;
     private PIDSource s;
     private double kP, kI, kD;
@@ -188,7 +188,7 @@ public class PIDController implements Runnable { //TODO: Check this
      * @param kD  Derivative tuning variable. Set to 0 to disable the D term.
      */
     public void reTune(double kP, double kI, double kD) {
-        //TODO: Throw RuntimeException if robot is not in test mode
+        if(!RobotCore.ds.isTest()) throw new RuntimeException("Attempted to tune PID controller outside of Test mode. ");
         reset();
         this.kP = kP;
         this.kI = kI;
