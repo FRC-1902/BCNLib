@@ -9,7 +9,7 @@ import java.util.function.Consumer;
  * A wrapper class for OpenCV's VideoCapture object.
  *
  * @author Ryan Shavell
- * @version 2016.6.16
+ * @version 2017.1.12
  */
 
 public class Camera {
@@ -28,21 +28,21 @@ public class Camera {
     /**
      * Creates a new Camera.
      *
-     * @param i The ID of the Camera, 0-indexed. If there is only one Camera available, it should be ID 0.
-     * @param b If this Camera should keep the frames served by Camera.getImage() up to date.
+     * @param index The ID of the Camera, 0-indexed. If there is only one Camera available, it should be ID 0.
+     * @param autoUpdate If this Camera should keep the frames served by Camera.getImage() up to date.
      */
-    public Camera(int i, boolean b) {
-        index = i;
+    public Camera(int index, boolean autoUpdate) {
+        this.index = index;
         try {
             cam = new VideoCapture(index);
-            autoUpdate = b;
+            this.autoUpdate = autoUpdate;
             Thread.sleep(1000);
             if (autoUpdate) {
                 updateThread = new Thread(() -> {
                     while (true) {
                         if (cam.isOpened() && updatingEnabled) {
                             synchronized (CAMERA_USE) {
-                                if (cam.isOpened()) { //Do this again because synchronized can cause delays
+                                if (cam.isOpened() && updatingEnabled) { //Do this again because synchronized can cause delays
                                     synchronized (IMAGE_USE) {
                                         cam.read(image.getMat());
                                         try {

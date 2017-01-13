@@ -12,7 +12,7 @@ import java.util.List;
  * A wrapper class for OpenCV's Mat object.
  *
  * @author Ryan Shavell
- * @version 2017.1.8
+ * @version 2017.1.12
  */
 
 public class Image {
@@ -54,10 +54,12 @@ public class Image {
         //TODO: check if this edits the image
         List<Contour> result = new ArrayList<>();
         List<MatOfPoint> contours = new ArrayList<>();
-        Imgproc.findContours(m, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        Image copy = copy();
+        Imgproc.findContours(copy.getMat(), contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
         for (MatOfPoint mop : contours) {
             result.add(new Contour(mop));
         }
+        copy.release();
         return result;
     }
 
@@ -96,14 +98,10 @@ public class Image {
     }
 
     /**
-     * Creates a copy of this Image that is in HSV instead of BGR.
-     *
-     * @return A copy of this Image that is in HSV instead of BGR.
+     * Converts this image to HSV.
      */
-    public Image toHSV() {
-        Image newI = copy();
-        Imgproc.cvtColor(m, newI.getMat(), Imgproc.COLOR_BGR2HSV);
-        return newI;
+    public void toHSV() {
+        Imgproc.cvtColor(m, m, Imgproc.COLOR_BGR2HSV);
     }
 
     /**
