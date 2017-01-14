@@ -12,7 +12,7 @@ import java.util.function.BooleanSupplier;
  * A Utility class that contains helpful functions that don't really fit in any other classes.
  *
  * @author Ryan Shavell
- * @version 2016.9.10
+ * @version 2017.1.14
  */
 
 public class Utils {
@@ -216,5 +216,15 @@ public class Utils {
     public static int getKeycode(char c) {
         KeyStroke ks = KeyStroke.getKeyStroke(c, 0);
         return ks.getKeyCode();
+    }
+
+    public static double maxDouble(double... nums) {
+        double currMax = Math.abs(nums[0]);
+
+        for(double i : nums) {
+            currMax = Math.abs(i) > currMax ? Math.abs(i) : currMax;
+        }
+
+        return currMax;
     }
 }

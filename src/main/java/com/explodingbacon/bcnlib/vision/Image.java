@@ -12,7 +12,7 @@ import java.util.List;
  * A wrapper class for OpenCV's Mat object.
  *
  * @author Ryan Shavell
- * @version 2017.1.12
+ * @version 2017.1.14
  */
 
 public class Image {
@@ -85,16 +85,17 @@ public class Image {
     }
 
     /**
-     * Creates a copy of this Image, but only showing objects within a certain range.
+     * Finds objects within a certain range.
      * Anything outside this range becomes black, anything in the range becomes white.
      *
      * @param low  The lowest value.
      * @param high The highest value.
+     * @return This Image, for convenience.
      */
+    //TODO: Test changes to this function.
     public Image inRange(BCNScalar low, BCNScalar high) {
-        Mat newM = new Mat();
-        Core.inRange(m, low.toScalar(), high.toScalar(), newM);
-        return new Image(newM);
+        Core.inRange(m, low.toScalar(), high.toScalar(), m);
+        return this;
     }
 
     /**
