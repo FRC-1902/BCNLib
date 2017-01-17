@@ -23,6 +23,16 @@ public class CameraSettings {
         Log.i("Camera Exposure set to " + exposure + ".");
     }
 
+    //List of "real" exposure values
+    /*
+    9
+    19/20
+    39    <- stopped here
+
+    TODO: Complete this list and/or check if the one on delphi that works for the Lifecam 3000 works for this camera as well
+
+     */
+
     private static String runCommand(String command) {
         StringBuffer output = new StringBuffer();
 
