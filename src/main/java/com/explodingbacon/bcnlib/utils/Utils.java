@@ -218,6 +218,12 @@ public class Utils {
         return ks.getKeyCode();
     }
 
+    /**
+     * Get the absolute value of the largest number passed of an arbitrary number of doubles
+     *
+     * @param nums Doubles to search through
+     * @return The absolute value of the largest number in nums
+     */
     public static double maxDouble(double... nums) {
         double currMax = Math.abs(nums[0]);
 
