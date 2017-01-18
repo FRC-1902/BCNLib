@@ -9,10 +9,19 @@ import java.io.InputStreamReader;
  * Class that uses v4l2-utils to control camera settings.
  *
  * @author Ryan Shavell
- * @version 2017.1.14
+ * @version 2017.1.17
  */
 
 public class CameraSettings {
+
+    /**
+     * Sets the USB Camera's auto-adjust exposure settings.
+     *
+     * @param value
+     */
+    public static void setExposureAuto(int value) {
+        runCommand("v4l2-ctl -c exposure_auto=" + value);
+    }
 
     /**
      * Sets the exposure level of the USB Camera.
