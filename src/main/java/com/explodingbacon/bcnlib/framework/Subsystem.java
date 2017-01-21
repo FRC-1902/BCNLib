@@ -70,7 +70,7 @@ public abstract class Subsystem {
 
     /**
      * An experimental version of getAllMotors(). Instead of subsets of Subsystem having to manually implement it, this version of the function iterates through the Substem's
-     * variables and returns all of the Motor varaible's functions. TODO: Test this.
+     * variables and returns all of the Motor variable's functions. TODO: Test this.
      *
      * @return All the Motors that are stored in this Subsystem's variables.
      */

@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 
 public class CameraSettings {
 
+    //TODO: Ryan finish this Javadoc comment
     /**
      * Sets the USB Camera's auto-adjust exposure settings.
      *
@@ -53,7 +54,7 @@ public class CameraSettings {
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-            String line = "";
+            String line;
             while ((line = reader.readLine()) != null) {
                 output.append(line + "\n");
             }

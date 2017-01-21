@@ -120,9 +120,9 @@ public abstract class RobotCore {
     }
 
     /**
-     * Checks if this robot is contolled by a Raspberry Pi.
+     * Checks if this robot is controlled by a Raspberry Pi.
      *
-     * @return If this robot is contolled by a Raspberry Pi.
+     * @return If this robot is controlled by a Raspberry Pi.
      */
     public static boolean isPi() {
         return rio == null;

@@ -23,7 +23,7 @@ public class InternalSource implements PIDSource {
     /**
      * Updates the value of this InternalSource.
      *
-     * @param d The new vlaue of the InternalSource.
+     * @param d The new value of the InternalSource.
      */
     public void update(double d) {
         distance = d;

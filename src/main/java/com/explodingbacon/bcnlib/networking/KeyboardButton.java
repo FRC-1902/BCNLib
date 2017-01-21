@@ -21,11 +21,11 @@ public class KeyboardButton extends FakeButton {
     /**
      * Creates a KeyboardButton.
      *
-     * @param keyc The keycode for the key this KeyboardButton will listen to.
+     * @param keycode The keycode for the key this KeyboardButton will listen to.
      */
-    public KeyboardButton(int keyc) {
+    public KeyboardButton(int keycode) {
         super();
-        keycode = keyc;
+        this.keycode = keycode;
         boolean taken = false;
         for (KeyboardButton b : keyboardButtons) {
             if (b.keycode == keycode) {

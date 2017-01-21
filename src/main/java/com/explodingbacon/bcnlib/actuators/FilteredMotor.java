@@ -20,6 +20,7 @@ public class FilteredMotor extends Motor {
     }
 
     private Runnable filter = () -> {
+        //noinspection InfiniteLoopStatement
         while (true) {
             if (target >= 0) {
                 if (curr < target) {

@@ -40,6 +40,7 @@ public class Camera {
             Thread.sleep(1000);
             if (autoUpdate) {
                 updateThread = new Thread(() -> {
+                    //noinspection InfiniteLoopStatement
                     while (true) {
                         if (cam.isOpened() && updatingEnabled) {
                             synchronized (CAMERA_USE) {
