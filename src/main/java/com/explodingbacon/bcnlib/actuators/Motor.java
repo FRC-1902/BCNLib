@@ -5,6 +5,7 @@ import com.explodingbacon.bcnlib.framework.Command;
 import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.sensors.MotorEncoder;
 import edu.wpi.first.wpilibj.SpeedController;
+
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
@@ -269,6 +270,7 @@ public class Motor extends Usable {
         public boolean isCancelled() { return cancel; }
         public void setCancelled(boolean b) { cancel = b; }
     }
+
     /**
      * Makes it so this Motor will stop moving if it has no user.
      */
