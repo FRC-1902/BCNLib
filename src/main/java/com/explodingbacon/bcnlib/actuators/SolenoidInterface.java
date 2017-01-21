@@ -10,12 +10,14 @@ public interface SolenoidInterface {
 
     /**
      * Get whether this Solenoid is active
+     *
      * @return Whether this Solenoid is active
      */
     boolean get();
 
     /**
      * Sets whether this Solenoid should be active
+     *
      * @param state Whether this Solenoid should be active
      */
     void set(boolean state);

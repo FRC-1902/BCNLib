@@ -11,6 +11,7 @@ public class Log {
 
     /**
      * Logs a WTF message. Should be used for situations that should never happen.
+     *
      * @param s The message to be logged.
      */
     public static void wtf(String s) {
@@ -19,6 +20,7 @@ public class Log {
 
     /**
      * Logs an error message.
+     *
      * @param s The message to be logged.
      */
     public static void e(String s) {
@@ -27,6 +29,7 @@ public class Log {
 
     /**
      * Logs a warning message.
+     *
      * @param s The message to be logged.
      */
     public static void w(String s) {
@@ -35,6 +38,7 @@ public class Log {
 
     /**
      * Logs a tuning message. Will be encased in curly brackets {} instead of normal brackets [].
+     *
      * @param s The message to be logged.
      */
     public static void t(String s) {
@@ -43,6 +47,7 @@ public class Log {
 
     /**
      * Logs a vision message.
+     *
      * @param s The message to be logged.
      */
     public static void v(String s) {
@@ -51,6 +56,7 @@ public class Log {
 
     /**
      * Logs a debug message.
+     *
      * @param s The message to be logged.
      */
     public static void d(String s) {
@@ -59,6 +65,7 @@ public class Log {
 
     /**
      * Logs an info message.
+     *
      * @param s The message to be logged.
      */
     public static void i(String s) {
@@ -67,6 +74,7 @@ public class Log {
 
     /**
      * Logs a standard message.
+     *
      * @param s The message to be logged.
      */
     public static void l(String s) {
@@ -75,7 +83,8 @@ public class Log {
 
     /**
      * Logs a message with a custom tag.
-     * @param tag The tag the message will have. Will appear as [TAG]
+     *
+     * @param tag     The tag the message will have. Will appear as [TAG]
      * @param message The message to be logged.
      */
     public static void c(String tag, String message) {
@@ -84,7 +93,8 @@ public class Log {
 
     /**
      * Logs a message that has a tag.
-     * @param tag The tag the message will have. Will appear as [TAG]
+     *
+     * @param tag     The tag the message will have. Will appear as [TAG]
      * @param message The message to be logged.
      */
     private static void log(String tag, String message) {

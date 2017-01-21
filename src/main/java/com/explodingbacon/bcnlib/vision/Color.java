@@ -1,9 +1,5 @@
 package com.explodingbacon.bcnlib.vision;
 
-import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-
 /**
  * BCNLib implementation of Color, since the roboRIO does not have the java.awt package.
  *
@@ -59,6 +55,7 @@ public class Color extends BCNScalar {
 
     /**
      * Gets the Blue value of this Color.
+     *
      * @return The Blue value of this Color.
      */
     public int getBlue() {

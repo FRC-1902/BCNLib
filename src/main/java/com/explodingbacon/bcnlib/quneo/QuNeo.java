@@ -9,11 +9,11 @@ public class QuNeo {
     /**
      * Subscribes the server to updates on the specified notes.
      *
-     * @param t The type of event that is being tracked.
+     * @param t       The type of event that is being tracked.
      * @param channel The channel on which the events are happening.
-     * @param notes The notes that are launching the events.
+     * @param notes   The notes that are launching the events.
      */
-    public void subscribeTo(Type t, int channel, int...notes) {
+    public void subscribeTo(Type t, int channel, int... notes) {
         String noteString = "";
         for (int i : notes) noteString += ":" + i;
 

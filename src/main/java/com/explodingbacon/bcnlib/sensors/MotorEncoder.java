@@ -15,6 +15,7 @@ public class MotorEncoder extends AbstractEncoder {
 
     /**
      * Creates a MotorEncoder.
+     *
      * @param t The CANTalon this MotorEncoder is plugged into.
      */
     public MotorEncoder(CANTalon t) {

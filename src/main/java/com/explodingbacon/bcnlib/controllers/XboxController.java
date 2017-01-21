@@ -21,6 +21,7 @@ public class XboxController extends GameController {
 
     /**
      * Creates an XboxController on a port.
+     *
      * @param port The port.
      */
     public XboxController(int port) {
@@ -50,6 +51,7 @@ public class XboxController extends GameController {
 
     /**
      * Gets the value of the left trigger.
+     *
      * @return The value of the left trigger.
      */
     public double getLeftTrigger() {
@@ -58,6 +60,7 @@ public class XboxController extends GameController {
 
     /**
      * Gets the value of the right trigger.
+     *
      * @return The value of the right trigger.
      */
     public double getRightTrigger() {
@@ -66,6 +69,7 @@ public class XboxController extends GameController {
 
     /**
      * Checks if the left trigger is pressed down.
+     *
      * @return If the left trigger is pressed down.
      */
     public boolean isLeftTriggerPressed() {
@@ -74,6 +78,7 @@ public class XboxController extends GameController {
 
     /**
      * Checks if the right trigger is pressed down.
+     *
      * @return If the right trigger is pressed down.
      */
     public boolean isRightTriggerPressed() {

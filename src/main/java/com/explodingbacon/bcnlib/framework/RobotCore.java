@@ -3,6 +3,7 @@ package com.explodingbacon.bcnlib.framework;
 import com.explodingbacon.bcnlib.actuators.Motor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public abstract class RobotCore {
 
     /**
      * Creates a RobotCore for a roboRIO-based robot.
+     *
      * @param r The IterativeRobot class of the robot.
      */
     public RobotCore(IterativeRobot r) {
@@ -35,7 +37,8 @@ public abstract class RobotCore {
     /**
      * Runs when the robot starts.
      */
-    public void robotInit() {}
+    public void robotInit() {
+    }
 
     /**
      * Runs when the Robot is enabled, regardless of what mode it is in.
@@ -80,30 +83,36 @@ public abstract class RobotCore {
     /**
      * Loops while the Robot is enabled.
      */
-    public void enabledPeriodic() {}
+    public void enabledPeriodic() {
+    }
 
     /**
      * Loops while in teleop mode.
      */
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() {
+    }
 
     /**
      * Loops while in autonomous mode.
      */
-    public void autonomousPeriodic() {}
+    public void autonomousPeriodic() {
+    }
 
     /**
      * Loops while in test mode.
      */
-    public void testPeriodic() {}
+    public void testPeriodic() {
+    }
 
     /**
      * Loops while the Robot is disabled.
      */
-    public void disabledPeriodic() {}
+    public void disabledPeriodic() {
+    }
 
     /**
      * Checks if this robot is controlled a roboRIO.
+     *
      * @return If this robot is controlled by a roboRIO.
      */
     public static boolean isRIO() {
@@ -112,6 +121,7 @@ public abstract class RobotCore {
 
     /**
      * Checks if this robot is contolled by a Raspberry Pi.
+     *
      * @return If this robot is contolled by a Raspberry Pi.
      */
     public static boolean isPi() {
@@ -120,6 +130,7 @@ public abstract class RobotCore {
 
     /**
      * Checks whether the robot is enabled.
+     *
      * @return Whether the robot is enabled or not.
      */
     public static boolean isEnabled() {
@@ -132,6 +143,7 @@ public abstract class RobotCore {
 
     /**
      * Gets the mode the robot is currently in.
+     *
      * @return The mode the robot is currently in.
      */
     public static Mode getMode() {
@@ -179,6 +191,7 @@ public abstract class RobotCore {
 
     /**
      * Gets the current voltage of the robot's battery.
+     *
      * @return The current voltage of the robot's battery.
      */
     public static double getBatteryVoltage() {
@@ -191,6 +204,7 @@ public abstract class RobotCore {
 
     /**
      * Gets the (approximate) time into the match.
+     *
      * @return The (approximate) time into the match.
      */
     public static double getMatchTime() {
@@ -203,6 +217,7 @@ public abstract class RobotCore {
 
     /**
      * Gets whether the Driver Station is attached.
+     *
      * @return Whether the Driver Station is attached.
      */
     public static boolean isDSAttached() {
@@ -215,6 +230,7 @@ public abstract class RobotCore {
 
     /**
      * Gets the Driver Station.
+     *
      * @return The Driver Station.
      */
     public static DriverStation getDS() {
@@ -228,6 +244,7 @@ public abstract class RobotCore {
 
     /**
      * Gets the alliance our robot is on.
+     *
      * @return The alliance our robot is on.
      */
     public static Alliance getAlliance() {
@@ -247,6 +264,7 @@ public abstract class RobotCore {
 
     /**
      * Gets the alliance station our robot is at.
+     *
      * @return The alliance station our robot is at.
      */
     public static int getAllianceStation() {
@@ -259,9 +277,12 @@ public abstract class RobotCore {
 
     /**
      * Gets the RobotCore object.
+     *
      * @return The RobotCore object.
      */
-    public static RobotCore self() { return self; }
+    public static RobotCore self() {
+        return self;
+    }
 
     /**
      * An enum that represents the different alliances this Robot can be on.

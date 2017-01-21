@@ -3,6 +3,7 @@ package com.explodingbacon.bcnlib.vision;
 import com.explodingbacon.bcnlib.framework.Log;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
+
 import java.util.function.Consumer;
 
 /**
@@ -28,7 +29,7 @@ public class Camera {
     /**
      * Creates a new Camera.
      *
-     * @param index The ID of the Camera, 0-indexed. If there is only one Camera available, it should be ID 0.
+     * @param index      The ID of the Camera, 0-indexed. If there is only one Camera available, it should be ID 0.
      * @param autoUpdate If this Camera should keep the frames served by Camera.getImage() up to date.
      */
     public Camera(int index, boolean autoUpdate) {
@@ -203,7 +204,7 @@ public class Camera {
      * Sets the value of an OpenCV property.
      *
      * @param propid The property ID. Should be a variable defined in Videoio.
-     * @param val The value to set the property to.
+     * @param val    The value to set the property to.
      * @return If changing the property was successful.
      */
     public boolean setRaw(int propid, double val) {

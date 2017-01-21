@@ -19,6 +19,7 @@ public class LogitechController extends GameController {
 
     /**
      * Makes a LogitechController on a port.
+     *
      * @param port The port.
      */
     public LogitechController(int port) {

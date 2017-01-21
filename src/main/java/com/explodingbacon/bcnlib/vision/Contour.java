@@ -1,7 +1,11 @@
 package com.explodingbacon.bcnlib.vision;
 
-import org.opencv.core.*;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +94,9 @@ public class Contour extends Image {
     }
 
     @Override
-    public double getWidth() { return rect.width; }
+    public double getWidth() {
+        return rect.width;
+    }
 
     @Override
     public double getHeight() {
@@ -169,7 +175,7 @@ public class Contour extends Image {
     public static List<MatOfPoint> toMatOfPoint(List<Contour> cons) {
         List<MatOfPoint> mops = new ArrayList<>();
         for (Contour c : cons) {
-            mops.add((MatOfPoint)c.getMat());
+            mops.add((MatOfPoint) c.getMat());
         }
         return mops;
     }

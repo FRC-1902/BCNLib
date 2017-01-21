@@ -25,6 +25,7 @@ public class CameraSettings {
 
     /**
      * Sets the exposure level of the USB Camera.
+     *
      * @param exposure The wanted exposure level.
      */
     public static void setExposure(int exposure) {
@@ -53,7 +54,7 @@ public class CameraSettings {
                     new BufferedReader(new InputStreamReader(p.getInputStream()));
 
             String line = "";
-            while ((line = reader.readLine())!= null) {
+            while ((line = reader.readLine()) != null) {
                 output.append(line + "\n");
             }
 

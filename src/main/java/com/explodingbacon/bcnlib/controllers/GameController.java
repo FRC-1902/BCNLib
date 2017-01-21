@@ -15,6 +15,7 @@ public abstract class GameController extends Joystick {
 
     /**
      * Creates a GameController on a port.
+     *
      * @param port The port.
      */
     public GameController(int port) {
@@ -23,18 +24,21 @@ public abstract class GameController extends Joystick {
 
     /**
      * Gets the X axis of the second joystick.
+     *
      * @return The X axis of the right XboxController joystick.
      */
     public abstract double getX2();
 
     /**
      * Gets the Y axis of the second joystick.
+     *
      * @return The Y axis of the second joystick.
      */
     public abstract double getY2();
 
     /**
      * Gives the current Direction of the DPad.
+     *
      * @return The Direction of the DPad. Returns null if the DPad is not pressed.
      */
     public Direction getDPad() {
@@ -43,6 +47,7 @@ public abstract class GameController extends Joystick {
 
     /**
      * Makes the controller rumble.
+     *
      * @param l The left rumble value.
      * @param r The right rumble value.
      */
@@ -53,8 +58,9 @@ public abstract class GameController extends Joystick {
 
     /**
      * Makes the controller rumble for X seconds.
-     * @param l The left rumble value.
-     * @param r The right rumble value.
+     *
+     * @param l       The left rumble value.
+     * @param r       The right rumble value.
      * @param seconds How long the controller should rumble.
      */
     public void rumble(float l, float r, double seconds) {

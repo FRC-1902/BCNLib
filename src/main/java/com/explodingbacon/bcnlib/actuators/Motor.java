@@ -34,9 +34,10 @@ public class Motor extends Usable {
 
     /**
      * Standard constructor for Motor.
-     * @param clazz The class of this Motor.
+     *
+     * @param clazz   The class of this Motor.
      * @param channel The channel (PWM or CAN) of this Motor.
-     * @param <T> A class that extends SpeedController.
+     * @param <T>     A class that extends SpeedController.
      */
     public <T extends SpeedController> Motor(Class<T> clazz, int channel) {
         this.channel = channel;
@@ -63,6 +64,7 @@ public class Motor extends Usable {
 
     /**
      * Constructor a Motor using an existing SpeedController object.
+     *
      * @param s The SpeedController object.
      */
     public Motor(SpeedController s) {
@@ -91,6 +93,7 @@ public class Motor extends Usable {
 
     /**
      * Sets the name of this Motor.
+     *
      * @param n The new name of the Motor.
      * @return This Motor (for method chaining and variable saving)
      */
@@ -101,6 +104,7 @@ public class Motor extends Usable {
 
     /**
      * Gets the current power of this Motor. Motor power ranges from 1 to -1.
+     *
      * @return The current power of this Motor.
      */
     public double getPower() {
@@ -109,11 +113,12 @@ public class Motor extends Usable {
 
     /**
      * Sets the current power of this Motor. Motor power ranges from 1 to -1.
+     *
      * @param d The new power of this Motor.
      */
     public void setPower(double d) {
         if (isTuning) return;
-        if(isFiltered) {
+        if (isFiltered) {
             filterTarget = d;
             return;
         }
@@ -124,6 +129,7 @@ public class Motor extends Usable {
 
     /**
      * Checks if this Motor is reversed.
+     *
      * @return If this Motor is reversed.
      */
     public boolean isReversed() {
@@ -132,11 +138,13 @@ public class Motor extends Usable {
 
     /**
      * Sets this Motor's reversal status.
+     *
      * @param b Whether or not this Motor should be reversed.
      */
     public void setReversed(boolean b) {
         reverse = b;
     }
+
     /**
      * Stops this Motor.
      */
@@ -223,7 +231,7 @@ public class Motor extends Usable {
     /**
      * Ramps up this Motor over a certain amount of seconds.
      *
-     * @param seconds How may seconds the ramping up will take.
+     * @param seconds  How may seconds the ramping up will take.
      * @param reversed If the Motor should run backwards instead of forwards.
      */
     public void rampUpWait(int seconds, boolean reversed) {
@@ -233,7 +241,7 @@ public class Motor extends Usable {
     /**
      * Ramps up this Motor over a certain amount of seconds.
      *
-     * @param seconds How may seconds the ramping up will take.
+     * @param seconds  How may seconds the ramping up will take.
      * @param reversed If the Motor should run backwards instead of forwards.
      * @param function Code that analyzes the current state of the ramp up, and can possibly cancel the ramping.
      */
@@ -266,16 +274,24 @@ public class Motor extends Usable {
             motor = m;
         }
 
-        public Motor getMotor() { return motor; }
-        public boolean isCancelled() { return cancel; }
-        public void setCancelled(boolean b) { cancel = b; }
+        public Motor getMotor() {
+            return motor;
+        }
+
+        public boolean isCancelled() {
+            return cancel;
+        }
+
+        public void setCancelled(boolean b) {
+            cancel = b;
+        }
     }
 
     /**
      * Makes it so this Motor will stop moving if it has no user.
      */
     public void setStopOnNoUser() {
-       onNoUser(() -> setPower(0));
+        onNoUser(() -> setPower(0));
     }
 
     /**

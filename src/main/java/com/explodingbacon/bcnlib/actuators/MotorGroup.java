@@ -3,6 +3,7 @@ package com.explodingbacon.bcnlib.actuators;
 import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.utils.Utils;
 import edu.wpi.first.wpilibj.SpeedController;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -51,6 +52,7 @@ public class MotorGroup extends Motor {
         super();
         addMotors(type, ids);
     }
+
     /**
      * Adds Motors to this MotorGroup.
      *
@@ -106,6 +108,7 @@ public class MotorGroup extends Motor {
 
     /**
      * Calls code on each Motor in this MotorGroup.
+     *
      * @param c The code to call.
      */
     public void forEach(Consumer<Motor> c) {
@@ -115,7 +118,7 @@ public class MotorGroup extends Motor {
     /**
      * Tests each Motor in this MotorGroup.
      *
-     * @param power The speed the Motor will run at while being tested.
+     * @param power  The speed the Motor will run at while being tested.
      * @param timeOn How long the Motor will be on while being tested.
      */
     public void testEach(double power, double timeOn) {
@@ -125,7 +128,7 @@ public class MotorGroup extends Motor {
     /**
      * Tests each Motor in this MotorGroup, and freezes the Thread until the test is complete.
      *
-     * @param power The speed the Motor will run at while being tested.
+     * @param power  The speed the Motor will run at while being tested.
      * @param timeOn How long the Motor will be on while being tested.
      */
     public void testEachWait(double power, double timeOn) {

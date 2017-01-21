@@ -15,12 +15,13 @@ public class ButtonGroup implements Button {
 
     private List<Button> buttons = new ArrayList<>();
 
-    public ButtonGroup(Button...b) {
+    public ButtonGroup(Button... b) {
         Collections.addAll(buttons, b);
     }
 
     /**
      * Returns true if any Button in this ButtonGroup is true.
+     *
      * @return True if any Button in this ButtonGroup is true.
      */
     public boolean getAny() {
@@ -32,6 +33,7 @@ public class ButtonGroup implements Button {
 
     /**
      * Returns true if all Buttons in this ButtonGroup are true.
+     *
      * @return True if all Buttons in this ButtonGroup are true.
      */
     public boolean getAll() {

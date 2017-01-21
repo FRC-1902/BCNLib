@@ -38,7 +38,7 @@ public class Utils {
      * Applies a deadzone to a value. If the value is bigger than the value, the value is returned. Otherwise, 0 is returned.
      * Useful for deadzones on motor/joystick values.
      *
-     * @param d The value to be deadzoned.
+     * @param d        The value to be deadzoned.
      * @param deadzone The deadzone.
      * @return If the value is bigger than the value, the value is returned. Otherwise, 0 is returned.
      */
@@ -69,7 +69,7 @@ public class Utils {
      * @return The distance from the object.
      */
     public static double getDistanceFromPx(double sizeInInches, double sizeInPx) {
-        return (0.5*sizeInInches)/Math.tan(Math.toRadians(FOV * (sizeInPx/IMAGE_WIDTH)));
+        return (0.5 * sizeInInches) / Math.tan(Math.toRadians(FOV * (sizeInPx / IMAGE_WIDTH)));
     }
 
     private static double IMAGE_WIDTH = 640;
@@ -89,7 +89,7 @@ public class Utils {
     /**
      * Gets how many degrees the Robot needs to turn to get x to target.
      *
-     * @param x The coordinate.
+     * @param x      The coordinate.
      * @param target Where you want x to wind up.
      * @return How many degrees the Robot needs to turn to get x to target.
      */
@@ -107,13 +107,13 @@ public class Utils {
     /**
      * Rounds a double down to a certain amount of decimal places.
      *
-     * @param number The number to be rounded.
+     * @param number        The number to be rounded.
      * @param decimalPlaces The decimal places.
      * @return The double rounded down to a certain amount of decimal places.
      */
     public static double roundToDecimals(double number, int decimalPlaces) {
         int pow = (int) Math.pow(10, decimalPlaces);
-        return Math.round(number * pow)/pow;
+        return Math.round(number * pow) / pow;
     }
 
 
@@ -181,7 +181,7 @@ public class Utils {
     /**
      * Freezes the thread until the BooleanSupplier returns true, or the timeout is reached.
      *
-     * @param b The BooleanSupplier.
+     * @param b       The BooleanSupplier.
      * @param timeout How many seconds the Thread is allowed to be frozen before it unfreezes regardless of the BooleanSupplier's value. Set to -1 if you don't want a timeout.
      * @return True if the wait ended normally, false if it was ended due to reaching the timeout.
      */
@@ -210,6 +210,7 @@ public class Utils {
 
     /**
      * Gets the keycode for a character.
+     *
      * @param c The character.
      * @return The keycode.
      */
@@ -227,7 +228,7 @@ public class Utils {
     public static double maxDouble(double... nums) {
         double currMax = Math.abs(nums[0]);
 
-        for(double i : nums) {
+        for (double i : nums) {
             currMax = Math.abs(i) > currMax ? Math.abs(i) : currMax;
         }
 

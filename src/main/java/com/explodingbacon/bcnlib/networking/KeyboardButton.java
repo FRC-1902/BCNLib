@@ -2,6 +2,7 @@ package com.explodingbacon.bcnlib.networking;
 
 import com.explodingbacon.bcnlib.controllers.FakeButton;
 import com.explodingbacon.bcnlib.framework.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class KeyboardButton extends FakeButton {
 
     /**
      * Gets the KeyboardButton for a certain key.
+     *
      * @param key The keycode for the key the KeyboardButton listens to.
      * @return The KeyboardButton.
      */

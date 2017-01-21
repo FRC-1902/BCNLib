@@ -21,7 +21,8 @@ public class CodeThread implements Runnable {
     /**
      * Creates a CodeThread.
      */
-    public CodeThread() {}
+    public CodeThread() {
+    }
 
     /**
      * Creates a CodeThread that will repeatedly run r.
@@ -89,7 +90,8 @@ public class CodeThread implements Runnable {
     /**
      * Override this with what code you want to run in the thread.
      */
-    public void code() {}
+    public void code() {
+    }
 
     /**
      * Stop execution of this <code>CodeThread</code>

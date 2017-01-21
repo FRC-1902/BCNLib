@@ -51,7 +51,7 @@ public class PDP {
      * Sets code to be run in the event that a certain breaker is tripped.
      *
      * @param port The breaker.
-     * @param r The code to be run.
+     * @param r    The code to be run.
      */
     public void setOnBreakerTrip(int port, Runnable r) {
         portRunnables.put(port, r);
@@ -59,7 +59,7 @@ public class PDP {
 
     private Runnable breakerRunnable = () -> {
         boolean warnedAboutWriter = false;
-        while(true) {
+        while (true) {
             if (loggingTripping) {
                 for (int i = 0; i < 16; i++) {
                     int maxCurrent = getMaxCurrent(i);

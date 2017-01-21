@@ -1,6 +1,7 @@
 package com.explodingbacon.bcnlib.framework;
 
 import com.explodingbacon.bcnlib.actuators.Motor;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public abstract class Subsystem {
 
     private boolean init = false;
+
     /**
      * <code>Command</code> object that is holding controllers of this <code>Subsystem</code>. <code>Null</code> when this
      * <code>Subsystem</code> is able to be changed
@@ -25,6 +27,7 @@ public abstract class Subsystem {
 
     /**
      * Checks if this Subsystem is initialized.
+     *
      * @return If this Subsystem is initialized.
      */
     public boolean isInit() {
@@ -33,6 +36,7 @@ public abstract class Subsystem {
 
     /**
      * Gets the name of this Subsystem.
+     *
      * @return The name of this Subsystem.
      */
     public String getName() {
@@ -59,6 +63,7 @@ public abstract class Subsystem {
 
     /**
      * Gets all the Motors that are stored in this Subsystem. TODO: Automate this via pulling all the Fields in this class and checking which ones are Motors/subsets of Motor
+     *
      * @return All the Motors that are stored in this Subsystem.
      */
     public abstract List<Motor> getAllMotors();

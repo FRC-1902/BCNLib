@@ -21,7 +21,7 @@ public class Timer implements Runnable {
      * Creates a Timer that calls method "c" after X amount of seconds have gone by.
      *
      * @param seconds How many seconds the timer will wait before calling "c".
-     * @param r A Runnable that represents the function to be called.
+     * @param r       A Runnable that represents the function to be called.
      */
     public Timer(double seconds, Runnable r) {
         this.seconds = seconds;
@@ -32,8 +32,8 @@ public class Timer implements Runnable {
      * Creates a Timer that calls method "c" after X amount of seconds have gone by (possibly multiple times if looping)
      *
      * @param seconds How many seconds the timer will wait before calling "c".
-     * @param loop If the timer should keep looping.
-     * @param r A Runnable that represents the function to be called.
+     * @param loop    If the timer should keep looping.
+     * @param r       A Runnable that represents the function to be called.
      */
     public Timer(double seconds, boolean loop, Runnable r) {
         this.seconds = seconds;

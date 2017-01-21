@@ -108,6 +108,7 @@ public class PIDController implements Runnable {
 
     /**
      * Checks if this PIDController is enabled.
+     *
      * @return If this PIDController is enabled.
      */
     public boolean isEnabled() {
@@ -164,6 +165,7 @@ public class PIDController implements Runnable {
 
     /**
      * Gets the current value of the PID source.
+     *
      * @return The current value of the PID source.
      */
     public double getCurrentSourceValue() {
@@ -183,12 +185,13 @@ public class PIDController implements Runnable {
      * On-the-fly re-tuning of the onLoop. Be careful here, there shouldn't be any reason to use this except to tune.
      * For safety, this disables and resets the <code>PIDController</code>
      *
-     * @param kP  Proportional tuning variable. Set to 0 to disable the P term.
-     * @param kI  Integral tuning variable. Set to 0 to disable to I term.
-     * @param kD  Derivative tuning variable. Set to 0 to disable the D term.
+     * @param kP Proportional tuning variable. Set to 0 to disable the P term.
+     * @param kI Integral tuning variable. Set to 0 to disable to I term.
+     * @param kD Derivative tuning variable. Set to 0 to disable the D term.
      */
     public void reTune(double kP, double kI, double kD) {
-        if(!RobotCore.ds.isTest()) throw new RuntimeException("Attempted to tune PID controller outside of Test mode. ");
+        if (!RobotCore.ds.isTest())
+            throw new RuntimeException("Attempted to tune PID controller outside of Test mode. ");
         reset();
         this.kP = kP;
         this.kI = kI;
@@ -197,6 +200,7 @@ public class PIDController implements Runnable {
 
     /**
      * Set the tolerance for determining if the loop is finished. Default is 1000
+     *
      * @param tolerance The tolerance, in whatever units the PIDSource provides
      */
     public void setFinishedTolerance(double tolerance) {
@@ -209,6 +213,7 @@ public class PIDController implements Runnable {
 
     /**
      * Checks if this PIDController is done.
+     *
      * @return If this PIDController is done.
      */
     public boolean isDone() {
@@ -227,6 +232,7 @@ public class PIDController implements Runnable {
 
     /**
      * Makes the Thread wait until this PIDController has reached its destination, or the timeout seconds are reached.
+     *
      * @param timeout How many seconds to wait before breaking out of the loop regardless of the PID loop's status.
      * @return True if the wait completed normally, false is it was completed due to reaching the timeout.
      */
@@ -236,6 +242,7 @@ public class PIDController implements Runnable {
 
     /**
      * Defines code that runs when this PID loop is done.
+     *
      * @param r The code to be run.
      * @return This PIDController.
      */
@@ -246,6 +253,7 @@ public class PIDController implements Runnable {
 
     /**
      * Sets the code that is run every loop of the PID.
+     *
      * @param r The code to run.
      */
     public void setExtraCode(Runnable r) {
@@ -253,12 +261,12 @@ public class PIDController implements Runnable {
     }
 
     public void log() {
-        if(enabled)
+        if (enabled)
             Log.t("Target: " + getTarget() + "; Current Value: " + getCurrentSourceValue() + "; Motor Setpoint: " + getMotorPower());
     }
 
     public void logVerbose() {
-        if(enabled)
+        if (enabled)
             synchronized (verboseLogLock) {
                 Log.t("P: " + p + ", I: " + i + ", D: " + d + ", set: " + t + ", current: " + s.getForPID());
                 //Log.t(String.format("P %d; I %d; D %d", p, i, d));
@@ -329,11 +337,11 @@ public class PIDController implements Runnable {
                         }
                     }
                 }
-            } else{
-                    done = true;
-                    if (enabled)
-                        disable();
-                }
+            } else {
+                done = true;
+                if (enabled)
+                    disable();
+            }
 
             try {
                 Thread.sleep(50);

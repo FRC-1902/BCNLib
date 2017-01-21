@@ -1,6 +1,7 @@
 package com.explodingbacon.bcnlib.controllers;
 
 import com.explodingbacon.bcnlib.framework.Log;
+
 import java.util.function.BooleanSupplier;
 
 /**
@@ -18,7 +19,8 @@ public class FakeButton implements Button {
     /**
      * Creates a FakeButton.
      */
-    public FakeButton() {}
+    public FakeButton() {
+    }
 
     /**
      * Creates a FakeButton whose state is controlled by the result of the BooleanSupplier.

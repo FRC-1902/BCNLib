@@ -3,9 +3,6 @@ package com.explodingbacon.bcnlib.quneo;
 import com.explodingbacon.bcnlib.controllers.Joystick;
 import com.explodingbacon.bcnlib.framework.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * An extension of Joystick meant to be used for the QuNeo MIDI Controller.
  *

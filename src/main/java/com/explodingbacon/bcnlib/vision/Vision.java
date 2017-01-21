@@ -1,7 +1,10 @@
 package com.explodingbacon.bcnlib.vision;
 
 import com.explodingbacon.bcnlib.framework.Log;
-import org.opencv.core.*;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
 
 /**
  * A Vision utility class. Used for initializing the library and contains some vision-specific utility functions.

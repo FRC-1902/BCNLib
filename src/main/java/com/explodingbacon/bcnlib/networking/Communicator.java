@@ -2,6 +2,7 @@ package com.explodingbacon.bcnlib.networking;
 
 import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.utils.CodeThread;
+
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -24,7 +25,8 @@ public abstract class Communicator {
     private List<String> outQueue = new ArrayList<>();
     private final Object MESSAGE_QUEUE_EDIT = new Object();
 
-    public Communicator() {}
+    public Communicator() {
+    }
 
     public Communicator(PrintWriter o, BufferedReader i) {
         out = o;

@@ -1,6 +1,7 @@
 package com.explodingbacon.bcnlib.quneo;
 
 import com.explodingbacon.bcnlib.controllers.FakeButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,12 +57,12 @@ public abstract class QuNeoInput extends FakeButton {
             return new int[]{59 + addAmt, 60 + addAmt, 61 + addAmt};
         }),
         BUTTON(11, 12, 13, 14, 15, 16, 17, 18), //TODO: formula for cc channels
-        RHOMBUS(new int[]{19}, n-> new int[]{79}),
-        VERTICAL_SLIDER(new int[]{6 ,7, 8, 9}, n -> {
+        RHOMBUS(new int[]{19}, n -> new int[]{79}),
+        VERTICAL_SLIDER(new int[]{6, 7, 8, 9}, n -> {
             int vertID = n - 6;
             return new int[]{18 + vertID, n};
         }),
-        HORIZONTAL_SLIDER(new int[]{0, 1, 2, 3}, n-> {
+        HORIZONTAL_SLIDER(new int[]{0, 1, 2, 3}, n -> {
             return new int[]{12 + n, n};
         }),
         BIG_SLIDER(new int[]{10}, n -> new int[]{22, 10, 11}),
@@ -81,7 +82,7 @@ public abstract class QuNeoInput extends FakeButton {
             this.ids = ids;
             List<Integer> ccChannelsList = new ArrayList<>();
             for (int i : ids) {
-                for (int i2: ccChannelSupplier.get(i)) ccChannelsList.add(i2);
+                for (int i2 : ccChannelSupplier.get(i)) ccChannelsList.add(i2);
             }
             ccChannels = new int[ccChannelsList.size()];
             int index = 0;

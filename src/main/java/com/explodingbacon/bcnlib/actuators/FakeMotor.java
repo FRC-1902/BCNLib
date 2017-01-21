@@ -24,6 +24,7 @@ public class FakeMotor extends Motor {
 
     /**
      * A constructor to specify if this FakeMotor should log itself
+     *
      * @param log If this FakeMotor should log itself each time it's set or gotten
      */
     public FakeMotor(boolean log) {

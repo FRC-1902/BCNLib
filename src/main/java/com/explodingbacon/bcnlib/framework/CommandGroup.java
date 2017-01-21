@@ -16,10 +16,12 @@ public class CommandGroup extends Command {
     /**
      * Creates an empty CommandGroup
      */
-    public CommandGroup(){}
+    public CommandGroup() {
+    }
 
     /**
      * Creates a CommandGroup consisting of the Commands passed as arguments.
+     *
      * @param c The Commands to be in the CommandGroup.
      */
     public CommandGroup(Command... c) {
@@ -28,6 +30,7 @@ public class CommandGroup extends Command {
 
     /**
      * Adds a Command to this CommandGroup.
+     *
      * @param c The Command to be added.
      * @return This CommandGroup.
      */
@@ -45,11 +48,15 @@ public class CommandGroup extends Command {
     }
 
     @Override
-    public void onLoop() {}
+    public void onLoop() {
+    }
 
     @Override
-    public void onStop() {}
+    public void onStop() {
+    }
 
     @Override
-    public boolean isFinished() { return true; }
+    public boolean isFinished() {
+        return true;
+    }
 }

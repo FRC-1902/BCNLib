@@ -4,6 +4,7 @@ import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,10 +120,10 @@ public class Image {
     /**
      * Draws a line on this Image.
      *
-     * @param x The X coordinate of the line.
-     * @param y The Y coordinate of the line.
+     * @param x      The X coordinate of the line.
+     * @param y      The Y coordinate of the line.
      * @param height The height of the line.
-     * @param c The Color of the line.
+     * @param c      The Color of the line.
      */
     public void drawLine(int x, int y, int height, Color c) {
         drawRectangle(x, y, x, y + height, c);
@@ -131,9 +132,9 @@ public class Image {
     /**
      * Draws a centered line on this Image.
      *
-     * @param x The X coordinate of the line.
+     * @param x      The X coordinate of the line.
      * @param height The height of the line.
-     * @param c The Color of the line.
+     * @param c      The Color of the line.
      */
     public void drawLine(int x, int height, Color c) {
         drawLine(x, 0, height, c);
@@ -151,6 +152,7 @@ public class Image {
 
     /**
      * Draws a Rectangle on this Image.
+     *
      * @param r The Rectangle to draw.
      * @param c The Color of the Rectangle.
      */
@@ -174,10 +176,10 @@ public class Image {
     /**
      * Draws a circle on this Image.
      *
-     * @param x The X coordinate of the center of the circle.
-     * @param y The Y coordinate of the center of the circle.
+     * @param x      The X coordinate of the center of the circle.
+     * @param y      The Y coordinate of the center of the circle.
      * @param radius The radius of the circle.
-     * @param c The Color of the circle.
+     * @param c      The Color of the circle.
      */
     public void drawCircle(int x, int y, int radius, Color c) {
         Imgproc.circle(m, new Point(x, y), radius, c.toScalar());
@@ -209,9 +211,9 @@ public class Image {
     /**
      * Draws text on this Image.
      *
-     * @param text The text to be drawn.
-     * @param x The X coordinate of the text's starting point.
-     * @param y The Y coordinate of the text's starting point.
+     * @param text  The text to be drawn.
+     * @param x     The X coordinate of the text's starting point.
+     * @param y     The Y coordinate of the text's starting point.
      * @param scale The scale of the text.
      * @param color The Color of the text.
      */
@@ -224,6 +226,7 @@ public class Image {
 
     /**
      * Compares this Image to another Image.
+     *
      * @param i The Image this Image is being compared to.
      * @return How similar this Image is to the other Image.
      */
@@ -239,7 +242,7 @@ public class Image {
     public Image resize(int width, int height) {
         Image resize = new Image();
         Size sz = new Size(width, height);
-        Imgproc.resize(m, resize.getMat(), sz );
+        Imgproc.resize(m, resize.getMat(), sz);
         return resize;
     }
 
@@ -249,7 +252,7 @@ public class Image {
      * @return This Image in byte array form.
      */
     public byte[] toBytes() {
-        return new byte[ m.rows() * m.cols() * m.channels() ];
+        return new byte[m.rows() * m.cols() * m.channels()];
     }
 
     /**

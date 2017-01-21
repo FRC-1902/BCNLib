@@ -8,7 +8,7 @@ public class FilteredMotor extends Motor {
     Thread t;
     static Double target = 0d, curr = 0d;
 
-    public  <T extends SpeedController> FilteredMotor(Class<T> clazz, int channel) {
+    public <T extends SpeedController> FilteredMotor(Class<T> clazz, int channel) {
         super(clazz, channel);
         t = new Thread(filter);
         t.start();

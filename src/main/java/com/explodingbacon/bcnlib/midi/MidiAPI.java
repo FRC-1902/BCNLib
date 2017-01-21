@@ -26,8 +26,8 @@ public class MidiAPI {
         }
 
         Boolean foundDevice = false;
-        for(MidiDevice.Info info : infos) {
-            if(info.getName().equals(deviceName)) {
+        for (MidiDevice.Info info : infos) {
+            if (info.getName().equals(deviceName)) {
                 foundDevice = true;
                 //System.out.println("Found a matching device");
 
@@ -53,7 +53,7 @@ public class MidiAPI {
             }
         }
 
-        if(!foundDevice) throw new MidiDeviceNotFoundException("We were unable to find a device that you specified.");
+        if (!foundDevice) throw new MidiDeviceNotFoundException("We were unable to find a device that you specified.");
     }
 
     @FunctionalInterface
@@ -62,7 +62,7 @@ public class MidiAPI {
     }
 
     public void registerListener(MidiAPIListener listener, int type, int channel, int... notes) {
-        for(int n : notes) {
+        for (int n : notes) {
             String hash = hashOfMessage(type, channel, n);
 
             registrationMap.putIfAbsent(hash, new ArrayList<>());
@@ -88,7 +88,7 @@ public class MidiAPI {
 
     private String hashOfMessage(int type, int channel, int note) {
         md.reset();
-        String input = "t"+type+"c"+channel+"n"+note;
+        String input = "t" + type + "c" + channel + "n" + note;
         return Arrays.toString(md.digest(input.getBytes()));
     }
 
@@ -144,11 +144,11 @@ public class MidiAPI {
             byte[] msg = message.getMessage();
             int messageType = msg[0] == -80 ? CONTROL_CHANGE : msg[0] == -112 ? NOTE_ON : msg[0] == -128 ? NOTE_OFF : 0;
             String messageHash = hashOfMessage(messageType, 1, msg[1]);
-            if(registrationMap.get(messageHash) != null) {
+            if (registrationMap.get(messageHash) != null) {
                 for (MidiAPIListener l : registrationMap.get(messageHash)) {
                     l.onMidiEvent(messageType, 1, msg[1], msg[2]);
                 }
-            } else if(messageType == NOTE_ON) {
+            } else if (messageType == NOTE_ON) {
                 System.out.println("Null entry for hash " + messageHash);
             }
         }

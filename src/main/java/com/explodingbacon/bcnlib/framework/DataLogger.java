@@ -30,7 +30,7 @@ public class DataLogger {
     }
 
     public void log(String key, Supplier supplier) {
-        if(started) {
+        if (started) {
             Log.e("DataLogger ignored a request to add a tracked value because it has already started logging.");
             return;
         }
@@ -55,7 +55,7 @@ public class DataLogger {
 
     private Runnable refreshRunnable = () -> {
         String s = "";
-        for(String key : map.keySet()) {
+        for (String key : map.keySet()) {
             s = s + map.get(key).get();
         }
 

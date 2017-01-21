@@ -44,7 +44,7 @@ public abstract class Command implements Runnable {
      * method has returned.
      */
     public void waitTillFinished() {
-        while(!finishedExecution) {
+        while (!finishedExecution) {
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -58,7 +58,7 @@ public abstract class Command implements Runnable {
      *
      * @return If this Command is currently running.
      */
-    public boolean isRunning(){
+    public boolean isRunning() {
         return isRunning;
     }
 
@@ -117,7 +117,7 @@ public abstract class Command implements Runnable {
     private void finish() {
         if (requiredSub != null)
 
-        finishedExecution = true;
+            finishedExecution = true;
         isRunning = false;
     }
 }

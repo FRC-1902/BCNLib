@@ -16,6 +16,7 @@ public class Relay implements SpeedController {
 
     /**
      * Create a new Relay on the given channel
+     *
      * @param channel The channel that this Relay is plugged in
      */
     public Relay(int channel) {
@@ -47,7 +48,8 @@ public class Relay implements SpeedController {
     }
 
     @Override
-    public void setInverted(boolean isInverted) {} //Not implemented due to not being needed by Motor.java
+    public void setInverted(boolean isInverted) {
+    } //Not implemented due to not being needed by Motor.java
 
     @Override
     public boolean getInverted() {
@@ -55,7 +57,8 @@ public class Relay implements SpeedController {
     }
 
     @Override
-    public void disable() {} //Not implemented due to not being needed by Motor.java
+    public void disable() {
+    } //Not implemented due to not being needed by Motor.java
 
     @Override
     public void stopMotor() {
@@ -63,6 +66,7 @@ public class Relay implements SpeedController {
     }
 
     @Override
-    public void pidWrite(double output) {} //Not implemented due to not being needed by Motor.java
+    public void pidWrite(double output) {
+    } //Not implemented due to not being needed by Motor.java
 }
 

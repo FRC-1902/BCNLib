@@ -5,9 +5,9 @@ package com.explodingbacon.bcnlib.framework;
  */
 
 public enum Mode {
-        AUTONOMOUS,
-        TELEOP,
-        TEST,
+    AUTONOMOUS,
+    TELEOP,
+    TEST,
 
-        NONE
+    NONE
 }

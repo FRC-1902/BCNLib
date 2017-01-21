@@ -17,9 +17,9 @@ public class Rectangle {
     /**
      * Creates a Rectangle.
      *
-     * @param x The X coordinate of the Rectangle.
-     * @param y The Y coordinate of the Rectangle.
-     * @param width The width of the Rectangle.
+     * @param x      The X coordinate of the Rectangle.
+     * @param y      The Y coordinate of the Rectangle.
+     * @param width  The width of the Rectangle.
      * @param height The height of this Rectangle.
      */
     public Rectangle(int x, int y, int width, int height) {
@@ -32,9 +32,9 @@ public class Rectangle {
     /**
      * Creates a Rectangle using doubles which will be rounded down to Integers.
      *
-     * @param x The X coordinate of the Rectangle.
-     * @param y The Y coordinate of the Rectangle.
-     * @param width The width of the Rectangle.
+     * @param x      The X coordinate of the Rectangle.
+     * @param y      The Y coordinate of the Rectangle.
+     * @param width  The width of the Rectangle.
      * @param height The height of this Rectangle.
      */
     public Rectangle(double x, double y, double width, double height) {
@@ -46,6 +46,7 @@ public class Rectangle {
 
     /**
      * Creates an OpenCV Rect the same dimensions as this Rectangle.
+     *
      * @return An OpenCV Rect the same dimensions as this Rectangle.
      */
     public Rect toRect() {

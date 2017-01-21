@@ -26,7 +26,7 @@ public class Encoder extends AbstractEncoder {
      *
      * @param aChannel This Encoder's first port.
      * @param bChannel This Encoder's second port.
-     * @param reverse If this Encoder should be reversed.
+     * @param reverse  If this Encoder should be reversed.
      */
     public Encoder(int aChannel, int bChannel, boolean reverse) {
         enc = new edu.wpi.first.wpilibj.Encoder(aChannel, bChannel, reverse);

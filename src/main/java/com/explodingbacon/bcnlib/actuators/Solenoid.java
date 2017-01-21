@@ -13,6 +13,7 @@ public class Solenoid extends Usable implements SolenoidInterface {
 
     /**
      * Create a solenoid on the given channel.
+     *
      * @param channel The channel where this Solenoid is plugged in
      */
     public Solenoid(int channel) {

@@ -78,7 +78,7 @@ public class DoubleSolenoid extends Usable implements SolenoidInterface {
      */
     @Override
     public void set(boolean state) {
-        if(reversed) state = !state;
+        if (reversed) state = !state;
         sol.set(state ? edu.wpi.first.wpilibj.DoubleSolenoid.Value.kForward :
                 edu.wpi.first.wpilibj.DoubleSolenoid.Value.kReverse);
     }
