@@ -10,7 +10,7 @@ import com.explodingbacon.bcnlib.utils.Utils;
  * disable that parameter.
  *
  * @author Dominic Canora
- * @version 2016.1.0
+ * @version 2017.1.26
  */
 public class PIDController implements Runnable {
     private Motor m;
@@ -23,7 +23,7 @@ public class PIDController implements Runnable {
     private Runnable whenFinished = null;
     private Runnable extraCode = null;
     private static final Object verboseLogLock = new Object();
-    private boolean enabled = false, inverted = false, done = false, shouldInstaKill = false;
+    private boolean enabled = false, inverted = false, done = false, shouldInstaKill = false, isRotational = false;
 
 
     /**
@@ -42,8 +42,8 @@ public class PIDController implements Runnable {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
-        this.min = 0.2;
-        this.max = 0.8;
+        this.min = 0;
+        this.max = 1;
         this.thread = new Thread(this);
         this.thread.start();
     }
@@ -142,6 +142,17 @@ public class PIDController implements Runnable {
      */
     public PIDController setInputInverted(Boolean inverted) {
         this.inverted = inverted;
+        return this;
+    }
+
+    /**
+     * Set the PIDController to invert its input
+     *
+     * @param isRotational Whether the PIDController should treat itself as rotational
+     * @return This PIDController (for method chaining)
+     */
+    public PIDController setRotational(Boolean isRotational) {
+        this.isRotational = isRotational;
         return this;
     }
 
@@ -268,7 +279,7 @@ public class PIDController implements Runnable {
     public void logVerbose() {
         if (enabled)
             synchronized (verboseLogLock) {
-                Log.t("P: " + p + ", I: " + i + ", D: " + d + ", set: " + t + ", current: " + s.getForPID());
+                Log.t("P: " + p*kP + ", I: " + i*kI + ", D: " + d*kD + ", set: " + t + ", current: " + s.getForPID());
                 //Log.t(String.format("P %d; I %d; D %d", p, i, d));
             }
     }
@@ -287,6 +298,8 @@ public class PIDController implements Runnable {
                     p = t - s.getForPID();
 
                     if (inverted) p *= -1;
+                    if (isRotational && p >= 180) p -= 360;
+                    if (isRotational && p <= -180) p += 360;
 
                     i += p;
                     d = lastP - p;
@@ -295,7 +308,7 @@ public class PIDController implements Runnable {
                     i = Math.abs(i * kI) > 1 ? (1 / kI) * Utils.sign(i) : i; //Prevent i windup
 
                     double setpoint = p * kP + i * kI - d * kD;
-                    setpoint = Utils.minMax(setpoint, 0.1, 1);
+                    setpoint = Utils.minMax(setpoint, 0, 1);
 
                     double power = Utils.minMax(setpoint, min, max);
 
@@ -311,6 +324,10 @@ public class PIDController implements Runnable {
                     if (Utils.sign(power) != Utils.sign(p)) {
                         //power = 0;
                         Log.i("Sign isn't equal to P. NOT compensating by setting motor power to 0.");
+                    }
+
+                    if ((Utils.sign(i) != Utils.sign(p)) && isRotational) {
+                        i = 0;
                     }
 
                     m.setPower(power);

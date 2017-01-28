@@ -2,7 +2,7 @@ package com.explodingbacon.bcnlib.framework;
 
 /**
  * @author Dominic Canora
- * @version 2016.1.0
+ * @version 2017.1.26
  */
 public abstract class Command implements Runnable {
     private Thread t;
@@ -107,6 +107,12 @@ public abstract class Command implements Runnable {
         onInit();
         while (!isFinished() && !cancel) {
             onLoop();
+
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         cancel = false;
         onStop();

@@ -12,7 +12,7 @@ import java.util.function.BooleanSupplier;
  * A Utility class that contains helpful functions that don't really fit in any other classes.
  *
  * @author Ryan Shavell
- * @version 2017.1.17
+ * @version 2017.1.26
  */
 
 public class Utils {
@@ -233,6 +233,14 @@ public class Utils {
         }
 
         return currMax;
+    }
+
+    public static double roundToPlace(double d, double place) {
+        double amount = 1;
+        for (int i=0;i<place;i++) {
+            amount *= 10;
+        }
+        return (double)Math.round(d * amount) / amount;
     }
 
     public static double rescale(double original, double originalScaleMax, double newScaleMax) {
