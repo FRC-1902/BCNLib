@@ -5,12 +5,14 @@ import com.explodingbacon.bcnlib.sensors.BNO055;
 
 /**
  * @author Ryan Shavell
- * @version 2017.1.26
+ * @version 2017.2.16
  */
 public class BNOGyro implements PIDSource {
 
     private BNO055 bn;
     private boolean asVector;
+
+    private double fakeZero = 0;
 
     public BNOGyro(boolean asVector) {
         bn = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS, BNO055.vector_type_t.VECTOR_EULER);
@@ -25,11 +27,27 @@ public class BNOGyro implements PIDSource {
         return bn.isCalibrated();
     }
 
+    //TODO: test
+    public void rezero() {
+        setZero(getForPID());
+    }
+
+    public void setZero(double newZero) {
+        fakeZero = newZero;
+    }
+
     public double getHeading() {
         if (asVector) {
-            return bn.getVector()[0];
+            //TODO: test
+            double vector = bn.getVector()[0];
+            vector -= fakeZero;
+            if (vector < 0) {
+                vector = 360 + vector;
+            }
+            return vector;
         } else {
-            return bn.getHeading();
+            //TODO: test
+            return bn.getHeading() - fakeZero;
         }
     }
 
@@ -48,6 +66,7 @@ public class BNOGyro implements PIDSource {
 
     @Override
     public void reset() {
-        //TODO: implement
+        //TODO: test
+        rezero();
     }
 }
