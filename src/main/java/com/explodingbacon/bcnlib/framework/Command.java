@@ -11,6 +11,7 @@ public abstract class Command implements Runnable {
     private Boolean isRunning = false;
     private Boolean cancel = false;
 
+    //I am like the only person that uses slash slash
     /**
      * Creates a new <code>Command</code>.
      */

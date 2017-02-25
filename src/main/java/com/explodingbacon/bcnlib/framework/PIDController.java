@@ -22,7 +22,7 @@ public class PIDController implements Runnable {
     private Thread thread;
     private Runnable whenFinished = null;
     private Runnable extraCode = null;
-    private static final Object verboseLogLock = new Object();
+    private static final Object verboseLogLock = new Object(), setLock = new Object();
     private boolean enabled = false, inverted = false, done = false, shouldInstaKill = false, isRotational = false;
 
 
@@ -323,11 +323,12 @@ public class PIDController implements Runnable {
 
                     if (Utils.sign(power) != Utils.sign(p)) {
                         //power = 0;
-                        //Log.i("Sign isn't equal to P. NOT compensating by setting motor power to 0.");
+                        Log.i("Sign isn't equal to P. NOT compensating by setting motor power to 0.");
                     }
 
                     if ((Utils.sign(i) != Utils.sign(p)) && isRotational) {
                         i = 0;
+                        Log.i("Sign of I isn't equal to P. Compensating by setting I to 0.");
                     }
 
                     m.setPower(power);

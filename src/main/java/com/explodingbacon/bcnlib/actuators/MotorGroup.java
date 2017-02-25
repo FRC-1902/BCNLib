@@ -136,6 +136,7 @@ public class MotorGroup extends Motor {
         for (Motor m : motors) {
             try {
                 double speed = inverts.get(index) ? -power : power;
+                if (isReversed()) speed = -speed;
                 m.setPower(speed);
                 Thread.sleep(Math.round(timeOn * 1000));
                 m.setPower(0);

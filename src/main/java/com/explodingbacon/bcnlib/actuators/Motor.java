@@ -162,7 +162,7 @@ public class Motor extends Usable {
             if (sc instanceof CANTalon) {
                 encoder = new MotorEncoder((CANTalon) sc);
             } else {
-                Log.e("Called Motor.getEncoder() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
+                Log.e("Called Motor.getEncoder() on a Motor that is not a CANTalon! (Motor is a " + getMotorClass().getSimpleName() + ")");
                 return null;
             }
         }
@@ -178,7 +178,7 @@ public class Motor extends Usable {
         if (sc instanceof CANTalon) {
             return ((CANTalon) sc).getOutputCurrent();
         } else {
-            Log.e("Called Motor.getOutputCurrent() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
+            Log.e("Called Motor.getOutputCurrent() on a Motor that is not a CANTalon! (Motor is a " + getMotorClass().getSimpleName() + ")");
             return 0;
         }
     }
@@ -187,7 +187,7 @@ public class Motor extends Usable {
         if (sc instanceof CANTalon) {
             return ((CANTalon) sc).getOutputVoltage();
         } else {
-            Log.e("Called Motor.getOutputVoltage() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
+            Log.e("Called Motor.getOutputVoltage() on a Motor that is not a CANTalon! (Motor is a " + getMotorClass().getSimpleName() + ")");
             return 0;
         }
     }
@@ -201,7 +201,7 @@ public class Motor extends Usable {
         if (sc instanceof CANTalon) {
             ((CANTalon) sc).enableBrakeMode(b);
         } else {
-            Log.e("Called Motor.setBrakeMode() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
+            Log.e("Called Motor.setBrakeMode() on a Motor that is not a CANTalon! (Motor is a " + getMotorClass().getSimpleName() + ")");
         }
     }
 
@@ -214,7 +214,7 @@ public class Motor extends Usable {
         if (sc instanceof CANTalon) {
             return getOutputCurrent() * getOutputVoltage();
         } else {
-            Log.e("Called Motor.getWatts() on a Motor that is not a CANTalon! (Motor is a " + getClass().getSimpleName() + ")");
+            Log.e("Called Motor.getWatts() on a Motor that is not a CANTalon! (Motor is a " + getMotorClass().getSimpleName() + ")");
             return 0;
         }
     }
@@ -317,7 +317,7 @@ public class Motor extends Usable {
     }
 
     /**
-     * Gets the WPILib SpeedController object that this class is wrappering.
+     * Gets the WPILib SpeedController object that this class is wrappering, if any.
      *
      * @return The WPILib SpeedController object that this class is wrappering.
      */
