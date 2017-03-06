@@ -112,7 +112,7 @@ public class Utils {
      * @return The double rounded down to a certain amount of decimal places.
      */
     public static double roundToDecimals(double number, int decimalPlaces) {
-        int pow = (int) Math.pow(10, decimalPlaces);
+        double pow = Math.pow(10, decimalPlaces);
         return Math.round(number * pow) / pow;
     }
 

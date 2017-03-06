@@ -36,6 +36,10 @@ public class BNOGyro implements PIDSource {
         fakeZero = newZero;
     }
 
+    public void shiftZero(double zero) {
+        fakeZero += zero;
+    }
+
     public double getHeading() {
         if (asVector) {
             //TODO: test

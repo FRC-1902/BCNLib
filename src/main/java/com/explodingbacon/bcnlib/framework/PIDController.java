@@ -1,5 +1,6 @@
 package com.explodingbacon.bcnlib.framework;
 
+import com.ctre.CANTalon;
 import com.explodingbacon.bcnlib.actuators.FakeMotor;
 import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.sensors.AbstractEncoder;
@@ -19,6 +20,7 @@ public class PIDController implements Runnable {
     private double p, i, d, lastP = 0, min, max, startingSign;
     private double t = 0;
     private double tolerance = 1000;
+    private double power;
     private Thread thread;
     private Runnable whenFinished = null;
     private Runnable extraCode = null;
@@ -279,7 +281,12 @@ public class PIDController implements Runnable {
     public void logVerbose() {
         if (enabled)
             synchronized (verboseLogLock) {
-                Log.t("P: " + p*kP + ", I: " + i*kI + ", D: " + d*kD + ", set: " + t + ", current: " + s.getForPID());
+                Log.t("P: " + Utils.roundToDecimals(p*kP, 3)
+                        + ", I: " + Utils.roundToDecimals(i*kI, 3)
+                        + ", D: " + Utils.roundToDecimals(d*kD, 3)
+                        + ", out " + Utils.roundToDecimals(power, 3)
+                        + ", set: " + Utils.roundToDecimals(t, 3)
+                        + ", sensor: " + Utils.roundToDecimals(s.getForPID(), 3));
                 //Log.t(String.format("P %d; I %d; D %d", p, i, d));
             }
     }
@@ -305,12 +312,12 @@ public class PIDController implements Runnable {
                     d = lastP - p;
                     lastP = p;
 
-                    i = Math.abs(i * kI) > 1 ? (1 / kI) * Utils.sign(i) : i; //Prevent i windup
+                    i = Math.abs(i * kI) > 1 ? (max / kI) * Utils.sign(i) : i; //Prevent i windup
 
                     double setpoint = p * kP + i * kI - d * kD;
                     setpoint = Utils.minMax(setpoint, 0, 1);
 
-                    double power = Utils.minMax(setpoint, min, max);
+                    power = Utils.minMax(setpoint, min, max);
 
                     //If our target is 0 and our target is a rate, set the motor to 0, since that'll get us a rate of 0 easily
                     if (isRate && getTarget() == 0) {
@@ -323,12 +330,12 @@ public class PIDController implements Runnable {
 
                     if (Utils.sign(power) != Utils.sign(p)) {
                         //power = 0;
-                        Log.i("Sign isn't equal to P. NOT compensating by setting motor power to 0.");
+                        //Log.i("Sign isn't equal to P. NOT compensating by setting motor power to 0.");
                     }
 
                     if ((Utils.sign(i) != Utils.sign(p)) && isRotational) {
                         i = 0;
-                        Log.i("Sign of I isn't equal to P. Compensating by setting I to 0.");
+                        //Log.i("Sign of I isn't equal to P. Compensating by setting I to 0.");
                     }
 
                     m.setPower(power);
@@ -360,7 +367,6 @@ public class PIDController implements Runnable {
                 if (enabled)
                     disable();
             }
-
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e1) {

@@ -36,6 +36,7 @@ public class MotorEncoder extends AbstractEncoder {
     @Override
     public double getRate() {
         double sign = isReversed() ? -1 : 1;
-        return sign * tal.getEncVelocity();
+        //return sign * tal.getEncVelocity();
+        return sign * tal.getSpeed();
     }
 }
