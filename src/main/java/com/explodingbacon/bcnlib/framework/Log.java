@@ -73,6 +73,15 @@ public class Log {
     }
 
     /**
+     * Logs an auto (autonomous) message.
+     *
+     * @param s The message to be logged.
+     */
+    public static void a(String s) {
+        log("AUTO", s);
+    }
+
+    /**
      * Logs a standard message.
      *
      * @param s The message to be logged.
