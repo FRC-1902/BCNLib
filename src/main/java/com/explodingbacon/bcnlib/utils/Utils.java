@@ -12,12 +12,19 @@ import java.util.function.BooleanSupplier;
  * A Utility class that contains helpful functions that don't really fit in any other classes.
  *
  * @author Ryan Shavell
- * @version 2017.1.26
+ * @version 2017.7.29
  */
 
 public class Utils {
 
     private static String newLine = null;
+
+    public static double cap(double val, double cap) {
+        if (Math.abs(val) > Math.abs(cap)) {
+            return cap * (val / Math.abs(val));
+        }
+        return val;
+    }
 
     /**
      * Taking a value, bound it with a max and a deadzone respecting the sign of the input. Useful for sending values to motors.

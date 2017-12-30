@@ -2,7 +2,7 @@ package com.explodingbacon.bcnlib.framework;
 
 /**
  * @author Dominic Canora
- * @version 2017.5.21
+ * @version 2017.1.26
  */
 public abstract class Command implements Runnable {
     private Thread t;
@@ -11,6 +11,7 @@ public abstract class Command implements Runnable {
     private Boolean isRunning = false;
     private Boolean cancel = false;
 
+    //I am like the only person that uses slash slash
     /**
      * Creates a new <code>Command</code>.
      */

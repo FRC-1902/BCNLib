@@ -27,7 +27,6 @@ public class BNOGyro implements PIDSource {
         return bn.isCalibrated();
     }
 
-    //TODO: test
     public void rezero() {
         setZero(getForPID());
     }

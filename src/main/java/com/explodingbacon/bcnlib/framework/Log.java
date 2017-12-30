@@ -4,9 +4,8 @@ package com.explodingbacon.bcnlib.framework;
  * A Logging class for logging different types of messages.
  *
  * @author Ryan Shavell
- * @version 2016.2.9
+ * @version 2017.3.24
  */
-
 public class Log {
 
     /**
@@ -16,6 +15,15 @@ public class Log {
      */
     public static void wtf(String s) {
         log("WTF", s);
+    }
+
+    /**
+     * Logs an Autonomous message.
+     *
+     * @param s The message to be logged.
+     */
+    public static void a(String s) {
+        log("AUTO", s);
     }
 
     /**
@@ -70,15 +78,6 @@ public class Log {
      */
     public static void i(String s) {
         log("INFO", s);
-    }
-
-    /**
-     * Logs an auto (autonomous) message.
-     *
-     * @param s The message to be logged.
-     */
-    public static void a(String s) {
-        log("AUTO", s);
     }
 
     /**
