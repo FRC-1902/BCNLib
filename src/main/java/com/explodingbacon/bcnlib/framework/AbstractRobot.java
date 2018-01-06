@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * @version 2016.2.24
  */
 
-public class AbstractRobot extends IterativeRobot {
+public abstract class AbstractRobot extends IterativeRobot {
 
     private static RobotCore core = null;
 
