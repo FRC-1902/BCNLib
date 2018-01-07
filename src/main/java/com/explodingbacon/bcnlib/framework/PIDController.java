@@ -1,6 +1,5 @@
 package com.explodingbacon.bcnlib.framework;
 
-import com.ctre.CANTalon;
 import com.explodingbacon.bcnlib.actuators.FakeMotor;
 import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.sensors.AbstractEncoder;

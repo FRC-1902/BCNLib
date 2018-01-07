@@ -1,6 +1,6 @@
 package com.explodingbacon.bcnlib.actuators;
 
-import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.explodingbacon.bcnlib.framework.Command;
 import com.explodingbacon.bcnlib.framework.Log;
 import com.explodingbacon.bcnlib.sensors.MotorEncoder;
@@ -153,16 +153,16 @@ public class Motor extends Usable {
     }
 
     /**
-     * Gets the MotorEncoder for this Motor. CANTalons only.
+     * Gets the MotorEncoder for this Motor. WPI_TalonSRXs only.
      *
      * @return The MotorEncoder for this Motor.
      */
     public MotorEncoder getEncoder() {
         if (encoder == null) {
-            if (sc instanceof CANTalon) {
-                encoder = new MotorEncoder((CANTalon) sc);
+            if (sc instanceof WPI_TalonSRX) {
+                encoder = new MotorEncoder((WPI_TalonSRX) sc);
             } else {
-                Log.e("Called Motor.getEncoder() on a Motor that is not a CANTalon! (Motor is a " + getMotorClass().getSimpleName() + ")");
+                Log.e("Called Motor.getEncoder() on a Motor that is not a WPI_TalonSRX! (Motor is a " + getMotorClass().getSimpleName() + ")");
                 return null;
             }
         }
@@ -170,51 +170,52 @@ public class Motor extends Usable {
     }
 
     /**
-     * Gets the output current of this Motor. CANTalons only.
+     * Gets the output current of this Motor. WPI_TalonSRXs only.
      *
      * @return The output current of this Motor.
      */
     public double getOutputCurrent() {
-        if (sc instanceof CANTalon) {
-            return ((CANTalon) sc).getOutputCurrent();
+        if (sc instanceof WPI_TalonSRX) {
+            return ((WPI_TalonSRX) sc).getOutputCurrent();
         } else {
-            Log.e("Called Motor.getOutputCurrent() on a Motor that is not a CANTalon! (Motor is a " + getMotorClass().getSimpleName() + ")");
+            Log.e("Called Motor.getOutputCurrent() on a Motor that is not a WPI_TalonSRX! (Motor is a " + getMotorClass().getSimpleName() + ")");
             return 0;
         }
     }
 
     public double getOutputVoltage() {
-        if (sc instanceof CANTalon) {
-            return ((CANTalon) sc).getOutputVoltage();
+        if (sc instanceof WPI_TalonSRX) {
+            return ((WPI_TalonSRX) sc).getMotorOutputVoltage();
         } else {
-            Log.e("Called Motor.getOutputVoltage() on a Motor that is not a CANTalon! (Motor is a " + getMotorClass().getSimpleName() + ")");
+            Log.e("Called Motor.getOutputVoltage() on a Motor that is not a WPI_TalonSRX! (Motor is a " + getMotorClass().getSimpleName() + ")");
             return 0;
         }
     }
 
     /**
-     * Sets if this Motor should be on brake mode. CANTalons only.
+     * Sets if this Motor should be on brake mode. WPI_TalonSRXs only.
      *
      * @param b If this Motor should be on brake mode.
      */
     public void setBrakeMode(boolean b) {
-        if (sc instanceof CANTalon) {
-            ((CANTalon) sc).enableBrakeMode(b);
+        if (sc instanceof WPI_TalonSRX) {
+
+            //((WPI_TalonSRX) sc).enableBrakeMode(b); //FIXME: Encoder values for WPI_TalonSRX
         } else {
-            Log.e("Called Motor.setBrakeMode() on a Motor that is not a CANTalon! (Motor is a " + getMotorClass().getSimpleName() + ")");
+            Log.e("Called Motor.setBrakeMode() on a Motor that is not a WPI_TalonSRX! (Motor is a " + getMotorClass().getSimpleName() + ")");
         }
     }
 
     /**
-     * Gets the watts of this Motor. CANTalons only.
+     * Gets the watts of this Motor. WPI_TalonSRXs only.
      *
      * @return The watts of this Motor.
      */
     public double getWatts() {
-        if (sc instanceof CANTalon) {
+        if (sc instanceof WPI_TalonSRX) {
             return getOutputCurrent() * getOutputVoltage();
         } else {
-            Log.e("Called Motor.getWatts() on a Motor that is not a CANTalon! (Motor is a " + getMotorClass().getSimpleName() + ")");
+            Log.e("Called Motor.getWatts() on a Motor that is not a WPI_TalonSRX! (Motor is a " + getMotorClass().getSimpleName() + ")");
             return 0;
         }
     }
