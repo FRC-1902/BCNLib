@@ -123,6 +123,7 @@ public class PIDController implements Runnable {
      */
     public void setTarget(double target) {
         t = target;
+        i = 0;
         done = false;
     }
 
@@ -277,6 +278,8 @@ public class PIDController implements Runnable {
             Log.t("Target: " + getTarget() + "; Current Value: " + getCurrentSourceValue() + "; Motor Setpoint: " + getMotorPower());
     }
 
+    long timeOfZero = 0;
+
     public void logVerbose() {
         if (enabled)
             synchronized (verboseLogLock) {
@@ -307,11 +310,22 @@ public class PIDController implements Runnable {
                     if (isRotational && p >= 180) p -= 360;
                     if (isRotational && p <= -180) p += 360;
 
-                    i += p;
+                    if(isRotational && Math.abs(p) < 36) i += p;
                     d = lastP - p;
                     lastP = p;
 
                     i = Math.abs(i * kI) > 1 ? (max / kI) * Utils.sign(i) : i; //Prevent i windup
+
+                    if (Utils.sign(power) != Utils.sign(p)) {
+                        //power = 0;
+                        //Log.i("Sign isn't equal to P. NOT compensating by setting motor power to 0.");
+                    }
+
+                    if ((Utils.sign(i) != Utils.sign(p)) && isRotational) {
+                        i = 0;
+                        //Log.i("Sign of I isn't equal to P. Compensating by setting I to 0.");
+                    }
+
 
                     double setpoint = p * kP + i * kI - d * kD;
                     setpoint = Utils.minMax(setpoint, 0, 1);
@@ -327,16 +341,6 @@ public class PIDController implements Runnable {
                         lastP = 0;
                     }
 
-                    if (Utils.sign(power) != Utils.sign(p)) {
-                        //power = 0;
-                        //Log.i("Sign isn't equal to P. NOT compensating by setting motor power to 0.");
-                    }
-
-                    if ((Utils.sign(i) != Utils.sign(p)) && isRotational) {
-                        i = 0;
-                        //Log.i("Sign of I isn't equal to P. Compensating by setting I to 0.");
-                    }
-
                     m.setPower(power);
 
                     try {
@@ -348,7 +352,20 @@ public class PIDController implements Runnable {
                         e.printStackTrace();
                     }
 
-                    done = Math.abs(p) <= tolerance;
+                    boolean doneAtm = Math.abs(p) <= tolerance;
+
+                    if (doneAtm) {
+                        if ( timeOfZero == 0)
+                        timeOfZero = System.currentTimeMillis();
+                    } else {
+                        timeOfZero = 0;
+                    }
+
+                    if (timeOfZero != 0 && System.currentTimeMillis() - timeOfZero > 500) {
+                        done = true;
+                    } else {
+                        done = false;
+                    }
 
                     if ((Utils.sign(p) != startingSign) && shouldInstaKill) disable();
 
