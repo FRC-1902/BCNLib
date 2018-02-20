@@ -361,7 +361,7 @@ public class PIDController implements Runnable {
                         timeOfZero = 0;
                     }
 
-                    if (timeOfZero != 0 && System.currentTimeMillis() - timeOfZero > 500) {
+                    if (timeOfZero != 0 && System.currentTimeMillis() - timeOfZero > 250) { //500
                         done = true;
                     } else {
                         done = false;
