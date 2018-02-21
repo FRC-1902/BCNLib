@@ -10,6 +10,7 @@ package com.explodingbacon.bcnlib.sensors;
 public class DigitalInput {
 
     private edu.wpi.first.wpilibj.DigitalInput in;
+    private boolean reversed = false;
 
     /**
      * Creates a DigitalInput.
@@ -26,6 +27,15 @@ public class DigitalInput {
      * @return The value of this DigitalInput.
      */
     public boolean get() {
-        return in.get();
+        boolean val = in.get();
+        if (reversed) {
+            return !val;
+        } else {
+            return val;
+        }
+    }
+
+    public void setReversed(boolean rev) {
+        reversed = rev;
     }
 }
