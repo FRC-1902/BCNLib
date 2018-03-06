@@ -204,7 +204,7 @@ public class PIDController implements Runnable {
      */
     public void reTune(double kP, double kI, double kD) {
         if (!RobotCore.ds.isTest())
-            throw new RuntimeException("Attempted to tune PID controller outside of Test mode. ");
+           // throw new RuntimeException("Attempted to tune PID controller outside of Test mode. ");
         reset();
         this.kP = kP;
         this.kI = kI;
