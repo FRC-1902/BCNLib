@@ -16,9 +16,9 @@ import java.util.function.Consumer;
  * @version 2017.2.15
  */
 
-public class MotorGroup extends Motor {
+public class MotorGroup implements SpeedController {
 
-    private List<Motor> motors = new ArrayList<>();
+    private List<SpeedController> motors = new ArrayList<>();
     private List<Boolean> inverts = new ArrayList<>();
     private double power = 0;
     private boolean reversed = false;
@@ -36,21 +36,9 @@ public class MotorGroup extends Motor {
      *
      * @param motorArray The Motors to be a part of this MotorGroup.
      */
-    public MotorGroup(Motor... motorArray) {
+    public MotorGroup(SpeedController... motorArray) {
         super();
         addMotors(motorArray);
-    }
-
-    /**
-     * Creates a MotorGroup full of Motors of class "type".
-     *
-     * @param type The class that the Motor objects will be.
-     * @param ids  The IDs of all the motors.
-     * @param <T>  Any class that extends Motor.
-     */
-    public <T extends SpeedController> MotorGroup(Class<T> type, Integer... ids) {
-        super();
-        addMotors(type, ids);
     }
 
     /**
@@ -59,25 +47,9 @@ public class MotorGroup extends Motor {
      * @param moreMotors The Motors to be added.
      * @return This MotorGroup.
      */
-    public MotorGroup addMotors(Motor... moreMotors) {
-        for (Motor m : moreMotors) {
+    public MotorGroup addMotors(SpeedController... moreMotors) {
+        for (SpeedController m : moreMotors) {
             motors.add(m);
-            inverts.add(false);
-        }
-        return this;
-    }
-
-    /**
-     * Adds Motors of class "type".
-     *
-     * @param type The class that the Motor objects will be.
-     * @param ids  The IDs of the motors.
-     * @param <T>  Any class that extends Motor.
-     * @return This MotorGroup.
-     */
-    public <T extends SpeedController> MotorGroup addMotors(Class<T> type, Integer... ids) {
-        for (Integer id : ids) {
-            motors.add(new Motor(type, id));
             inverts.add(false);
         }
         return this;
@@ -111,7 +83,7 @@ public class MotorGroup extends Motor {
      *
      * @param c The code to call.
      */
-    public void forEach(Consumer<Motor> c) {
+    public void forEach(Consumer<SpeedController> c) {
         motors.forEach(c);
     }
 
@@ -133,13 +105,13 @@ public class MotorGroup extends Motor {
      */
     public void testEachWait(double power, double timeOn) {
         int index = 0;
-        for (Motor m : motors) {
+        for (SpeedController m : motors) {
             try {
                 double speed = inverts.get(index) ? -power : power;
-                if (isReversed()) speed = -speed;
-                m.setPower(speed);
+                if (getInverted()) speed = -speed;
+                m.set(speed);
                 Thread.sleep(Math.round(timeOn * 1000));
-                m.setPower(0);
+                m.set(0);
                 Thread.sleep(1000);
             } catch (Exception e) {
                 Log.e("MotorGroup.testEachWait() exception!");
@@ -147,11 +119,6 @@ public class MotorGroup extends Motor {
             }
             index++;
         }
-    }
-
-    @Override
-    public void setBrakeMode(boolean b) {
-        forEach((m) -> m.setBrakeMode(b));
     }
 
     /**
@@ -177,7 +144,7 @@ public class MotorGroup extends Motor {
      *
      * @return All the motors in this MotorGroup.
      */
-    public List<Motor> getMotors() {
+    public List<SpeedController> getMotors() {
         return new ArrayList<>(motors);
     }
 
@@ -191,32 +158,43 @@ public class MotorGroup extends Motor {
     }
 
     @Override
-    public void setPower(double d) {
+    public void set(double d) {
         int index = 0;
-        for (Motor m : motors) {
+        for (SpeedController m : motors) {
             double speed = inverts.get(index) ? -d : d; //Inverts the speed based off of that motor's invert value
-            m.setPower(reversed ? -speed : speed); //Sets the motor's speed and possibly inverts it if the MotorGroup as a whole is inverted
+            m.set(reversed ? -speed : speed); //Sets the motor's speed and possibly inverts it if the MotorGroup as a whole is inverted
             index++;
-        }
-        if (d != power && logChanges) {
-            Log.d("MotorGroup \"" + getName() + "\"'s power has been set to \"" + d + "\".");
         }
         power = d;
     }
 
     @Override
-    public double getPower() {
+    public double get() {
         return power;
     }
 
     @Override
-    public void setReversed(boolean reversed) {
+    public void setInverted(boolean reversed) {
         this.reversed = reversed;
     }
 
     @Override
-    public void stopMotor() {
-        forEach(Motor::stopMotor);
+    public boolean getInverted() {
+        return this.reversed;
     }
 
+    @Override
+    public void disable() {
+        set(0);
+    }
+
+    @Override
+    public void stopMotor() {
+        forEach(SpeedController::stopMotor);
+    }
+
+    @Override
+    public void pidWrite(double v) {
+        set(v);
+    }
 }

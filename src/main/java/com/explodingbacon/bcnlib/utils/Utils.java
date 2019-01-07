@@ -1,12 +1,7 @@
 package com.explodingbacon.bcnlib.utils;
 
-import com.explodingbacon.bcnlib.framework.Log;
-import com.explodingbacon.bcnlib.framework.Mode;
-import com.explodingbacon.bcnlib.framework.RobotCore;
-
 import javax.swing.*;
 import java.lang.management.ManagementFactory;
-import java.util.function.BooleanSupplier;
 
 /**
  * A Utility class that contains helpful functions that don't really fit in any other classes.
@@ -173,46 +168,6 @@ public class Utils {
     public static void runInOwnThread(Runnable r) {
         CodeThread c = new CodeThread(false, r);
         c.start();
-    }
-
-    /**
-     * Freezes the thread until the BooleanSupplier returns true.
-     *
-     * @param b The BooleanSupplier.
-     * @return True.
-     */
-    public static boolean waitFor(BooleanSupplier b) {
-        return waitFor(b, -1);
-    }
-
-    /**
-     * Freezes the thread until the BooleanSupplier returns true, or the timeout is reached.
-     *
-     * @param b       The BooleanSupplier.
-     * @param timeout How many seconds the Thread is allowed to be frozen before it unfreezes regardless of the BooleanSupplier's value. Set to -1 if you don't want a timeout.
-     * @return True if the wait ended normally, false if it was ended due to reaching the timeout.
-     */
-    public static boolean waitFor(BooleanSupplier b, double timeout) {
-        double startTime = System.currentTimeMillis();
-        double goalTime = startTime + (timeout * 1000);
-        boolean noTimeOut = false;
-        boolean startedEnabled = RobotCore.isEnabled();
-        Mode startMode = RobotCore.getMode();
-        while (!b.getAsBoolean() && (noTimeOut = (System.currentTimeMillis() < goalTime || timeout == -1))) {
-            if (startedEnabled && !RobotCore.isEnabled() || startMode != RobotCore.getMode()) { //We want these loops to stop if we disable in the middle of them or change modes
-                noTimeOut = false;
-                Log.i("A wait loop was cancelled due to the robot being disabled in the middle of it OR from the mode being changed (i.e. auto -> teleop)");
-                break;
-            }
-            try {
-                Thread.sleep(25);
-            } catch (Exception e) {
-                Log.e("Utils.waitFor() error!");
-                e.printStackTrace();
-                break;
-            }
-        }
-        return noTimeOut;
     }
 
     /**

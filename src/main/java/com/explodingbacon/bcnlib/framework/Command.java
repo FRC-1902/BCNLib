@@ -6,7 +6,6 @@ package com.explodingbacon.bcnlib.framework;
  */
 public abstract class Command implements Runnable {
     private Thread t;
-    public Subsystem requiredSub;
     private Boolean finishedExecution = false;
     private Boolean isRunning = false;
     private Boolean cancel = false;
@@ -17,15 +16,6 @@ public abstract class Command implements Runnable {
      */
     public Command() {
         this.t = new Thread(this);
-    }
-
-    /**
-     * Specify that this <code>Command</code> needs exclusive control of a <code>Subsystem</code> to run correctly
-     *
-     * @param subsystem <code>Subsystem</code> that this <code>Command</code> requires
-     */
-    public void requires(Subsystem subsystem) {
-        this.requiredSub = subsystem;
     }
 
     /**
@@ -122,9 +112,6 @@ public abstract class Command implements Runnable {
     }
 
     private void finish() {
-        if (requiredSub != null)
-
-            finishedExecution = true;
         isRunning = false;
     }
 }

@@ -1,9 +1,9 @@
 package com.explodingbacon.bcnlib.framework;
 
 import com.explodingbacon.bcnlib.actuators.FakeMotor;
-import com.explodingbacon.bcnlib.actuators.Motor;
 import com.explodingbacon.bcnlib.sensors.AbstractEncoder;
 import com.explodingbacon.bcnlib.utils.Utils;
+import edu.wpi.first.wpilibj.SpeedController;
 
 /**
  * All-encompassing PID controller that can be used for rate and for position controllers. Set any tuning parameter to 0 to
@@ -13,7 +13,7 @@ import com.explodingbacon.bcnlib.utils.Utils;
  * @version 2017.1.26
  */
 public class PIDController implements Runnable {
-    private Motor m;
+    private SpeedController m;
     private PIDSource s;
     private double kP, kI, kD;
     private double p, i, d, lastP = 0, min, max, startingSign;
@@ -37,7 +37,7 @@ public class PIDController implements Runnable {
      * @param kI Integral tuning variable. Set to 0 to disable to I term.
      * @param kD Derivative tuning variable. Set to 0 to disable the D term.
      */
-    public PIDController(Motor m, PIDSource s, double kP, double kI, double kD) {
+    public PIDController(SpeedController m, PIDSource s, double kP, double kI, double kD) {
         this.m = (m != null) ? m : new FakeMotor();
         this.s = s;
         this.kP = kP;
@@ -61,7 +61,7 @@ public class PIDController implements Runnable {
      * @param min The minimum target to the motor. Values below this will be scaled down to 0.
      * @param max The maximum target to the motor. Values above this will be scaled to this value.
      */
-    public PIDController(Motor m, PIDSource s, double kP, double kI, double kD, double min, double max) {
+    public PIDController(SpeedController m, PIDSource s, double kP, double kI, double kD, double min, double max) {
         this.m = (m != null) ? m : new FakeMotor();
         this.s = s;
         this.kP = kP;
@@ -104,7 +104,7 @@ public class PIDController implements Runnable {
      */
     public void disable() {
         enabled = false;
-        m.setPower(0);
+        m.set(0);
     }
 
     /**
@@ -173,7 +173,7 @@ public class PIDController implements Runnable {
      * @return The power sent to the motor
      */
     public double getMotorPower() {
-        return m.getPower();
+        return m.get();
     }
 
     /**
@@ -203,8 +203,6 @@ public class PIDController implements Runnable {
      * @param kD Derivative tuning variable. Set to 0 to disable the D term.
      */
     public void reTune(double kP, double kI, double kD) {
-        if (!RobotCore.ds.isTest())
-           // throw new RuntimeException("Attempted to tune PID controller outside of Test mode. ");
         reset();
         this.kP = kP;
         this.kI = kI;
@@ -231,26 +229,6 @@ public class PIDController implements Runnable {
      */
     public boolean isDone() {
         return done;
-    }
-
-
-    /**
-     * Makes the Thread wait until this PIDController has reached its destination.
-     *
-     * @return True.
-     */
-    public boolean waitUntilDone() { //TODO: Make sure that you can reliably call this then disable the PIDController and not be cutting the PID loop short
-        return Utils.waitFor(this::isDone);
-    }
-
-    /**
-     * Makes the Thread wait until this PIDController has reached its destination, or the timeout seconds are reached.
-     *
-     * @param timeout How many seconds to wait before breaking out of the loop regardless of the PID loop's status.
-     * @return True if the wait completed normally, false is it was completed due to reaching the timeout.
-     */
-    public boolean waitUntilDone(double timeout) {
-        return Utils.waitFor(this::isDone, timeout);
     }
 
     /**
@@ -302,7 +280,7 @@ public class PIDController implements Runnable {
             }
         }
         while (true) {
-            if (enabled && RobotCore.isEnabled()) {
+            if (enabled) {
                 synchronized (verboseLogLock) {
                     p = t - s.getForPID();
 
@@ -341,7 +319,7 @@ public class PIDController implements Runnable {
                         lastP = 0;
                     }
 
-                    m.setPower(power);
+                    m.set(power);
 
                     try {
                         if (extraCode != null) {

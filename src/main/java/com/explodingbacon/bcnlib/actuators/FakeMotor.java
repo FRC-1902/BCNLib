@@ -1,7 +1,6 @@
 package com.explodingbacon.bcnlib.actuators;
 
-import com.explodingbacon.bcnlib.framework.Log;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.SpeedController;
 
 /**
  * A fake motor object that outputs its power to the Log
@@ -10,10 +9,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @version 2016.2.17
  */
 
-public class FakeMotor extends Motor {
+public class FakeMotor implements SpeedController {
 
     private double power;
     private boolean log = false;
+    private boolean inverted = false;
 
     /**
      * The default, no-argument constructor
@@ -32,20 +32,37 @@ public class FakeMotor extends Motor {
     }
 
     @Override
-    public double getPower() {
-        if (log) Log.i(getName() + " power is \"" + power + "\".");
+    public void set(double v) {
+        power = v * (inverted ? -1 : 1);
+    }
+
+    @Override
+    public double get() {
         return power;
     }
 
     @Override
-    public void setPower(double d) {
-        power = d;
-        if (log) Log.i(getName() + "'s power has been set to \"" + power + "\".");
-        SmartDashboard.putNumber(getName(), getPower());
+    public void setInverted(boolean b) {
+        this.inverted = b;
+    }
+
+    @Override
+    public boolean getInverted() {
+        return inverted;
+    }
+
+    @Override
+    public void disable() {
+        set(0);
     }
 
     @Override
     public void stopMotor() {
-        if (log) Log.i(getName() + " has been stopped!");
+        set(0);
+    }
+
+    @Override
+    public void pidWrite(double v) {
+        set(v);
     }
 }

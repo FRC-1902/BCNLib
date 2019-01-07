@@ -1,20 +1,8 @@
 apply plugin: 'java'
-apply plugin: 'org.hidetake.ssh'
 
 group 'explodingbacon'
 version '1.0'
 
-remotes {
-    roboRIO {
-        host = 'roboRIO-' + team + '-FRC.local'
-        user = 'admin'
-        password = ''
-    }
-}
-
-ssh.settings {
-    knownHosts = allowAnyHosts
-}
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = 1.8
@@ -25,29 +13,4 @@ repositories {
 
 dependencies {
     compile fileTree(dir: "src/main/resources", include: "*.jar")
-}
-
-task installRioFiles {
-    //If you get a "can't access Jarfile" error,
-    // make sure there is a newline at the end of the robotCommand file.
-    doLast {
-        ssh.run {
-            session(remotes.roboRIO) {
-                put fileTree(dir: '/src/main/resources/riofiles/native', include: "*"), '/usr/local/frc/lib/'
-                put 'BCNLib/src/main/resources/rioFiles/robotCommand', '/home/lvuser'
-                put 'BCNLib/src/main/resources/rioFiles/robotDebugCommand', '/home/lvuser'
-            }
-        }
-    }
-}
-
-task installJava {
-    doLast {
-        ssh.run {
-            session(remotes.roboRIO) {
-                put file('/src/main/resources/riofiles/zulu-jre.ipk'), '/tmp/'
-                execute "sed -i -e 's/^StartupDLLs/;StartupDLLs/' /etc/natinst/share/ni-rt.ini; opkg remove zulu-jre\\*; opkg install /tmp/zulu-jre.ipk; rm /tmp/zulu-jre.ipk"
-            }
-        }
-    }
 }

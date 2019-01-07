@@ -1,6 +1,7 @@
 package com.explodingbacon.bcnlib.actuators;
 
 import com.explodingbacon.bcnlib.utils.Timer;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * A utility class for controlling a light connected to the PCM.
@@ -10,7 +11,7 @@ import com.explodingbacon.bcnlib.utils.Timer;
  */
 public class Light {
 
-    private SolenoidInterface sol;
+    private Solenoid sol;
     private Timer t = null;
     private boolean active = false;
 
@@ -19,7 +20,7 @@ public class Light {
      *
      * @param s The port which the light is plugged in.
      */
-    public Light(SolenoidInterface s) {
+    public Light(Solenoid s) {
         sol = s;
     }
 
