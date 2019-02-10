@@ -1,9 +1,6 @@
 package com.explodingbacon.bcnlib.vision;
 
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.MatOfPoint2f;
-import org.opencv.core.Point;
-import org.opencv.core.Rect;
+import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
@@ -13,7 +10,7 @@ import java.util.List;
  * A wrapper class for OpenCV's MatOfPoint and MatOfPoint2f objects.
  *
  * @author Ryan Shavell
- * @version 2016.3.9
+ * @version 2019.1.12
  */
 
 public class Contour extends Image {
@@ -22,6 +19,7 @@ public class Contour extends Image {
     public MatOfPoint mop = null;
     public MatOfPoint2f mop2f = null;
     protected Rectangle rect;
+    public RotatedRect rotatedRect;
 
     /**
      * Creates a Contour from a MatOfPoint.
@@ -50,11 +48,13 @@ public class Contour extends Image {
      * Initializes this Contour's internal variables.
      */
     private void init() {
-        Rect r = Imgproc.boundingRect(mop);
+        rotatedRect = Imgproc.minAreaRect(getMatOfPoint2f());
+        Rect r = rotatedRect.boundingRect();//Imgproc.boundingRect(mop);
         Point tl = r.tl();
         Point br = r.br();
         coords = tl;
         rect = new Rectangle(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
+
     }
 
     /**
