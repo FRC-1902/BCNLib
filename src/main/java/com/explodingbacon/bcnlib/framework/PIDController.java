@@ -300,7 +300,7 @@ public class PIDController implements Runnable {
                         //Log.i("Sign isn't equal to P. NOT compensating by setting motor power to 0.");
                     }
 
-                    if ((Utils.sign(i) != Utils.sign(p)) && !isRotational) {
+                    if ((Utils.sign(i) != Utils.sign(p)) && isRotational) {
                         i = 0;
                         //Log.i("Sign of I isn't equal to P. Compensating by setting I to 0.");
                     }
