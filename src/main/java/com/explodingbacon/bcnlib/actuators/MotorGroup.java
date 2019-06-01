@@ -49,6 +49,7 @@ public class MotorGroup implements SpeedController {
      */
     public MotorGroup addMotors(SpeedController... moreMotors) {
         for (SpeedController m : moreMotors) {
+            if (m == this) continue;
             motors.add(m);
             inverts.add(false);
         }
