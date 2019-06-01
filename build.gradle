@@ -1,4 +1,7 @@
-apply plugin: 'java'
+plugins {
+    id "java"
+    id "edu.wpi.first.GradleRIO" version "2019.4.1"
+}
 
 group 'explodingbacon'
 version '1.0'
@@ -12,5 +15,6 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: "src/main/resources", include: "*.jar")
+    compile wpi.deps.wpilib()
+    compile wpi.deps.vendor.java()
 }
