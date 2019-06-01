@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 public class CameraSettings {
 
     //TODO: Ryan finish this Javadoc comment
+
     /**
      * Sets the USB Camera's auto-adjust exposure settings.
      *

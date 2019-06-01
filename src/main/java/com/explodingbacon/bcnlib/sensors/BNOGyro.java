@@ -1,7 +1,6 @@
 package com.explodingbacon.bcnlib.sensors;
 
 import com.explodingbacon.bcnlib.framework.PIDSource;
-import com.explodingbacon.bcnlib.sensors.BNO055;
 
 /**
  * @author Ryan Shavell

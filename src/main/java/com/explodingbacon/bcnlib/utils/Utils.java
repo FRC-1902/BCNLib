@@ -199,10 +199,10 @@ public class Utils {
 
     public static double roundToPlace(double d, double place) {
         double amount = 1;
-        for (int i=0;i<place;i++) {
+        for (int i = 0; i < place; i++) {
             amount *= 10;
         }
-        return (double)Math.round(d * amount) / amount;
+        return (double) Math.round(d * amount) / amount;
     }
 
     public static double rescale(double original, double originalScaleMax, double newScaleMax) {

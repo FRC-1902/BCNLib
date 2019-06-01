@@ -261,9 +261,9 @@ public class PIDController implements Runnable {
     public void logVerbose() {
         if (enabled)
             synchronized (verboseLogLock) {
-                Log.t("P: " + Utils.roundToDecimals(p*kP, 3)
-                        + ", I: " + Utils.roundToDecimals(i*kI, 3)
-                        + ", D: " + Utils.roundToDecimals(d*kD, 3)
+                Log.t("P: " + Utils.roundToDecimals(p * kP, 3)
+                        + ", I: " + Utils.roundToDecimals(i * kI, 3)
+                        + ", D: " + Utils.roundToDecimals(d * kD, 3)
                         + ", out " + Utils.roundToDecimals(power, 3)
                         + ", set: " + Utils.roundToDecimals(t, 3)
                         + ", sensor: " + Utils.roundToDecimals(s.getForPID(), 3));
@@ -288,8 +288,8 @@ public class PIDController implements Runnable {
                     if (isRotational && p >= 180) p -= 360;
                     if (isRotational && p <= -180) p += 360;
 
-                    if(isRotational && Math.abs(p) < 36) i += p;
-                    else if(!isRotational) i += p;
+                    if (isRotational && Math.abs(p) < 36) i += p;
+                    else if (!isRotational) i += p;
                     d = lastP - p;
                     lastP = p;
 
@@ -334,8 +334,8 @@ public class PIDController implements Runnable {
                     boolean doneAtm = Math.abs(p) <= tolerance;
 
                     if (doneAtm) {
-                        if ( timeOfZero == 0)
-                        timeOfZero = System.currentTimeMillis();
+                        if (timeOfZero == 0)
+                            timeOfZero = System.currentTimeMillis();
                     } else {
                         timeOfZero = 0;
                     }
