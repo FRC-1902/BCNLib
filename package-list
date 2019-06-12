@@ -1,12 +1,9 @@
 com.explodingbacon.bcnlib.actuators
 com.explodingbacon.bcnlib.controllers
-com.explodingbacon.bcnlib.event
-com.explodingbacon.bcnlib.examples
 com.explodingbacon.bcnlib.framework
-com.explodingbacon.bcnlib.javascript
+com.explodingbacon.bcnlib.midi
 com.explodingbacon.bcnlib.networking
-com.explodingbacon.bcnlib.pi4j
+com.explodingbacon.bcnlib.quneo
 com.explodingbacon.bcnlib.sensors
 com.explodingbacon.bcnlib.utils
 com.explodingbacon.bcnlib.vision
-org.json
